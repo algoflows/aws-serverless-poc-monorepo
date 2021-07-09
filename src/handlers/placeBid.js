@@ -5,11 +5,11 @@ const placeBid = async (event, context) => {
   const { id } = event.pathParameters
   const { amount } = event.body
 
-  const selected = await useGetAuction(id)
+  const auction = await useGetAuction(id)
 
-  if (amount <= selected.highestBid.amount) {
+  if (amount <= auction.highestBid.amount) {
     throw new createError.Forbidden(
-      `Your bid must be higher than ${selected.highestBid.amount}`
+      `Your bid must be higher than ${auction.highestBid.amount}`
     )
   }
 
