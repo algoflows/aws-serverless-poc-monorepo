@@ -1,11 +1,11 @@
 service: auction-service
 configValidationMode: error
-
 frameworkVersion: "2"
 
 plugins:
   - serverless-bundle
   - serverless-pseudo-parameters
+  - serverless-offline
 
 provider:
   name: aws
@@ -26,12 +26,33 @@ resources:
 
 functions:
   createAuction:
-    handler: src/auction/createAuction.handler
+    handler: src/handlers/createAuction.handler
     description: "creates an auction"
     events:
       - http:
           method: POST
           path: /auction
+
+  getAuctions:
+    handler: src/handlers/getAuctions.handler
+    events:
+      - http:
+          method: GET
+          path: /auctions
+
+  getAuction:
+    handler: src/handlers/getAuction.handler
+    events:
+      - http:
+          method: GET
+          path: /auction/{id}
+
+  placeBid:
+    handler: src/handlers/placeBid.handler
+    events:
+      - http:
+          method: PATCH
+          path: auction/{id}/bid
 
 custom:
   AuctionsTable:
