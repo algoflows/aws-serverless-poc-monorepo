@@ -1,21 +1,21 @@
-import { coreMiddleware, dynamoDb, createError, TableName } from "../lib"
-import validator from "@middy/validator"
-import getAuctionsSchema from "../schema/getAuctionsSchema"
+import { coreMiddleware, dynamoDb, createError, TableName } from '../lib'
+import validator from '@middy/validator'
+import getAuctionsSchema from '../schema/getAuctionsSchema'
 
-const getAuctions = async (event, context) => {
+const getDives = async (event, context) => {
   const { status } = event.queryStringParameters
   console.log(status)
   let auctions
 
   const params = {
     TableName,
-    IndexName: "statusEndDate",
-    KeyConditionExpression: "#status = :status",
+    IndexName: 'statusEndDate',
+    KeyConditionExpression: '#status = :status',
     ExpressionAttributeValues: {
-      ":status": status,
+      ':status': status,
     },
     ExpressionAttributeNames: {
-      "#status": "status",
+      '#status': 'status',
     },
   }
 
@@ -41,5 +41,5 @@ export const handler = coreMiddleware(getAuctions).use(
       useDefaults: true,
       strict: false,
     },
-  })
+  }),
 )

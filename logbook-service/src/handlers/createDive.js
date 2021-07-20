@@ -1,9 +1,9 @@
-import { v4 as uuid } from "uuid"
-import { coreMiddleware, dynamoDb, createError, TableName } from "../lib"
-import validator from "@middy/validator"
-import createAuctionSchema from "../schema/createAuctionSchema"
+import { v4 as uuid } from 'uuid'
+import { coreMiddleware, dynamoDb, createError, TableName } from '../lib'
+import validator from '@middy/validator'
+import createAuctionSchema from '../schema/createAuctionSchema'
 
-const createAuction = async (event, context) => {
+const createDive = async (event, context) => {
   const { title } = event.body
   const now = new Date()
   const endDate = new Date()
@@ -12,7 +12,7 @@ const createAuction = async (event, context) => {
   const auction = {
     id: uuid(),
     title,
-    status: "OPEN",
+    status: 'OPEN',
     createdAt: now.toISOString(),
     endingAt: endDate.toISOString(),
     highestBid: {
@@ -39,12 +39,12 @@ const createAuction = async (event, context) => {
 }
 
 // exported lambda handler func with middleware
-export const handler = coreMiddleware(createAuction).use(
+export const handler = coreMiddleware(createDive).use(
   validator({
     inputSchema: createAuctionSchema,
     ajvOptions: {
       useDefaults: true,
       strict: false,
     },
-  })
+  }),
 )

@@ -1,7 +1,7 @@
-import { coreMiddleware } from "../lib"
-import { getAuction } from "../hooks"
+import { coreMiddleware } from '../lib'
+import { getAuction } from '../hooks'
 
-const getSingleAuction = async (event, context) => {
+const getDive = async (event, context) => {
   const { id } = event.pathParameters
 
   const auction = await getAuction(id)
