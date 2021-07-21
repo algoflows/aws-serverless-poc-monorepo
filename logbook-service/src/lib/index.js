@@ -1,3 +1,3 @@
-export { TableName, dynamoDb } from "./database"
-export { coreMiddleware } from "./coreMiddleware"
-export { createError } from "http-errors"
+export { dynamodb } from './database'
+export { commonMiddleware } from './commonMiddleware'
+export { createError } from 'http-errors'

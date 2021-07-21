@@ -1,7 +1,9 @@
-import { coreMiddleware, createError, dynamoDb, TableName } from '../lib'
-import placeBidSchema from '../schema/placeBidSchema'
+import { commonMiddleware, createError, dynamodb } from '../../lib'
+import placeBidSchema from '../../schema/placeBidSchema'
 
-import { getAuction } from '../hooks'
+export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
+
+import { getAuction } from '../../hooks'
 import validator from '@middy/validator'
 
 async function updateDive(event, context) {
@@ -35,7 +37,7 @@ async function updateDive(event, context) {
   }
 
   const params = {
-    TableName,
+    TableName: DIVE_DIVER_TABLE,
     Key: { id },
     UpdateExpression: 'set highestBid.amount = :amount',
     ExpressionAttributeValues: {
@@ -49,7 +51,7 @@ async function updateDive(event, context) {
   try {
     console.log('PARAMS BEFORE UPDATE', params)
 
-    const result = await dynamoDb.update(params).promise()
+    const result = await dynamodb.update(params).promise()
 
     console.log('RESULT AFTER UPDATE', result)
 
@@ -65,7 +67,7 @@ async function updateDive(event, context) {
   }
 }
 
-export const handler = coreMiddleware(placeBid).use(
+export const handler = commonMiddleware(placeBid).use(
   validator({
     inputSchema: placeBidSchema,
   }),

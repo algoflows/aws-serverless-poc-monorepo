@@ -1,12 +1,14 @@
-import { dynamoDb, TableName, createError } from "../lib"
+import { dynamodb, createError } from '../lib'
+
+export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
 
 export async function getAuction(id) {
   let auction
 
   try {
-    const result = await dynamoDb
+    const result = await dynamodb
       .get({
-        TableName,
+        TableName: DIVE_DIVER_TABLE,
         Key: { id },
       })
       .promise()

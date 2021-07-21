@@ -1,19 +1,20 @@
-import { dynamoDb, TableName } from "../lib"
+import { dynamodb } from '../lib'
+export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
 
 export async function closeAuction(auction) {
   const params = {
-    TableName,
+    TableName: DIVE_DIVER_TABLE,
     Key: { id: auction.id },
-    UpdateExpression: "set #status = :status",
+    UpdateExpression: 'set #status = :status',
     ExpressionAttributeValues: {
-      ":status": "CLOSED",
+      ':status': 'CLOSED',
     },
     ExpressionAttributeNames: {
-      "#status": "status",
+      '#status': 'status',
     },
   }
 
-  const result = await dynamoDb.update(params).promise()
+  const result = await dynamodb.update(params).promise()
 
   return result
 }

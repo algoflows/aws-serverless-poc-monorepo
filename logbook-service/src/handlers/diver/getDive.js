@@ -1,5 +1,5 @@
-import { coreMiddleware } from '../lib'
-import { getAuction } from '../hooks'
+import { commonMiddleware } from '../../lib'
+import { getAuction } from '../../hooks'
 
 const getDive = async (event, context) => {
   const { id } = event.pathParameters
@@ -13,4 +13,4 @@ const getDive = async (event, context) => {
 }
 
 // lambda middleware
-export const handler = coreMiddleware(getSingleAuction)
+export const handler = commonMiddleware(getSingleAuction)

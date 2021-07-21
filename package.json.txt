@@ -1,0 +1,8 @@
+{
+  "name": "@opsap/api-services",
+  "private": true,
+  "workspaces": [
+    "logbook-service",
+    "profile-service"
+  ]
+}

@@ -1,11 +1,11 @@
 {
-  "name": "auction-service",
+  "name": "@opsap/profile-service",
   "version": "1.0.0",
   "description": "Codingly template for Serverless Framework projects",
   "author": "Ariel Weinberger <ariel@codingly.io>",
   "license": "MIT",
   "scripts": {
-    "test": "serverless-bundle test"
+    "test": "echo 'all package-b tests passed!'"
   },
   "devDependencies": {
     "serverless-bundle": "^4.3.1",

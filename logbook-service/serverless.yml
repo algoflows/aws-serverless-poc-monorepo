@@ -5,7 +5,7 @@ org: opsap
 configValidationMode: error
 
 plugins:
-  - serverless-esbuild
+  - serverless-bundle
   - serverless-dynamodb-local
   - serverless-offline
 
@@ -30,7 +30,7 @@ resources:
 
 functions:
   createDive:
-    handler: src/handlers/createDive.handler
+    handler: src/handlers/diver/createDive.handler
     description: 'log a dive'
     events:
       - http:
@@ -38,33 +38,31 @@ functions:
           path: /dive
 
   getDives:
-    handler: src/handlers/getDives.handler
+    handler: src/handlers/diver/getDives.handler
     events:
       - http:
           method: GET
           path: /dive
 
   getDive:
-    handler: src/handlers/getDive.handler
+    handler: src/handlers/diver/getDive.handler
     events:
       - http:
           method: GET
           path: /dive/{id}
 
-  updateDive:
-    handler: src/handlers/updateDive.handler
-    events:
-      - http:
-          method: PATCH
-          path: dive/{id}
-
-  deleteDive:
-    handler: src/handlers/deleteDive.handler
-    events:
-      - http:
-          method: DELETE
-          path: dive/{id}
-
+  # updateDive:
+  #   handler: src/handlers/diver/updateDive.handler
+  #   events:
+  #     - http:
+  #         method: PATCH
+  #         path: dive/{id}
+  # deleteDive:
+  #   handler: src/handlers/diver/deleteDive.handler
+  #   events:
+  #     - http:
+  #         method: DELETE
+  #         path: dive/{id}
   #processAuctions:
   #handler: src/handlers/processAuctions.handler
   # events:

@@ -1,6 +1,6 @@
-import { getEndedAuctions } from '../hooks'
-import { closeAuction } from '../hooks'
-import { createError } from '../lib'
+import { getEndedAuctions } from '../../hooks'
+import { closeAuction } from '../../hooks'
+import { createError } from '../../lib'
 
 async function deleteDives(event, context) {
   try {

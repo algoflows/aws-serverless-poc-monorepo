@@ -1,6 +1,8 @@
-import { coreMiddleware, dynamoDb, createError, TableName } from '../lib'
+import { commonMiddleware, dynamodb, createError } from '../../lib'
 import validator from '@middy/validator'
-import getAuctionsSchema from '../schema/getAuctionsSchema'
+import getAuctionsSchema from '../../schema/getAuctionsSchema'
+
+export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
 
 const getDives = async (event, context) => {
   const { status } = event.queryStringParameters
@@ -8,7 +10,7 @@ const getDives = async (event, context) => {
   let auctions
 
   const params = {
-    TableName,
+    TableName: DIVE_DIVER_TABLE,
     IndexName: 'statusEndDate',
     KeyConditionExpression: '#status = :status',
     ExpressionAttributeValues: {
@@ -20,7 +22,7 @@ const getDives = async (event, context) => {
   }
 
   try {
-    const result = await dynamoDb.query(params).promise()
+    const result = await dynamodb.query(params).promise()
     auctions = result.Items
   } catch (error) {
     console.error(error)
@@ -34,7 +36,7 @@ const getDives = async (event, context) => {
 }
 
 // lambda middleware
-export const handler = coreMiddleware(getAuctions).use(
+export const handler = commonMiddleware(getDives).use(
   validator({
     inputSchema: getAuctionsSchema,
     ajvOptions: {
