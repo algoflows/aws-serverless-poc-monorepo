@@ -28,4 +28,4 @@ dive-diver-table:
       - Key: Name
         Value: dive-diver-table
       - Key: createdBy
-        Value: ${env:AUTHOR}
+        Value: SeanKnowles
