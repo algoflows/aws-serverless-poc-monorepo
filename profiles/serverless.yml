@@ -39,20 +39,20 @@ functions:
           method: POST
           path: /dive
 
-  # get-dives:
-  #   handler: src/functions/diver/get-dives.handler
-  #   description: "get all the dives"
-  #   events:
-  #     - http:
-  #         method: GET
-  #         path: /dive
+  get-dives:
+    handler: src/functions/diver/get-dives.handler
+    description: "get all the dives"
+    events:
+      - http:
+          method: GET
+          path: /dive
 
-  # getDive:
-  #   handler: src/functions/diver/get-dive.handler
-  #   events:
-  #     - http:
-  #         method: GET
-  #         path: /dive/{id}
+  getDive:
+    handler: src/functions/diver/get-dive.handler
+    events:
+      - http:
+          method: GET
+          path: /dive/{id}
 
   # updateDive:
   #   handler: src/functions/diver/updateDive.handler
