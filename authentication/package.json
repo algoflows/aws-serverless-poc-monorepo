@@ -2,16 +2,17 @@
   "name": "@opsap/authentication",
   "version": "1.0.0",
   "description": "Codingly template for Serverless Framework projects",
-  "author": "Ariel Weinberger <ariel@codingly.io>",
+  "author": "Sean Knowles <sean@opsap.com>",
   "license": "MIT",
   "scripts": {
     "test": "echo 'all package-a tests passed!'"
   },
   "devDependencies": {
+    "aws-sdk": "^2.958.0",
     "serverless-bundle": "^4.3.1",
     "serverless-esbuild": "^1.16.1",
     "serverless-offline": "^7.0.0",
-    "serverless-pseudo-parameters": "^2.5.0"
+    "serverless-dotenv-plugin": "^3.9.0"
   },
   "dependencies": {
     "@middy/core": "^2.4.3",
@@ -19,11 +20,9 @@
     "@middy/http-event-normalizer": "^2.4.3",
     "@middy/http-json-body-parser": "^2.4.3",
     "@middy/validator": "^2.4.3",
-    "aws-sdk": "^2.941.0",
     "http-errors": "^1.8.0",
     "middy-middleware-json-error-handler": "^2.0.6",
     "serverless": "^2.51.2",
-    "serverless-dynamodb-local": "^0.2.40",
     "uuid": "^8.3.2"
   }
 }

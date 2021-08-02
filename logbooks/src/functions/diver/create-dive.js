@@ -1,11 +1,11 @@
-import { handler, dynamodb, commonMiddleware, createError } from "../../../../shared"
+import { lamdbaHandler, dynamodb, commonMiddleware, createError } from "../../../../shared"
 import createDiveSchema from "../../schema/createDiveSchema"
 import validator from "@middy/validator"
 import { v4 as uuid } from "uuid"
 
 export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
 
-const main = hander(async (event, context) => {
+const main = lamdbaHandler(async (event, context) => {
   const {
     userId,
     supervisorName,
