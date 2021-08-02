@@ -8,6 +8,8 @@ export function lambdaHandler(lambda) {
     } catch (e) {
       body = { error: e.message }
       statusCode = 500
+      console.error(e)
+      throw new createError.InternalServerError(e)
     }
     // Return HTTP response
     return {

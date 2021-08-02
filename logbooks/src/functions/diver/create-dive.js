@@ -54,17 +54,9 @@ const main = lamdbaHandler(async (event, context) => {
 
   console.log(params)
 
-  try {
-    await dynamodb.put(params).promise()
-  } catch (e) {
-    console.error(e)
-    throw new createError.InternalServerError(e)
-  }
+  const result = await dynamodb.put(params).promise()
 
-  return {
-    statusCode: 201,
-    body: JSON.stringify(params.Item),
-  }
+  return result
 })
 
 // exported lambda handler func with middleware
