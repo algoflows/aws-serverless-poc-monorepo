@@ -1,3 +1,5 @@
+import { createError } from "./index"
+
 export function lambdaHandler(lambda) {
   return async function (event, context) {
     let body, statusCode
