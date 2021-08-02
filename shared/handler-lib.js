@@ -1,7 +1,5 @@
 import { createError } from "./index"
 
-// testing all cicd depl comment
-
 export function lambdaHandler(lambda) {
   return async function (event, context) {
     let body, statusCode
