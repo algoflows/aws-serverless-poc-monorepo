@@ -5,14 +5,17 @@ org: opsap
 configValidationMode: error
 
 plugins:
-  - serverless-bundle
-  - serverless-dynamodb-local
+  - serverless-bundle # Package our functions with Webpack
   - serverless-offline
+  - serverless-dotenv-plugin # Load .env as environment variables
+
+package:
+  individually: true
 
 provider:
   name: aws
   runtime: nodejs14.x
-  memorySize: 1024
+  memorySize: 128
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
   lambdaHashingVersion: 20201221
@@ -31,7 +34,7 @@ resources:
 functions:
   createDive:
     handler: src/handlers/diver/createDive.handler
-    description: 'log a dive'
+    description: "log a dive"
     events:
       - http:
           method: POST

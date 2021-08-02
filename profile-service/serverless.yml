@@ -5,15 +5,17 @@ org: opsap
 configValidationMode: error
 
 plugins:
-  - serverless-esbuild
-  - serverless-pseudo-parameters
-  - serverless-dynamodb-local
+  - serverless-bundle # Package our functions with Webpack
   - serverless-offline
+  - serverless-dotenv-plugin # Load .env as environment variables
+
+package:
+  individually: true
 
 provider:
   name: aws
   runtime: nodejs14.x
-  memorySize: 1024
+  memorySize: 128
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
   lambdaHashingVersion: 20201221
