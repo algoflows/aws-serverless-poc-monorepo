@@ -1,0 +1,33 @@
+{
+  "yaml.customTags": [
+    "!Equals sequence",
+    "!FindInMap sequence",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!Join sequence",
+    "!Ref",
+    "!Select sequence",
+    "!Split sequence",
+    "!Sub"
+  ],
+  "serverlessConsole.services": [
+    {
+      "type": "dynamodb",
+      "title": "AuctionsTable-dev",
+      "tableName": "AuctionsTable-dev",
+      "awsProfile": "default",
+      "region": "eu-west-1"
+    },
+    {
+      "type": "serverlessFramework",
+      "title": null,
+      "awsProfile": "default",
+      "cwd": "./",
+      "command": "serverless print",
+      "timeOffsetInMs": 0,
+      "envVars": [],
+      "stages": ["dev"]
+    }
+  ]
+}

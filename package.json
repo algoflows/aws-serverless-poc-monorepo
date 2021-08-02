@@ -3,6 +3,7 @@
   "private": true,
   "workspaces": [
     "logbook-service",
-    "profile-service"
+    "profile-service",
+    "shared"
   ]
 }
