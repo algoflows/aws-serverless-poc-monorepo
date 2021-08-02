@@ -1,9 +1,7 @@
-import { lamdbaHandler, dynamodb, commonMiddleware, createError } from "../../../../shared"
+import { lamdbaHandler, dynamodb, commonMiddleware } from "../../../../shared"
 import createDiveSchema from "../../schema/createDiveSchema"
 import validator from "@middy/validator"
 import { v4 as uuid } from "uuid"
-
-// testing depl cici making changes
 
 export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
 
