@@ -1,11 +1,11 @@
-import { lamdbaHandler, dynamodb, commonMiddleware } from "../../lib"
+import { lambdaHandler, dynamodb, commonMiddleware } from "../../lib"
 import createDiveSchema from "../../schema/createDiveSchema"
 import validator from "@middy/validator"
 import { v4 as uuid } from "uuid"
 
 export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
 
-const main = async (event, context) => {
+const main = lambdaHandler(async (event, context) => {
   const {
     userId,
     supervisorName,
@@ -56,11 +56,8 @@ const main = async (event, context) => {
 
   const result = await dynamodb.put(params)
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(result),
-  }
-}
+  return result
+})
 
 // exported lambda handler func with middleware
 export const handler = commonMiddleware(main).use(

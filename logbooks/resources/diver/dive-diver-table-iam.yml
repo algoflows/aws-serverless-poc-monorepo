@@ -1,4 +1,4 @@
-diveDiverTableIAM:
+dive-diver-table-iam:
   - Effect: Allow
     Action:
       - dynamodb:Scan
@@ -9,5 +9,5 @@ diveDiverTableIAM:
       - dynamodb:DeleteItem
       - dynamodb:DescribeTable
     Resource:
-      - ${self:custom.diveDiverTable.arn}
-      - !Join ['/', ['${self:custom.diveDiverTable.arn}', 'index', 'orderBy']]
+      - ${self:custom.dive-diver-table.arn}
+    #   - !Join ["/", ["${self:custom.dive-diver-table.arn}", "index", "orderBy"]]

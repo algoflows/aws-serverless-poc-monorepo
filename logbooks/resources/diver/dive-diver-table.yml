@@ -1,7 +1,7 @@
-diveDiverTable:
+dive-diver-table:
   Type: AWS::DynamoDB::Table
   Properties:
-    TableName: diveDiverTable-${self:provider.stage}
+    TableName: dive-diver-table-${self:provider.stage}
     AttributeDefinitions:
       - AttributeName: "_ID"
         AttributeType: "S"
@@ -27,3 +27,5 @@ diveDiverTable:
     Tags:
       - Key: Name
         Value: dive-diver-table
+      - Key: createdBy
+        Value: ${env:AUTHOR}
