@@ -54,7 +54,7 @@ const main = async (event, context) => {
 
   console.log(params)
 
-  const result = await dynamodb.put(params).promise()
+  const result = await dynamodb.put(params)
 
   return {
     statusCode: 200,
