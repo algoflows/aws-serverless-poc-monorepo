@@ -1,4 +1,4 @@
-import { lamdbaHandler, dynamodb, commonMiddleware } from "../../../../shared"
+import { lamdbaHandler, dynamodb, commonMiddleware } from "../../lib"
 import createDiveSchema from "../../schema/createDiveSchema"
 import validator from "@middy/validator"
 import { v4 as uuid } from "uuid"
