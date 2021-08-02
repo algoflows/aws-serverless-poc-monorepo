@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid"
 
 export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
 
-const main = lamdbaHandler(async (event, context) => {
+const main = async (event, context) => {
   const {
     userId,
     supervisorName,
@@ -56,8 +56,11 @@ const main = lamdbaHandler(async (event, context) => {
 
   const result = await dynamodb.put(params).promise()
 
-  return result
-})
+  return {
+    statusCode: 200,
+    body: JSON.stringify(result),
+  }
+}
 
 // exported lambda handler func with middleware
 export const handler = commonMiddleware(main).use(
