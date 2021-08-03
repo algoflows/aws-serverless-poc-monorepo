@@ -26,7 +26,6 @@ custom:
         - prod
       memorySize: 128
       name: warmer-default
-      role: WarmupRole
       concurrency: 10
       tracing: true
       prewarm: true
@@ -67,6 +66,9 @@ functions:
           method: POST
           path: diving/diver/entry/create
           cors: true
+    warmup:
+      default:
+        enabled: true
 
   diving-diver-entries-get:
     handler: functions/diving/diver/get-entries.handler
@@ -77,6 +79,9 @@ functions:
           method: GET
           path: diving/diver/entries/get/{userId}
           cors: true
+    warmup:
+      default:
+        enabled: true
 
   diving-diver-entry-get:
     handler: functions/diving/diver/get-entry.handler
@@ -87,6 +92,9 @@ functions:
           method: GET
           path: /diving/diver/entry/get/{userId}/{entryId}
           cors: true
+    warmup:
+      default:
+        enabled: true
 
   diving-diver-entry-update:
     handler: functions/diving/diver/update-entry.handler
@@ -97,6 +105,9 @@ functions:
           method: PATCH
           path: diving/diver/entry/update/{id}
           cors: true
+    warmup:
+      default:
+        enabled: true
 
   diving-diver-entry-delete:
     handler: functions/diving/diver/delete-entry.handler
@@ -107,3 +118,6 @@ functions:
           method: DELETE
           path: diving/diver/entry/delete/{id}
           cors: true
+    warmup:
+      default:
+        enabled: true
