@@ -51,7 +51,7 @@ functions:
     events:
       - http:
           method: GET
-          path: diving/diver/{userId}
+          path: diving/diver/entries/{userId}
 
   get-diving-diver-entry:
     warmup: true
@@ -61,7 +61,7 @@ functions:
     events:
       - http:
           method: GET
-          path: /diving/diver/{userId}/{entryId}
+          path: /diving/diver/entry/{userId}/{entryId}
 
   # update-diving-diver-entry:
   #   handler: src/functions/diver/update-entry.handler
