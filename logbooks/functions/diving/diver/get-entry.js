@@ -1,16 +1,34 @@
-import { commonMiddleware } from "../../../../shared"
-import { getAuction } from "../../services"
+import { lambdaHandler, dynamodb, commonMiddleware } from "../../../lib"
+// import { createSchema } from "./validation"
+// import validator from "@middy/validator"
 
-const getDive = async (event, context) => {
-  const { id } = event.pathParameters
+export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
 
-  const auction = await getAuction(id)
+const main = lambdaHandler(async (event, context) => {
+  const { userId, entryId } = event.pathParameters
 
-  return {
-    statusCode: 201,
-    body: JSON.stringify(auction),
+  const params = {
+    TableName: DIVE_DIVER_TABLE,
+    Key: {
+      id: entryId,
+      userId: userId,
+    },
   }
-}
 
-// lambda middleware
-export const handler = commonMiddleware(getSingleAuction)
+  const result = await dynamodb.get(params)
+
+  return result
+})
+
+// exported lambda handler func with middleware
+export const handler = commonMiddleware(main)
+
+// .use(
+//   validator({
+//     inputSchema: createSchema,
+//     ajvOptions: {
+//       useDefaults: true,
+//       strict: false,
+//     },
+//   })
+// )

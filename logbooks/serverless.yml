@@ -43,20 +43,25 @@ functions:
           path: diving/diver
           cors: true
 
-  # get-diving-diver-entries:
-  #   handler: src/functions/diver/get-entries.handler
-  #   description: "get all the dives"
-  #   events:
-  #     - http:
-  #         method: GET
-  #         path: diving/diver
+  get-diving-diver-entries:
+    warmup: true
+    handler: functions/diving/diver/get-entries.handler
+    name: ${self:service}-${self:provider.stage}-get-diving-diver-entries
+    description: "get all diver logbook entries"
+    events:
+      - http:
+          method: GET
+          path: diving/diver/entries/{userId}
 
-  # get-diving-diver-entry:
-  #   handler: src/functions/diver/get-entry.handler
-  #   events:
-  #     - http:
-  #         method: GET
-  #         path: /diving/diver/{id}
+  get-diving-diver-entry:
+    warmup: true
+    handler: functions/diving/diver/get-entry.handler
+    name: ${self:service}-${self:provider.stage}-get-diving-diver-entry
+    description: "get diver logbook entry"
+    events:
+      - http:
+          method: GET
+          path: /diving/diver/entry/{userId}/{entryId}
 
   # update-diving-diver-entry:
   #   handler: src/functions/diver/update-entry.handler
