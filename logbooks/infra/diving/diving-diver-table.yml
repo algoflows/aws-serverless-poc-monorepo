@@ -1,13 +1,17 @@
 diving-diver-table:
   Type: AWS::DynamoDB::Table
   Properties:
-    TableName: diving-diver-table-${self:provider.stage}
+    TableName: ${self:provider.stage}-${self:service}-table
     AttributeDefinitions:
-      - AttributeName: "id"
-        AttributeType: "S"
+      - AttributeName: PK # userId or Username
+        AttributeType: S
+      - AttributeName: SK # logbookName (LOGBK#DIVING) (LOGBK#DIVINGSUPERVISOR)
+        AttributeType: S
     KeySchema:
-      - AttributeName: "id"
-        KeyType: "HASH"
+      - AttributeName: PK
+        KeyType: HASH
+      - AttributeName: SK
+        KeyType: RANGE
     BillingMode: PAY_PER_REQUEST
     Tags:
       - Key: Name
