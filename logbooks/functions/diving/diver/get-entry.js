@@ -2,13 +2,13 @@ import { lambdaHandler, dynamodb, commonMiddleware } from "../../../lib"
 // import { createSchema } from "./validation"
 // import validator from "@middy/validator"
 
-export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
+export const DIVING_DIVER_TABLE = process.env.DIVING_DIVER_TABLE
 
 const main = lambdaHandler(async (event, context) => {
   const { userId, entryId } = event.pathParameters
 
   const params = {
-    TableName: DIVE_DIVER_TABLE,
+    TableName: DIVING_DIVER_TABLE,
     Key: {
       id: entryId,
       userId: userId,

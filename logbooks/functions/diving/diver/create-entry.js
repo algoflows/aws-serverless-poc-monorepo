@@ -3,9 +3,7 @@ import { createSchema } from "./validation"
 import validator from "@middy/validator"
 import { v4 as uuid } from "uuid"
 
-// testing cicd
-
-export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
+export const DIVING_DIVER_TABLE = process.env.DIVING_DIVER_TABLE
 
 const main = lambdaHandler(async (event, context) => {
   const {
@@ -50,7 +48,7 @@ const main = lambdaHandler(async (event, context) => {
   }
 
   const params = {
-    TableName: DIVE_DIVER_TABLE,
+    TableName: DIVING_DIVER_TABLE,
     Item: newDive,
     ReturnValues: "ALL_OLD",
   }

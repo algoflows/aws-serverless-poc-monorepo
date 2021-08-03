@@ -12,7 +12,7 @@ configValidationMode: error
 useDotenv: true
 
 package:
-  individually: true # Package lambda functions individually saving depl time and
+  individually: true # Package lambda functions individually
 
 custom:
   diving-diver-table:
@@ -44,7 +44,7 @@ provider:
   region: eu-west-1
   lambdaHashingVersion: 20201221
   environment:
-    DIVE_DIVER_TABLE: ${self:custom.diving-diver-table.name}
+    DIVING_DIVER_TABLE: ${self:custom.diving-diver-table.name}
   iam:
     role:
       statements: ${file(infra/iam-policies/provider-iam.yml):provider-iam}
@@ -53,22 +53,24 @@ resources:
   Resources:
     DivingDiverTable: ${file(infra/diving/diving-diver-table.yml):diving-diver-table}
 
+############ Lambda functions endpoints ############
 functions:
+  ########## Diving - Diver #########
   diving-diver-entry-create:
     warmup: true
     handler: functions/diving/diver/create-entry.handler
-    name: ${self:service}-${self:provider.stage}-create-diving-diver-entry
+    name: ${self:provider.stage}-${self:service}-diving-diver-entry-create
     description: "create diver logbook entry"
     events:
       - http:
           method: POST
-          path: diving/diver
+          path: diving/diver/entry
           cors: true
 
   diving-diver-entries-get:
     warmup: true
     handler: functions/diving/diver/get-entries.handler
-    name: ${self:service}-${self:provider.stage}-get-diving-diver-entries
+    name: ${self:provider.stage}-${self:service}-diving-diver-entries-get
     description: "get all diver logbook entries"
     events:
       - http:
@@ -78,27 +80,30 @@ functions:
   diving-diver-entry-get:
     warmup: true
     handler: functions/diving/diver/get-entry.handler
-    name: ${self:service}-${self:provider.stage}-get-diving-diver-entry
+    name: ${self:provider.stage}-${self:service}-diving-diver-entry-get
     description: "get diver logbook entry"
     events:
       - http:
           method: GET
           path: /diving/diver/entry/{userId}/{entryId}
 
-  # update-diving-diver-entry:
-  #   handler: src/functions/diver/update-entry.handler
-  #   events:
-  #     - http:
-  #         method: PATCH
-  #         path: diving/diver/{id}
+  diving-diver-entry-update:
+    warmup: true
+    handler: src/functions/diver/update-entry.handler
+    name: ${self:provider.stage}-${self:service}-diving-diver-entry-update
+    description: "update diver logbook entry"
+    events:
+      - http:
+          method: PATCH
+          path: diving/diver/entry/{id}
 
   diving-diver-entry-delete:
     warmup: true
     handler: functions/diving/diver/delete-entry.handler
-    name: ${self:service}-${self:provider.stage}-delete-diving-diver-entry
+    name: ${self:provider.stage}-${self:service}-diving-diver-entry-delete
     description: "delete diver logbook entry"
     events:
       - http:
           method: DELETE
-          path: diving/diver/{id}
+          path: diving/diver/entry/{id}
           cors: true

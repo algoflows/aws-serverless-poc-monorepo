@@ -1,41 +1,34 @@
-import { commonMiddleware, createError, dynamodb } from "../../../../shared"
-import placeBidSchema from "../../schema/placeBidSchema"
+import { lambdaHandler, commonMiddleware, createError, dynamodb } from "../../../lib"
 
-export const DIVE_DIVER_TABLE = process.env.DIVE_DIVER_TABLE
+export const DIVING_DIVER_TABLE = process.env.DIVING_DIVER_TABLE
 
-import { getAuction } from "../../services"
-import validator from "@middy/validator"
+const main = lambdaHandler(async (event, context) => {
+  const {
+    userId,
+    supervisorName,
+    supervisorEmail,
+    companyName,
+    clientName,
+    diveLocation,
+    maximumDepthMeters,
+    leftSurfaceAt,
+    bottomTimeMinutes,
+    decoCompletedAt,
+    tableUsed,
+    breathingMixture,
+    equipmentUsed,
+    diveDescription,
+  } = event.body
 
-async function updateDive(event, context) {
   const { id } = event.pathParameters
-  const { amount } = event.body
+  const entry = await dynamodb.get(id)
 
-  const auction = await getAuction(id)
-
-  console.log("get auction result from placebid route", auction)
-
-  // // Bid identity validation
-  // if (email === auction.seller) {
-  //   throw new createError.Forbidden(`You cannot bid on your own auctions!`)
-  // }
-
-  // // Avoid double bidding
-  // if (email === auction.highestBid.bidder) {
-  //   throw new createError.Forbidden(`You are already the highest bidder`)
-  // }
-
-  // Auction status validation
-  if (auction.status !== "OPEN") {
-    throw new createError.Forbidden(`You cannot bid on closed auctions!`)
-  }
-
-  // Bid amount validation
-  if (amount <= auction.highestBid.amount) {
-    throw new createError.Forbidden(`Your bid must be higher than ${auction.highestBid.amount}!`)
+  if (!entry) {
+    throw new createError(404, `Entry ${id} not found`)
   }
 
   const params = {
-    TableName: DIVE_DIVER_TABLE,
+    TableName: DIVING_DIVER_TABLE,
     Key: { id },
     UpdateExpression: "set highestBid.amount = :amount",
     ExpressionAttributeValues: {
@@ -44,29 +37,15 @@ async function updateDive(event, context) {
     ReturnValues: "ALL_NEW",
   }
 
-  let updatedAuction
+  const result = await dynamodb.update(params).promise()
 
-  try {
-    console.log("PARAMS BEFORE UPDATE", params)
+  return result
+})
 
-    const result = await dynamodb.update(params).promise()
+export const handler = commonMiddleware(main)
 
-    console.log("RESULT AFTER UPDATE", result)
-
-    updatedAuction = result.Attributes
-  } catch (error) {
-    console.error(error)
-    throw new createError.InternalServerError(error)
-  }
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify(updatedAuction),
-  }
-}
-
-export const handler = commonMiddleware(placeBid).use(
-  validator({
-    inputSchema: placeBidSchema,
-  })
-)
+// .use(
+//   validator({
+//     inputSchema: placeBidSchema,
+//   })
+// )
