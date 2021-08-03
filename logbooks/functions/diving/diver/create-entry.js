@@ -1,5 +1,5 @@
-import { lambdaHandler, dynamodb, commonMiddleware } from "../../../../lib"
-import createDiveSchema from "./schema"
+import { lambdaHandler, dynamodb, commonMiddleware } from "../../../lib"
+import { createSchema } from "./validation"
 import validator from "@middy/validator"
 import { v4 as uuid } from "uuid"
 
@@ -63,7 +63,7 @@ const main = lambdaHandler(async (event, context) => {
 // exported lambda handler func with middleware
 export const handler = commonMiddleware(main).use(
   validator({
-    inputSchema: createDiveSchema,
+    inputSchema: createSchema,
     ajvOptions: {
       useDefaults: true,
       strict: false,

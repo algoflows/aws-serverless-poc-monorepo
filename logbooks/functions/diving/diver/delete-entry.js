@@ -1,4 +1,4 @@
-import { lambdaHandler, dynamodb, commonMiddleware } from "../../../../lib"
+import { lambdaHandler, dynamodb, commonMiddleware } from "../../../lib"
 // import deleteDiveSchema from "./schema"
 // import validator from "@middy/validator"
 

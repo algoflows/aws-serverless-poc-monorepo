@@ -1,7 +1,13 @@
 import { createError } from "./index"
 
 export function lambdaHandler(lambda) {
-  return async function (event, context) {
+  return async function (event, context, callback) {
+    // early exit if warmup function execution
+    if (event.source === "serverless-plugin-warmup") {
+      console.log("WarmUP - Lambda is warm!")
+      return callback(null, "Lambda is warm!")
+    }
+
     let body, statusCode
     try {
       // Run the Lambda

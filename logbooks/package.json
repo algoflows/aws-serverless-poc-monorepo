@@ -12,7 +12,8 @@
     "serverless-bundle": "^4.3.1",
     "serverless-dotenv-plugin": "^3.9.0",
     "serverless-esbuild": "^1.16.1",
-    "serverless-offline": "^7.0.0"
+    "serverless-offline": "^7.0.0",
+    "serverless-plugin-warmup": "^5.3.1"
   },
   "dependencies": {
     "@middy/core": "^2.4.3",
