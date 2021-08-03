@@ -21,20 +21,22 @@ custom:
   bundle:
     linting: true
   warmup:
-    officeHoursWarmer:
-      enabled: true
-      events:
-        - schedule: cron(0/5 8-17 ? * MON-FRI *)
+    default:
+      enabled:
+        - prod
+      memorySize: 128
+      name: warmer-default
+      role: WarmupRole
       concurrency: 10
-    outOfOfficeHoursWarmer:
-      enabled: true
+      tracing: true
+      prewarm: true
       events:
-        - schedule: cron(0/5 0-7 ? * MON-FRI *)
-        - schedule: cron(0/5 23 ? * MON-FRI *)
-        - schedule: cron(0/5 * ? * SAT-SUN *)
-      concurrency: 1
-    testWarmer:
-      enabled: false
+        - schedule: cron(0/5 23 ? * MON-SUN *)
+      package:
+        individually: true
+      tags:
+        Project: opsap
+        Owner: Sean Knowles
 
 provider:
   name: aws
@@ -53,57 +55,55 @@ resources:
   Resources:
     DivingDiverTable: ${file(infra/diving/diving-diver-table.yml):diving-diver-table}
 
-############ Lambda functions endpoints ############
+############ Lambda functions & API endpoints ############
 functions:
   ########## Diving - Diver #########
   diving-diver-entry-create:
-    warmup: true
     handler: functions/diving/diver/create-entry.handler
     name: ${self:provider.stage}-${self:service}-diving-diver-entry-create
     description: "create diver logbook entry"
     events:
       - http:
           method: POST
-          path: diving/diver/entry
+          path: diving/diver/entry/create
           cors: true
 
   diving-diver-entries-get:
-    warmup: true
     handler: functions/diving/diver/get-entries.handler
     name: ${self:provider.stage}-${self:service}-diving-diver-entries-get
     description: "get all diver logbook entries"
     events:
       - http:
           method: GET
-          path: diving/diver/entries/{userId}
+          path: diving/diver/entries/get/{userId}
+          cors: true
 
   diving-diver-entry-get:
-    warmup: true
     handler: functions/diving/diver/get-entry.handler
     name: ${self:provider.stage}-${self:service}-diving-diver-entry-get
     description: "get diver logbook entry"
     events:
       - http:
           method: GET
-          path: /diving/diver/entry/{userId}/{entryId}
+          path: /diving/diver/entry/get/{userId}/{entryId}
+          cors: true
 
   diving-diver-entry-update:
-    warmup: true
-    handler: src/functions/diver/update-entry.handler
+    handler: functions/diving/diver/update-entry.handler
     name: ${self:provider.stage}-${self:service}-diving-diver-entry-update
     description: "update diver logbook entry"
     events:
       - http:
           method: PATCH
-          path: diving/diver/entry/{id}
+          path: diving/diver/entry/update/{id}
+          cors: true
 
   diving-diver-entry-delete:
-    warmup: true
     handler: functions/diving/diver/delete-entry.handler
     name: ${self:provider.stage}-${self:service}-diving-diver-entry-delete
     description: "delete diver logbook entry"
     events:
       - http:
           method: DELETE
-          path: diving/diver/entry/{id}
+          path: diving/diver/entry/delete/{id}
           cors: true

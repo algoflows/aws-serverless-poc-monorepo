@@ -3,28 +3,28 @@ import { lambdaHandler, commonMiddleware, createError, dynamodb } from "../../..
 export const DIVING_DIVER_TABLE = process.env.DIVING_DIVER_TABLE
 
 const main = lambdaHandler(async (event, context) => {
-  const {
-    userId,
-    supervisorName,
-    supervisorEmail,
-    companyName,
-    clientName,
-    diveLocation,
-    maximumDepthMeters,
-    leftSurfaceAt,
-    bottomTimeMinutes,
-    decoCompletedAt,
-    tableUsed,
-    breathingMixture,
-    equipmentUsed,
-    diveDescription,
-  } = event.body
+  // const {
+  //   userId,
+  //   supervisorName,
+  //   supervisorEmail,
+  //   companyName,
+  //   clientName,
+  //   diveLocation,
+  //   maximumDepthMeters,
+  //   leftSurfaceAt,
+  //   bottomTimeMinutes,
+  //   decoCompletedAt,
+  //   tableUsed,
+  //   breathingMixture,
+  //   equipmentUsed,
+  //   diveDescription,
+  // } = event.body
 
   const { id } = event.pathParameters
   const entry = await dynamodb.get(id)
 
   if (!entry) {
-    throw new createError(404, `Entry ${id} not found`)
+    throw new createError.NotFound("Entry not found")
   }
 
   const params = {
@@ -32,12 +32,12 @@ const main = lambdaHandler(async (event, context) => {
     Key: { id },
     UpdateExpression: "set highestBid.amount = :amount",
     ExpressionAttributeValues: {
-      ":amount": amount,
+      // ":amount": amount,
     },
     ReturnValues: "ALL_NEW",
   }
 
-  const result = await dynamodb.update(params).promise()
+  const result = await dynamodb.update(params)
 
   return result
 })
