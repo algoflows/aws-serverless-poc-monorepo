@@ -1,0 +1,16 @@
+dive-diver-table:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: dive-diver-table-${self:provider.stage}
+    AttributeDefinitions:
+      - AttributeName: "id"
+        AttributeType: "S"
+    KeySchema:
+      - AttributeName: "id"
+        KeyType: "HASH"
+    BillingMode: PAY_PER_REQUEST
+    Tags:
+      - Key: Name
+        Value: dive-diver-table
+      - Key: createdBy
+        Value: SeanKnowles

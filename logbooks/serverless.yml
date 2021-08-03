@@ -16,7 +16,7 @@ package:
 provider:
   name: aws
   runtime: nodejs14.x
-  memorySize: 128
+  memorySize: 512
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
   lambdaHashingVersion: 20201221
@@ -24,21 +24,22 @@ provider:
     DIVE_DIVER_TABLE: ${self:custom.dive-diver-table.name}
   iam:
     role:
-      statements: ${file(resources/diver/dive-diver-table-iam.yml):dive-diver-table-iam}
+      statements: ${file(infrastructure/diver/dive-diver-table-iam.yml):dive-diver-table-iam}
 
 resources:
   Resources:
-    DiveDiverTable: ${file(resources/diver/dive-diver-table.yml):dive-diver-table}
+    DiveDiverTable: ${file(infrastructure/diver/dive-diver-table.yml):dive-diver-table}
 
 functions:
   create-dive:
-    handler: src/functions/diver/create-dive.handler
+    handler: functions/diving/diver/create-dive/index.handler
     name: ${self:service}-${self:provider.stage}-create-dive
     description: "create a dive"
     events:
       - http:
           method: POST
           path: /dive
+          cors: true
 
   # get-dives:
   #   handler: src/functions/diver/get-dives.handler
@@ -61,12 +62,17 @@ functions:
   #     - http:
   #         method: PATCH
   #         path: dive/{id}
-  # deleteDive:
-  #   handler: src/functions/diver/deleteDive.handler
-  #   events:
-  #     - http:
-  #         method: DELETE
-  #         path: dive/{id}
+
+  delete-dive:
+    handler: functions/diving/diver/delete-dive/index.handler
+    name: ${self:service}-${self:provider.stage}-delete-dive
+    description: "create a dive"
+    events:
+      - http:
+          method: DELETE
+          path: dive/{id}
+          cors: true
+
   #processAuctions:
   #handler: src/functions/processAuctions.handler
   # events:

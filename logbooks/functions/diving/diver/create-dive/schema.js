@@ -1,23 +1,23 @@
 const schema = {
-  type: 'object',
+  type: "object",
   properties: {
     body: {
-      type: 'object',
+      type: "object",
       properties: {
         userId: {
-          type: 'string',
+          type: "string",
         },
         supervisorName: {
-          type: 'string',
+          type: "string",
         },
         supervisorEmail: {
-          type: 'string',
+          type: "string",
         },
       },
-      required: ['userId', 'supervisorName', 'supervisorEmail'],
+      required: ["userId", "supervisorName", "supervisorEmail"],
     },
   },
-  required: ['body'],
+  required: ["body"],
 }
 
 export default schema

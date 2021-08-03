@@ -1,5 +1,5 @@
-import { lambdaHandler, dynamodb, commonMiddleware } from "../../lib"
-import createDiveSchema from "../../schema/createDiveSchema"
+import { lambdaHandler, dynamodb, commonMiddleware } from "../../../../lib"
+import createDiveSchema from "./schema"
 import validator from "@middy/validator"
 import { v4 as uuid } from "uuid"
 
@@ -28,7 +28,7 @@ const main = lambdaHandler(async (event, context) => {
   const now = new Date()
 
   const newDive = {
-    _ID: uuid(),
+    id: uuid(),
     userId,
     supervisorName,
     supervisorEmail,
@@ -52,13 +52,12 @@ const main = lambdaHandler(async (event, context) => {
   const params = {
     TableName: DIVE_DIVER_TABLE,
     Item: newDive,
+    ReturnValues: "ALL_OLD",
   }
 
-  console.log(params)
+  await dynamodb.put(params)
 
-  const result = await dynamodb.put(params)
-
-  return result
+  return params.Item
 })
 
 // exported lambda handler func with middleware

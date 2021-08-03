@@ -1,17 +1,17 @@
 const schema = {
   type: "object",
   properties: {
-    body: {
+    pathParameters: {
       type: "object",
       properties: {
-        amount: {
-          type: "number",
+        id: {
+          type: "string",
         },
       },
-      required: ["amount"],
+      required: ["id"],
     },
   },
-  required: ["body"],
+  required: ["pathParameters"],
 }
 
 export default schema
