@@ -1,4 +1,4 @@
-dive-diver-table-iam:
+provider-iam:
   - Effect: Allow
     Action:
       - dynamodb:Scan
@@ -9,5 +9,9 @@ dive-diver-table-iam:
       - dynamodb:DeleteItem
       - dynamodb:DescribeTable
     Resource:
-      - ${self:custom.dive-diver-table.arn}
+      - ${self:custom.diving-diver-table.arn}
     #   - !Join ["/", ["${self:custom.dive-diver-table.arn}", "index", "orderBy"]]
+  - Effect: "Allow"
+    Action:
+      - "lambda:InvokeFunction" # Permission for Lambda invoke warmup function
+    Resource: "*"

@@ -4,8 +4,9 @@ org: opsap
 
 plugins:
   - serverless-bundle # Package our functions with Webpack
-  - serverless-offline
+  - serverless-offline # Enables local devleopment
   - serverless-dotenv-plugin # Load .env as environment variables
+  - serverless-plugin-warmup # Keeps function warmed up, no cold starts
 
 configValidationMode: error
 useDotenv: true
@@ -21,66 +22,78 @@ provider:
   region: eu-west-1
   lambdaHashingVersion: 20201221
   environment:
-    DIVE_DIVER_TABLE: ${self:custom.dive-diver-table.name}
+    DIVE_DIVER_TABLE: ${self:custom.diving-diver-table.name}
   iam:
     role:
-      statements: ${file(infrastructure/diver/dive-diver-table-iam.yml):dive-diver-table-iam}
+      statements: ${file(infra/iam-policies/provider-iam.yml):provider-iam}
 
 resources:
   Resources:
-    DiveDiverTable: ${file(infrastructure/diver/dive-diver-table.yml):dive-diver-table}
+    DivingDiverTable: ${file(infra/diving/diving-diver-table.yml):diving-diver-table}
 
 functions:
-  create-dive:
-    handler: functions/diving/diver/create-dive/index.handler
-    name: ${self:service}-${self:provider.stage}-create-dive
-    description: "create a dive"
+  create-diving-diver-entry:
+    warmup: true
+    handler: functions/diving/diver/create-entry.handler
+    name: ${self:service}-${self:provider.stage}-create-diving-diver-entry
+    description: "create diver logbook entry"
     events:
       - http:
           method: POST
-          path: /dive
+          path: diving/diver
           cors: true
 
-  # get-dives:
-  #   handler: src/functions/diver/get-dives.handler
+  # get-diving-diver-entries:
+  #   handler: src/functions/diver/get-entries.handler
   #   description: "get all the dives"
   #   events:
   #     - http:
   #         method: GET
-  #         path: /dive
+  #         path: diving/diver
 
-  # getDive:
-  #   handler: src/functions/diver/get-dive.handler
+  # get-diving-diver-entry:
+  #   handler: src/functions/diver/get-entry.handler
   #   events:
   #     - http:
   #         method: GET
-  #         path: /dive/{id}
+  #         path: /diving/diver/{id}
 
-  # updateDive:
-  #   handler: src/functions/diver/updateDive.handler
+  # update-diving-diver-entry:
+  #   handler: src/functions/diver/update-entry.handler
   #   events:
   #     - http:
   #         method: PATCH
-  #         path: dive/{id}
+  #         path: diving/diver/{id}
 
-  delete-dive:
-    handler: functions/diving/diver/delete-dive/index.handler
-    name: ${self:service}-${self:provider.stage}-delete-dive
-    description: "create a dive"
+  delete-diving-diver-entry:
+    warmup: true
+    handler: functions/diving/diver/delete-entry.handler
+    name: ${self:service}-${self:provider.stage}-delete-diving-diver-entry
+    description: "delete diver logbook entry"
     events:
       - http:
           method: DELETE
-          path: dive/{id}
+          path: diving/diver/{id}
           cors: true
 
-  #processAuctions:
-  #handler: src/functions/processAuctions.handler
-  # events:
-  #   - schedule: rate(1 minute)
-
 custom:
-  dive-diver-table:
-    name: !Ref DiveDiverTable
-    arn: !GetAtt DiveDiverTable.Arn
+  diving-diver-table:
+    name: !Ref DivingDiverTable
+    arn: !GetAtt DivingDiverTable.Arn
   bundle:
     linting: true
+  warmup:
+    officeHoursWarmer:
+      enabled: true
+      events:
+        - schedule: cron(0/5 8-17 ? * MON-FRI *)
+      concurrency: 10
+    outOfOfficeHoursWarmer:
+      enabled: true
+      events:
+        - schedule: cron(0/5 0-7 ? * MON-FRI *)
+        - schedule: cron(0/5 23 ? * MON-FRI *)
+        - schedule: cron(0/5 * ? * SAT-SUN *)
+      concurrency: 1
+    testWarmer:
+      enabled: false

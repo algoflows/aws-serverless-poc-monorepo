@@ -1,4 +1,4 @@
-const schema = {
+export const createSchema = {
   type: "object",
   properties: {
     body: {
@@ -20,4 +20,18 @@ const schema = {
   required: ["body"],
 }
 
-export default schema
+export const deleteSchema = {
+  type: "object",
+  properties: {
+    pathParameters: {
+      type: "object",
+      properties: {
+        id: {
+          type: "string",
+        },
+      },
+      required: ["id"],
+    },
+  },
+  required: ["pathParameters"],
+}
