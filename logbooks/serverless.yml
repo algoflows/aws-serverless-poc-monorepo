@@ -11,8 +11,8 @@ plugins:
 configValidationMode: error
 useDotenv: true
 
-package:
-  individually: true # Package lambda functions individually
+package: # Packages functions individually
+  individually: true
 
 custom:
   diving-diver-table:
@@ -25,7 +25,7 @@ custom:
       enabled:
         - prod
       memorySize: 128
-      name: warmer-default
+      name: ${self:provider.stage}-${self:service}-warmer-default
       concurrency: 10
       tracing: true
       prewarm: true
