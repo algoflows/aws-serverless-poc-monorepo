@@ -14,73 +14,6 @@ useDotenv: true
 package:
   individually: true # Package lambda functions individually saving depl time and
 
-provider:
-  name: aws
-  runtime: nodejs14.x
-  memorySize: 512
-  stage: ${opt:stage, 'dev'}
-  region: eu-west-1
-  lambdaHashingVersion: 20201221
-  environment:
-    DIVE_DIVER_TABLE: ${self:custom.diving-diver-table.name}
-  iam:
-    role:
-      statements: ${file(infra/iam-policies/provider-iam.yml):provider-iam}
-
-resources:
-  Resources:
-    DivingDiverTable: ${file(infra/diving/diving-diver-table.yml):diving-diver-table}
-
-functions:
-  create-diving-diver-entry:
-    warmup: true
-    handler: functions/diving/diver/create-entry.handler
-    name: ${self:service}-${self:provider.stage}-create-diving-diver-entry
-    description: "create diver logbook entry"
-    events:
-      - http:
-          method: POST
-          path: diving/diver
-          cors: true
-
-  get-diving-diver-entries:
-    warmup: true
-    handler: functions/diving/diver/get-entries.handler
-    name: ${self:service}-${self:provider.stage}-get-diving-diver-entries
-    description: "get all diver logbook entries"
-    events:
-      - http:
-          method: GET
-          path: diving/diver/entries/{userId}
-
-  get-diving-diver-entry:
-    warmup: true
-    handler: functions/diving/diver/get-entry.handler
-    name: ${self:service}-${self:provider.stage}-get-diving-diver-entry
-    description: "get diver logbook entry"
-    events:
-      - http:
-          method: GET
-          path: /diving/diver/entry/{userId}/{entryId}
-
-  # update-diving-diver-entry:
-  #   handler: src/functions/diver/update-entry.handler
-  #   events:
-  #     - http:
-  #         method: PATCH
-  #         path: diving/diver/{id}
-
-  delete-diving-diver-entry:
-    warmup: true
-    handler: functions/diving/diver/delete-entry.handler
-    name: ${self:service}-${self:provider.stage}-delete-diving-diver-entry
-    description: "delete diver logbook entry"
-    events:
-      - http:
-          method: DELETE
-          path: diving/diver/{id}
-          cors: true
-
 custom:
   diving-diver-table:
     name: !Ref DivingDiverTable
@@ -102,3 +35,70 @@ custom:
       concurrency: 1
     testWarmer:
       enabled: false
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 512
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-1
+  lambdaHashingVersion: 20201221
+  environment:
+    DIVE_DIVER_TABLE: ${self:custom.diving-diver-table.name}
+  iam:
+    role:
+      statements: ${file(infra/iam-policies/provider-iam.yml):provider-iam}
+
+resources:
+  Resources:
+    DivingDiverTable: ${file(infra/diving/diving-diver-table.yml):diving-diver-table}
+
+functions:
+  diving-diver-entry-create:
+    warmup: true
+    handler: functions/diving/diver/create-entry.handler
+    name: ${self:service}-${self:provider.stage}-create-diving-diver-entry
+    description: "create diver logbook entry"
+    events:
+      - http:
+          method: POST
+          path: diving/diver
+          cors: true
+
+  diving-diver-entries-get:
+    warmup: true
+    handler: functions/diving/diver/get-entries.handler
+    name: ${self:service}-${self:provider.stage}-get-diving-diver-entries
+    description: "get all diver logbook entries"
+    events:
+      - http:
+          method: GET
+          path: diving/diver/entries/{userId}
+
+  diving-diver-entry-get:
+    warmup: true
+    handler: functions/diving/diver/get-entry.handler
+    name: ${self:service}-${self:provider.stage}-get-diving-diver-entry
+    description: "get diver logbook entry"
+    events:
+      - http:
+          method: GET
+          path: /diving/diver/entry/{userId}/{entryId}
+
+  # update-diving-diver-entry:
+  #   handler: src/functions/diver/update-entry.handler
+  #   events:
+  #     - http:
+  #         method: PATCH
+  #         path: diving/diver/{id}
+
+  diving-diver-entry-delete:
+    warmup: true
+    handler: functions/diving/diver/delete-entry.handler
+    name: ${self:service}-${self:provider.stage}-delete-diving-diver-entry
+    description: "delete diver logbook entry"
+    events:
+      - http:
+          method: DELETE
+          path: diving/diver/{id}
+          cors: true
