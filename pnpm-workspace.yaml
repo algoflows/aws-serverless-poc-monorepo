@@ -1,0 +1,8 @@
+packages:
+  # all packages in subdirs ** of listed dirs
+  - "auth-service/**"
+  - "homefeeds-api/**"
+  - "logbooks-api/**"
+  - "profiles-api"
+  # exclude packages that are inside test directories
+  - "!**/test/**"
