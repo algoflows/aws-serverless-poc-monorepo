@@ -5,7 +5,7 @@ logbook-service-table:
     AttributeDefinitions:
       - AttributeName: PK # userId or Username
         AttributeType: S
-      - AttributeName: SK # logbookName (LOGBK#DIVING) (LOGBK#DIVINGSUPERVISOR)
+      - AttributeName: SK # logbookName (LGBK#DIVING) (LGBK#DIVINGSUPERVISOR)
         AttributeType: S
     KeySchema:
       - AttributeName: PK

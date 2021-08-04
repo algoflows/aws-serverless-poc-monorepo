@@ -2,7 +2,24 @@ import { lambdaHandler, dynamodb, commonMiddleware } from "../../../lib"
 import validator from "@middy/validator"
 import { v4 as uuid } from "uuid"
 
-export const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
+const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
+
+/* Schema validation fields - TODO
+    userId,
+    supervisorName,
+    supervisorEmail,
+    companyName,
+    clientName,
+    diveLocation,
+    maximumDepthMeters,
+    leftSurfaceAt,
+    bottomTimeMinutes,
+    decoCompletedAt,
+    tableUsed,
+    breathingMixture,
+    equipmentUsed,
+    diveDescription,
+*/
 
 const main = lambdaHandler(async (event, context) => {
   const now = new Date()
@@ -20,7 +37,7 @@ const main = lambdaHandler(async (event, context) => {
     TableName: LOGBOOK_SERVICE_TABLE,
     Key: {
       PK: event.body.userId,
-      SK: "LOGBK#DIVINGDIVER",
+      SK: "LGBK#DIVINGDIVER",
     },
     Item: newEntry,
     ReturnValues: "ALL_OLD",
@@ -31,24 +48,7 @@ const main = lambdaHandler(async (event, context) => {
   return params.Item
 })
 
-/*
-    userId,
-    supervisorName,
-    supervisorEmail,
-    companyName,
-    clientName,
-    diveLocation,
-    maximumDepthMeters,
-    leftSurfaceAt,
-    bottomTimeMinutes,
-    decoCompletedAt,
-    tableUsed,
-    breathingMixture,
-    equipmentUsed,
-    diveDescription,
-*/
-
-const createSchema = {
+const schema = {
   type: "object",
   properties: {
     body: {
@@ -73,7 +73,7 @@ const createSchema = {
 // exported lambda handler func with middleware
 export const handler = commonMiddleware(main).use(
   validator({
-    inputSchema: createSchema,
+    inputSchema: schema,
     ajvOptions: {
       useDefaults: true,
       strict: false,

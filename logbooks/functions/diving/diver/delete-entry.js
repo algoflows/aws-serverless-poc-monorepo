@@ -21,21 +21,21 @@ const main = lambdaHandler(async (event, context) => {
   return result
 })
 
-const deleteSchema = {
-  type: "object",
-  properties: {
-    pathParameters: {
-      type: "object",
-      properties: {
-        id: {
-          type: "string",
-        },
-      },
-      required: ["id"],
-    },
-  },
-  required: ["pathParameters"],
-}
+// const schema = {
+//   type: "object",
+//   properties: {
+//     pathParameters: {
+//       type: "object",
+//       properties: {
+//         id: {
+//           type: "string",
+//         },
+//       },
+//       required: ["id"],
+//     },
+//   },
+//   required: ["pathParameters"],
+// }
 
 // exported lambda handler func with middleware
 export const handler = commonMiddleware(main)

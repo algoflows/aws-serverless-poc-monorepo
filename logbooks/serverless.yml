@@ -52,11 +52,11 @@ provider:
     LOGBOOK_SERVICE_TABLE: ${self:custom.logbook-service-table.name}
   iam:
     role:
-      statements: ${file(infra/iam-policies/provider-iam.yml):provider-iam}
+      statements: ${file(infra/provider-iam.yml):provider-iam}
 
 resources:
   Resources:
-    LogbookServiceTable: ${file(infra/databases/logbook-service-table.yml):logbook-service-table}
+    LogbookServiceTable: ${file(infra/logbook-service-table.yml):logbook-service-table}
 
 ############ Lambda functions & API endpoints ############
 functions:
