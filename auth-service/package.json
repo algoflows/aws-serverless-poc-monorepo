@@ -1,5 +1,5 @@
 {
-  "name": "@opsap/authentication",
+  "name": "@opsap/auth-service",
   "version": "1.0.0",
   "description": "Codingly template for Serverless Framework projects",
   "author": "Sean Knowles <sean@opsap.com>",

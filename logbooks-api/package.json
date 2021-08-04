@@ -1,5 +1,5 @@
 {
-  "name": "@opsap/logbooks-service",
+  "name": "@opsap/logbooks-api",
   "version": "1.0.0",
   "description": "Codingly template for Serverless Framework projects",
   "author": "Sean Knowles <sean@opsap.com>",
