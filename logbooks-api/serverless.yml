@@ -1,4 +1,4 @@
-service: logbook-service
+service: logbooks-api
 app: opsap
 org: opsap
 
@@ -34,7 +34,7 @@ custom:
       sourceRaw: true
       timeout: 60
       memorySize: 128
-      name: ${self:provider.stage}-${self:service}-warmer-default
+      name: ${self:service}-${self:provider.stage}-warmer-default
       package:
         individually: true
       tags:
@@ -61,9 +61,9 @@ resources:
 ############ Lambda functions & API endpoints ############
 functions:
   ########## Diving - Diver #########
-  diving-diver-entry-create:
+  diving-diver-create-entry:
     handler: functions/diving/diver/create-entry.handler
-    name: ${self:provider.stage}-${self:service}-diving-diver-entry-create
+    name: ${self:provider.stage}-${self:service}-diving-diver-create-entry
     description: "create diver logbook entry"
     warmup:
       default:
@@ -73,12 +73,12 @@ functions:
     events:
       - http:
           method: POST
-          path: diving/diver/entry/create
+          path: diving/diver/create-entry
           cors: true
 
-  diving-diver-entries-get:
+  diving-diver-get-entries:
     handler: functions/diving/diver/get-entries.handler
-    name: ${self:provider.stage}-${self:service}-diving-diver-entries-get
+    name: ${self:service}-${self:provider.stage}-diving-diver-get-entries
     description: "get all diver logbook entries"
     warmup:
       default:
@@ -88,12 +88,12 @@ functions:
     events:
       - http:
           method: GET
-          path: diving/diver/entries/get/{userId}
+          path: diving/diver/get-entries/{userId}
           cors: true
 
-  diving-diver-entry-get:
+  diving-diver-get-entry:
     handler: functions/diving/diver/get-entry.handler
-    name: ${self:provider.stage}-${self:service}-diving-diver-entry-get
+    name: ${self:service}-${self:provider.stage}-diving-diver-get-entry
     description: "get diver logbook entry"
     warmup:
       default:
@@ -103,12 +103,12 @@ functions:
     events:
       - http:
           method: GET
-          path: /diving/diver/entry/get/{userId}/{entryId}
+          path: /diving/diver/get-entry/{userId}/{entryId}
           cors: true
 
-  diving-diver-entry-update:
+  diving-diver-update-entry:
     handler: functions/diving/diver/update-entry.handler
-    name: ${self:provider.stage}-${self:service}-diving-diver-entry-update
+    name: ${self:service}-${self:provider.stage}-diving-diver-update-entries
     description: "update diver logbook entry"
     warmup:
       default:
@@ -118,12 +118,12 @@ functions:
     events:
       - http:
           method: PATCH
-          path: diving/diver/entry/update/{id}
+          path: diving/diver/update-entry/{userId}
           cors: true
 
-  diving-diver-entry-delete:
+  diving-diver-delete-entry:
     handler: functions/diving/diver/delete-entry.handler
-    name: ${self:provider.stage}-${self:service}-diving-diver-entry-delete
+    name: ${self:service}-${self:provider.stage}-diving-diver-delete-entry
     description: "delete diver logbook entry"
     warmup:
       default:
@@ -133,5 +133,5 @@ functions:
     events:
       - http:
           method: DELETE
-          path: diving/diver/entry/delete/{id}
+          path: diving/diver/delete-entry/{userId}/{entryId}
           cors: true

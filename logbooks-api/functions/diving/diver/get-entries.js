@@ -1,21 +1,26 @@
 import { lambdaHandler, dynamodb, commonMiddleware } from "../../../lib"
-// import { createSchema } from "./validation"
 // import validator from "@middy/validator"
 
 export const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
 
 const main = lambdaHandler(async (event, context) => {
-  const { userId, entryId } = event.pathParameters
+  const { userId } = event.pathParameters
+  console.log("userId", userId)
 
   const params = {
     TableName: LOGBOOK_SERVICE_TABLE,
-    Key: {
-      id: entryId,
-      userId: userId,
+    KeyConditionExpression: "#DYNOBASE_PK = :pkey",
+    ExpressionAttributeValues: {
+      ":pkey": `userId#${userId}`,
     },
+    ExpressionAttributeNames: {
+      "#DYNOBASE_PK": "PK",
+    },
+    ScanIndexForward: true,
+    limit: 100,
   }
 
-  const result = await dynamodb.get(params)
+  const result = await dynamodb.query(params)
 
   return result
 })

@@ -4,12 +4,15 @@ import { lambdaHandler, dynamodb, commonMiddleware } from "../../../lib"
 export const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
 
 const main = lambdaHandler(async (event, context) => {
-  const { id } = event.pathParameters
+  const { userId, entryId } = event.pathParameters
+
+  console.log(userId, entryId)
 
   const params = {
     TableName: LOGBOOK_SERVICE_TABLE,
     Key: {
-      id: String(id),
+      PK: `userId#${userId}`,
+      SK: `diveId#${entryId}`,
     },
     ReturnValues: "ALL_OLD",
   }

@@ -1,21 +1,29 @@
 logbook-service-table:
   Type: AWS::DynamoDB::Table
   Properties:
-    TableName: ${self:provider.stage}-${self:service}-table
+    TableName: ${self:service}-${self:provider.stage}-table
     AttributeDefinitions:
-      - AttributeName: PK # UserEmail / Username
+      - AttributeName: PK # userId
         AttributeType: S
-      - AttributeName: SK # Logbook (LGBK#DIVING) (LGBK#DIVINGSUPERVISOR)
+      - AttributeName: SK # example diveId
         AttributeType: S
-      - AttributeName: companyName # CompanyName
+      - AttributeName: LGBK # logbook
+        AttributeType: S
+      - AttributeName: company # company
+        AttributeType: S
+      - AttributeName: country # country
         AttributeType: S
       - AttributeName: createdAt # DateTime
         AttributeType: S
-      - AttributeName: entryType # DiveType or similar
+      - AttributeName: logType # DiveType or similar
         AttributeType: S
       - AttributeName: verifierId # VerifierEmail
         AttributeType: S
-      - AttributeName: country
+      - AttributeName: userVerifiedAt
+        AttributeType: S
+      - AttributeName: companyVerifiedAt
+        AttributeType: S
+      - AttributeName: clientVerifiedAt
         AttributeType: S
     KeySchema:
       - AttributeName: PK
@@ -24,31 +32,31 @@ logbook-service-table:
         KeyType: RANGE
     BillingMode: PAY_PER_REQUEST
     GlobalSecondaryIndexes:
-      - IndexName: LogbookIndex
+      - IndexName: verifier-index
         KeySchema:
-          - AttributeName: SK
-            KeyType: HASH
-          - AttributeName: PK
-            KeyType: RANGE
-        Projection:
-          ProjectionType: ALL
-      - IndexName: EntryIndex
-        KeySchema:
-          - AttributeName: entryId
+          - AttributeName: verifierId # logbook
             KeyType: HASH
           - AttributeName: createdAt
             KeyType: RANGE
         Projection:
           ProjectionType: ALL
-      - IndexName: "CompanyIndex"
+      - IndexName: logbook-index
         KeySchema:
-          - AttributeName: companyName
+          - AttributeName: LGBK # logbook
             KeyType: HASH
           - AttributeName: createdAt
             KeyType: RANGE
         Projection:
           ProjectionType: ALL
-      - IndexName: "CountryIndex"
+      - IndexName: "company-index"
+        KeySchema:
+          - AttributeName: company
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: "country-index"
         KeySchema:
           - AttributeName: country
             KeyType: HASH
@@ -56,19 +64,35 @@ logbook-service-table:
             KeyType: RANGE
         Projection:
           ProjectionType: ALL
-      - IndexName: "EntryTypeIndex"
+      - IndexName: "entryType-index"
         KeySchema:
-          - AttributeName: entryType
+          - AttributeName: logType
             KeyType: HASH
           - AttributeName: createdAt
             KeyType: RANGE
         Projection:
           ProjectionType: ALL
-      - IndexName: "VerifierIndex"
+      - IndexName: userVerifiedAtByPK-index
         KeySchema:
-          - AttributeName: verifierId # VerifierID
+          - AttributeName: userVerifiedAt # userVerified
             KeyType: HASH
-          - AttributeName: createdAt
+          - AttributeName: PK
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: companyVerifiedAtByPK-index
+        KeySchema:
+          - AttributeName: companyVerifiedAt # companyVerified
+            KeyType: HASH
+          - AttributeName: PK
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: clientVerifiedAtByPK-index
+        KeySchema:
+          - AttributeName: clientVerifiedAt # clientVerified
+            KeyType: HASH
+          - AttributeName: PK
             KeyType: RANGE
         Projection:
           ProjectionType: ALL

@@ -24,7 +24,7 @@
     "@middy/validator": "^2.4.3",
     "http-errors": "^1.8.0",
     "middy-middleware-json-error-handler": "^2.0.6",
-    "serverless": "^2.51.2",
+    "serverless": "^2.53.0",
     "uuid": "^8.3.2"
   }
 }
