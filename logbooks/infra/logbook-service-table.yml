@@ -3,9 +3,19 @@ logbook-service-table:
   Properties:
     TableName: ${self:provider.stage}-${self:service}-table
     AttributeDefinitions:
-      - AttributeName: PK # userId or Username
+      - AttributeName: PK # UserEmail / Username
         AttributeType: S
-      - AttributeName: SK # logbookName (LGBK#DIVING) (LGBK#DIVINGSUPERVISOR)
+      - AttributeName: SK # Logbook (LGBK#DIVING) (LGBK#DIVINGSUPERVISOR)
+        AttributeType: S
+      - AttributeName: companyName # CompanyName
+        AttributeType: S
+      - AttributeName: createdAt # DateTime
+        AttributeType: S
+      - AttributeName: entryType # DiveType or similar
+        AttributeType: S
+      - AttributeName: verifierId # VerifierEmail
+        AttributeType: S
+      - AttributeName: country
         AttributeType: S
     KeySchema:
       - AttributeName: PK
@@ -13,6 +23,55 @@ logbook-service-table:
       - AttributeName: SK
         KeyType: RANGE
     BillingMode: PAY_PER_REQUEST
+    GlobalSecondaryIndexes:
+      - IndexName: LogbookIndex
+        KeySchema:
+          - AttributeName: SK
+            KeyType: HASH
+          - AttributeName: PK
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: EntryIndex
+        KeySchema:
+          - AttributeName: entryId
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: "CompanyIndex"
+        KeySchema:
+          - AttributeName: companyName
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: "CountryIndex"
+        KeySchema:
+          - AttributeName: country
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: "EntryTypeIndex"
+        KeySchema:
+          - AttributeName: entryType
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: "VerifierIndex"
+        KeySchema:
+          - AttributeName: verifierId # VerifierID
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
     Tags:
       - Key: Name
         Value: logbook service table

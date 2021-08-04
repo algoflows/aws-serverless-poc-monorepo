@@ -24,10 +24,12 @@ const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
 const main = lambdaHandler(async (event, context) => {
   const now = new Date()
 
+  const { userId } = event.body
+
   const newEntry = {
     ...event.body,
     entryId: uuid(),
-    supervisorSigned: "false",
+    verifierSigned: "false",
     companyStamped: "false",
     createdAt: now.toISOString(),
     updatedAt: now.toISOString(),
@@ -36,8 +38,8 @@ const main = lambdaHandler(async (event, context) => {
   const params = {
     TableName: LOGBOOK_SERVICE_TABLE,
     Key: {
-      PK: event.body.userId,
-      SK: "LGBK#DIVINGDIVER",
+      PK: `USERID#${userId}`,
+      SK: "LGBK#DIVING_DIVER",
     },
     Item: newEntry,
     ReturnValues: "ALL_OLD",
@@ -57,14 +59,20 @@ const schema = {
         userId: {
           type: "string",
         },
-        supervisorName: {
+        verifierId: {
           type: "string",
         },
-        supervisorEmail: {
+        companyName: {
+          type: "string",
+        },
+        entryType: {
+          type: "string",
+        },
+        country: {
           type: "string",
         },
       },
-      required: ["userId", "supervisorName", "supervisorEmail"],
+      required: ["userId", "verifierId", "companyName", "entryType", "country"],
     },
   },
   required: ["body"],

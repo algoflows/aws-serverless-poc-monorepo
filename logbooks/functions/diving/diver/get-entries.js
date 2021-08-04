@@ -1,5 +1,4 @@
 import { lambdaHandler, dynamodb, commonMiddleware } from "../../../lib"
-// import { createSchema } from "./validation"
 // import validator from "@middy/validator"
 
 export const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
@@ -10,7 +9,8 @@ const main = lambdaHandler(async (event, context) => {
   const params = {
     TableName: LOGBOOK_SERVICE_TABLE,
     Key: {
-      userId: userId,
+      PK: `USERID#${userId}`,
+      SK: `LGBK#DIVINGDIVER`,
     },
   }
 
