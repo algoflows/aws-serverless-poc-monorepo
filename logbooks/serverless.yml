@@ -9,9 +9,8 @@ plugins:
   - serverless-plugin-warmup # Keeps function warmed up, no cold starts
   - serverless-prune-plugin # Prune old functions
 
-configValidationMode: error
 useDotenv: true
-
+configValidationMode: error
 package: # Packages functions individually
   individually: true
 
@@ -20,9 +19,9 @@ custom:
     automatic: true
     includeLayers: true
     number: 3
-  diving-diver-table:
-    name: !Ref DivingDiverTable
-    arn: !GetAtt DivingDiverTable.Arn
+  logbook-service-table:
+    name: !Ref LogbookServiceTable
+    arn: !GetAtt LogbookServiceTable.Arn
   bundle:
     linting: true
   warmup:
@@ -30,7 +29,7 @@ custom:
       enabled: true
       folderName: ".warmup"
       concurrency: 1
-      prewarm: true
+      # prewarm: true
       schedule: rate(5 minutes)
       sourceRaw: true
       timeout: 60
@@ -40,7 +39,7 @@ custom:
         individually: true
       tags:
         Project: opsap
-        Owner: Sean Knowlels
+        createdBy: Sean Knowles
 
 provider:
   name: aws
@@ -50,14 +49,14 @@ provider:
   region: eu-west-1
   lambdaHashingVersion: 20201221
   environment:
-    DIVING_DIVER_TABLE: ${self:custom.diving-diver-table.name}
+    LOGBOOK_SERVICE_TABLE: ${self:custom.logbook-service-table.name}
   iam:
     role:
       statements: ${file(infra/iam-policies/provider-iam.yml):provider-iam}
 
 resources:
   Resources:
-    DivingDiverTable: ${file(infra/diving/diving-diver-table.yml):diving-diver-table}
+    LogbookServiceTable: ${file(infra/databases/logbook-service-table.yml):logbook-service-table}
 
 ############ Lambda functions & API endpoints ############
 functions:

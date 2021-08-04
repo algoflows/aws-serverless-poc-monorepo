@@ -1,6 +1,6 @@
 import { lambdaHandler, commonMiddleware, createError, dynamodb } from "../../../lib"
 
-export const DIVING_DIVER_TABLE = process.env.DIVING_DIVER_TABLE
+export const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
 
 const main = lambdaHandler(async (event, context) => {
   // const {
@@ -28,7 +28,7 @@ const main = lambdaHandler(async (event, context) => {
   }
 
   const params = {
-    TableName: DIVING_DIVER_TABLE,
+    TableName: LOGBOOK_SERVICE_TABLE,
     Key: { id },
     UpdateExpression: "set highestBid.amount = :amount",
     ExpressionAttributeValues: {

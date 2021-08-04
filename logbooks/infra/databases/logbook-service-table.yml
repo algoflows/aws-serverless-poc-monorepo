@@ -1,4 +1,4 @@
-diving-diver-table:
+logbook-service-table:
   Type: AWS::DynamoDB::Table
   Properties:
     TableName: ${self:provider.stage}-${self:service}-table
@@ -15,6 +15,6 @@ diving-diver-table:
     BillingMode: PAY_PER_REQUEST
     Tags:
       - Key: Name
-        Value: diving-diver-table
+        Value: logbook service table
       - Key: createdBy
-        Value: SeanKnowles
+        Value: "Sean Knowles"
