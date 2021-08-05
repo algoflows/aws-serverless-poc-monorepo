@@ -48,7 +48,7 @@ export default function Hero() {
           <rect width="500" height="650" fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)" />
         </svg>
         <div className="flex items-center justify-center w-full h-full pl-28 right-full">
-          <Image width={420} height={570} src={heroImage} />
+          <Image width={420} height={570} src={heroImage} alt="hero image diver" />
         </div>
       </div>
     </main>

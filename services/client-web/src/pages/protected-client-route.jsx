@@ -14,7 +14,7 @@ export default function ProtectedClient() {
     Auth.currentAuthenticatedUser()
       .then((user) => setUser(user))
       .catch(() => router.push('/profile'))
-  }, [])
+  }, [router])
 
   if (!user) return null
 
