@@ -63,7 +63,7 @@ functions:
   ########## Diving - Diver #########
   diving-diver-create-entry:
     handler: functions/diving/diver/create-entry.handler
-    name: ${self:provider.stage}-${self:service}-diving-diver-create-entry
+    name: ${self:service}-${self:provider.stage}-diving-diver-create-entry
     description: 'create diver logbook entry'
     warmup:
       default:

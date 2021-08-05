@@ -1,0 +1,12 @@
+{
+  "name": "@opsap/monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "auth-service/**",
+    "homefeeds-api/**",
+    "logbooks-api/**",
+    "profiles-api/**",
+    "web-client/**"
+  ]
+}
