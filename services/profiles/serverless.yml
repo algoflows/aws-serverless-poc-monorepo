@@ -1,0 +1,137 @@
+service: logbooks-api
+app: opsap
+org: opsap
+
+plugins:
+  - serverless-bundle # Package our functions with Webpack
+  - serverless-offline # Enables local devleopment
+  - serverless-dotenv-plugin # Load .env as environment variables
+  - serverless-plugin-warmup # Keeps function warmed up, no cold starts
+  - serverless-prune-plugin # Prune old functions
+
+useDotenv: true
+configValidationMode: error
+package: # Packages functions individually
+  individually: true
+
+custom:
+  prune:
+    automatic: true
+    includeLayers: true
+    number: 3
+  logbook-service-table:
+    name: !Ref LogbookServiceTable
+    arn: !GetAtt LogbookServiceTable.Arn
+  bundle:
+    linting: true
+  warmup:
+    default:
+      enabled: true
+      folderName: '.warmup'
+      concurrency: 1
+      # prewarm: true
+      schedule: rate(5 minutes)
+      sourceRaw: true
+      timeout: 60
+      memorySize: 128
+      name: ${self:service}-${self:provider.stage}-warmer-default
+      package:
+        individually: true
+      tags:
+        Project: opsap
+        createdBy: Sean Knowles
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 512
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-1
+  lambdaHashingVersion: 20201221
+  environment:
+    LOGBOOK_SERVICE_TABLE: ${self:custom.logbook-service-table.name}
+  iam:
+    role:
+      statements: ${file(infra/provider-iam.yml):provider-iam}
+
+resources:
+  Resources:
+    LogbookServiceTable: ${file(infra/logbook-service-table.yml):logbook-service-table}
+
+############ Lambda functions & API endpoints ############
+functions:
+  ########## Diving - Diver #########
+  diving-diver-create-entry:
+    handler: functions/diving/diver/create-entry.handler
+    name: ${self:provider.stage}-${self:service}-diving-diver-create-entry
+    description: 'create diver logbook entry'
+    warmup:
+      default:
+        enabled:
+          - dev
+          - prod
+    events:
+      - http:
+          method: POST
+          path: diving/diver/create-entry
+          cors: true
+
+  diving-diver-get-entries:
+    handler: functions/diving/diver/get-entries.handler
+    name: ${self:service}-${self:provider.stage}-diving-diver-get-entries
+    description: 'get all diver logbook entries'
+    warmup:
+      default:
+        enabled:
+          - dev
+          - prod
+    events:
+      - http:
+          method: GET
+          path: diving/diver/get-entries/{userId}
+          cors: true
+
+  diving-diver-get-entry:
+    handler: functions/diving/diver/get-entry.handler
+    name: ${self:service}-${self:provider.stage}-diving-diver-get-entry
+    description: 'get diver logbook entry'
+    warmup:
+      default:
+        enabled:
+          - dev
+          - prod
+    events:
+      - http:
+          method: GET
+          path: /diving/diver/get-entry/{userId}/{entryId}
+          cors: true
+
+  diving-diver-update-entry:
+    handler: functions/diving/diver/update-entry.handler
+    name: ${self:service}-${self:provider.stage}-diving-diver-update-entries
+    description: 'update diver logbook entry'
+    warmup:
+      default:
+        enabled:
+          - dev
+          - prod
+    events:
+      - http:
+          method: PATCH
+          path: diving/diver/update-entry/{userId}
+          cors: true
+
+  diving-diver-delete-entry:
+    handler: functions/diving/diver/delete-entry.handler
+    name: ${self:service}-${self:provider.stage}-diving-diver-delete-entry
+    description: 'delete diver logbook entry'
+    warmup:
+      default:
+        enabled:
+          - dev
+          - prod
+    events:
+      - http:
+          method: DELETE
+          path: diving/diver/delete-entry/{userId}/{entryId}
+          cors: true

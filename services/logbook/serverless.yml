@@ -1,4 +1,4 @@
-service: logbooks-api
+service: logbook-service
 app: opsap
 org: opsap
 
