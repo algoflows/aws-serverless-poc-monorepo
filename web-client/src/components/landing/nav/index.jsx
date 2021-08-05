@@ -1,6 +1,6 @@
-import Link from "next/link"
-import Image from "next/image"
-import opsapLogo from "../../../../public/opsap6-white-final.png"
+import Link from 'next/link'
+import Image from 'next/image'
+import opsapLogo from '../../../../public/opsap6-white-final.png'
 
 export default function LandingNav() {
   return (

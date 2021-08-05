@@ -1,5 +1,5 @@
-import Amplify, { withSRRContext } from "aws-amplify"
-import config from "../../aws-exports"
+import Amplify, { withSRRContext } from 'aws-amplify'
+import config from '../../aws-exports'
 
 Amplify.configure({ ...config, srr: true })
 

@@ -1,5 +1,5 @@
-import Image from "next/image"
-import heroImage from "../../../../public/Hero_Img.png"
+import Image from 'next/image'
+import heroImage from '../../../../public/Hero_Img.png'
 
 export default function Hero() {
   return (
@@ -10,8 +10,8 @@ export default function Hero() {
             <span className="block xl:inline">Divers</span>
           </h1>
           <p className="max-w-md mx-auto mt-3 mb-10 text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
-            Automated Career Tracking, Digital Logbooks, Jobs Board and applicant management
-            platform for the commercial diving industry.
+            Automated Career Tracking, Digital Logbooks, Jobs Board and applicant management platform for the
+            commercial diving industry.
           </p>
           <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
             <div className="rounded-md shadow">
@@ -42,14 +42,7 @@ export default function Hero() {
               height="25"
               patternUnits="userSpaceOnUse"
             >
-              <rect
-                x="0"
-                y="0"
-                width="5"
-                height="5"
-                className="text-gray-300"
-                fill="currentColor"
-              />
+              <rect x="0" y="0" width="5" height="5" className="text-gray-300" fill="currentColor" />
             </pattern>
           </defs>
           <rect width="500" height="650" fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)" />

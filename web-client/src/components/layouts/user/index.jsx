@@ -1,11 +1,11 @@
-import { Fragment, useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import Image from "next/image"
-import opsapLogo from "../../../../public/opsap6-white-final.png"
+import { Fragment, useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
+import opsapLogo from '../../../../public/opsap6-white-final.png'
 // import { useAuth } from "@context/AuthContext"
 
-import { Dialog, Menu, Transition } from "@headlessui/react"
+import { Dialog, Menu, Transition } from '@headlessui/react'
 import {
   BellIcon,
   CalendarIcon,
@@ -15,17 +15,17 @@ import {
   InboxIcon,
   MenuAlt2Icon,
   UsersIcon,
-  XIcon,
-} from "@heroicons/react/outline"
-import { SearchIcon } from "@heroicons/react/solid"
+  XIcon
+} from '@heroicons/react/outline'
+import { SearchIcon } from '@heroicons/react/solid'
 
 const userNavigation = [
-  { name: "Your Profile", href: "/profile" },
-  { name: "Settings", href: "#" },
+  { name: 'Your Profile', href: '/profile' },
+  { name: 'Settings', href: '#' }
 ]
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ")
+  return classes.filter(Boolean).join(' ')
 }
 
 export default function UserLayout({ children }) {
@@ -34,13 +34,13 @@ export default function UserLayout({ children }) {
   const router = useRouter()
   console.log(router)
 
-  const username = "seanknowles"
+  const username = 'seanknowles'
 
   const navigation = [
-    { name: "Home", href: "/user/home", query: "", icon: HomeIcon },
-    { name: "Profile", href: "/user/profile", query: [username], icon: UsersIcon },
+    { name: 'Home', href: '/user/home', query: '', icon: HomeIcon },
+    { name: 'Profile', href: '/user/profile', query: [username], icon: UsersIcon },
     // { name: "Logbooks", href: "#", icon: FolderIcon, current: false },
-    { name: "Diving", href: "/user/logbooks", query: [username], icon: CalendarIcon },
+    { name: 'Diving', href: '/user/logbooks', query: [username], icon: CalendarIcon }
     // { name: "Supervisor", href: "#", icon: InboxIcon },
     // { name: "Rov", href: "#", icon: ChartBarIcon, current: false },
   ]
@@ -108,17 +108,15 @@ export default function UserLayout({ children }) {
                       href={item.href}
                       className={classNames(
                         item.current
-                          ? "bg-gray-100 text-gray-900"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                        "group flex items-center px-2 py-2 text-base font-medium rounded-md"
+                          ? 'bg-gray-100 text-gray-900'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                        'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                       )}
                     >
                       <item.icon
                         className={classNames(
-                          item.current
-                            ? "text-gray-500"
-                            : "text-gray-400 group-hover:text-gray-500",
-                          "mr-4 flex-shrink-0 h-6 w-6"
+                          item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                          'mr-4 flex-shrink-0 h-6 w-6'
                         )}
                         aria-hidden="true"
                       />
@@ -153,19 +151,16 @@ export default function UserLayout({ children }) {
                   <Link key={item.name} href={`${item.href}${item.query && `/${item.query}`}`}>
                     <a
                       className={classNames(
-                        router.pathname ===
-                          `${item.href}${item.query !== "" ? `/${item.query}` : ""}`
-                          ? "bg-gray-100 text-gray-900"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                        "group flex mt-10 items-center px-2 py-2 text-sm font-medium rounded-md"
+                        router.pathname === `${item.href}${item.query !== '' ? `/${item.query}` : ''}`
+                          ? 'bg-gray-100 text-gray-900'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                        'group flex mt-10 items-center px-2 py-2 text-sm font-medium rounded-md'
                       )}
                     >
                       <item.icon
                         className={classNames(
-                          item.current
-                            ? "text-gray-500"
-                            : "text-gray-400 group-hover:text-gray-500",
-                          "mr-3 flex-shrink-0 h-6 w-6"
+                          item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                          'mr-3 flex-shrink-0 h-6 w-6'
                         )}
                         aria-hidden="true"
                       />
@@ -247,8 +242,8 @@ export default function UserLayout({ children }) {
                               <Link href={item.href}>
                                 <a
                                   className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
+                                    active ? 'bg-gray-100' : '',
+                                    'block px-4 py-2 text-sm text-gray-700'
                                   )}
                                 >
                                   {item.name}

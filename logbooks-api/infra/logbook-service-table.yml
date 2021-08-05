@@ -48,7 +48,7 @@ logbook-service-table:
             KeyType: RANGE
         Projection:
           ProjectionType: ALL
-      - IndexName: "company-index"
+      - IndexName: 'company-index'
         KeySchema:
           - AttributeName: company
             KeyType: HASH
@@ -56,7 +56,7 @@ logbook-service-table:
             KeyType: RANGE
         Projection:
           ProjectionType: ALL
-      - IndexName: "country-index"
+      - IndexName: 'country-index'
         KeySchema:
           - AttributeName: country
             KeyType: HASH
@@ -64,7 +64,7 @@ logbook-service-table:
             KeyType: RANGE
         Projection:
           ProjectionType: ALL
-      - IndexName: "entryType-index"
+      - IndexName: 'entryType-index'
         KeySchema:
           - AttributeName: logType
             KeyType: HASH
@@ -100,4 +100,4 @@ logbook-service-table:
       - Key: Name
         Value: logbook service table
       - Key: createdBy
-        Value: "Sean Knowles"
+        Value: 'Sean Knowles'

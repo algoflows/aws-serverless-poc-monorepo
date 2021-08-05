@@ -1,4 +1,4 @@
-import { lambdaHandler, dynamodb, commonMiddleware } from "../../../lib"
+import { lambdaHandler, dynamodb, commonMiddleware } from '../../../lib'
 // import { createSchema } from "./validation"
 // import validator from "@middy/validator"
 
@@ -9,17 +9,17 @@ const main = lambdaHandler(async (event, context) => {
 
   const params = {
     TableName: LOGBOOK_SERVICE_TABLE,
-    KeyConditionExpression: "#DYNOBASE_PK = :pkey and #DYNOBASE_SK = :skey",
+    KeyConditionExpression: '#DYNOBASE_PK = :pkey and #DYNOBASE_SK = :skey',
     ExpressionAttributeValues: {
-      ":pkey": `userId#${userId}`,
-      ":skey": `diveId#${entryId}`,
+      ':pkey': `userId#${userId}`,
+      ':skey': `diveId#${entryId}`
     },
     ExpressionAttributeNames: {
-      "#DYNOBASE_PK": "PK",
-      "#DYNOBASE_SK": "SK",
+      '#DYNOBASE_PK': 'PK',
+      '#DYNOBASE_SK': 'SK'
     },
     ScanIndexForward: true,
-    Limit: 100,
+    Limit: 100
   }
 
   const result = await dynamodb.query(params)

@@ -1,11 +1,11 @@
 // _app.jsx
-import { useState } from "react"
-import Head from "next/head"
-import { QueryClient, QueryClientProvider } from "react-query"
-import { Hydrate } from "react-query/hydration"
-import LandingLayout from "../components/layouts/landing"
-import "../styles/globals.css"
-import Amplify from "aws-amplify"
+import { useState } from 'react'
+import Head from 'next/head'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate } from 'react-query/hydration'
+import LandingLayout from '../components/layouts/landing'
+import '../styles/globals.css'
+import Amplify from 'aws-amplify'
 
 // TODO: https://docs.amplify.aws/lib/auth/start/q/platform/js#re-use-existing-authentication-resource
 // REUSE EXISTING BACKEND
@@ -25,9 +25,9 @@ Amplify.configure({
     // OPTIONAL - Amazon Cognito User Pool ID
     userPoolId: process.env.REACT_APP_USER_POOL_ID,
     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: process.env.REACT_APP_CLIENT_ID,
+    userPoolWebClientId: process.env.REACT_APP_CLIENT_ID
   },
-  srr: true,
+  srr: true
 })
 
 export default function MyApp({ Component, pageProps }) {

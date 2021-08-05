@@ -27,7 +27,7 @@ custom:
   warmup:
     default:
       enabled: true
-      folderName: ".warmup"
+      folderName: '.warmup'
       concurrency: 1
       # prewarm: true
       schedule: rate(5 minutes)
@@ -64,7 +64,7 @@ functions:
   diving-diver-create-entry:
     handler: functions/diving/diver/create-entry.handler
     name: ${self:provider.stage}-${self:service}-diving-diver-create-entry
-    description: "create diver logbook entry"
+    description: 'create diver logbook entry'
     warmup:
       default:
         enabled:
@@ -79,7 +79,7 @@ functions:
   diving-diver-get-entries:
     handler: functions/diving/diver/get-entries.handler
     name: ${self:service}-${self:provider.stage}-diving-diver-get-entries
-    description: "get all diver logbook entries"
+    description: 'get all diver logbook entries'
     warmup:
       default:
         enabled:
@@ -94,7 +94,7 @@ functions:
   diving-diver-get-entry:
     handler: functions/diving/diver/get-entry.handler
     name: ${self:service}-${self:provider.stage}-diving-diver-get-entry
-    description: "get diver logbook entry"
+    description: 'get diver logbook entry'
     warmup:
       default:
         enabled:
@@ -109,7 +109,7 @@ functions:
   diving-diver-update-entry:
     handler: functions/diving/diver/update-entry.handler
     name: ${self:service}-${self:provider.stage}-diving-diver-update-entries
-    description: "update diver logbook entry"
+    description: 'update diver logbook entry'
     warmup:
       default:
         enabled:
@@ -124,7 +124,7 @@ functions:
   diving-diver-delete-entry:
     handler: functions/diving/diver/delete-entry.handler
     name: ${self:service}-${self:provider.stage}-diving-diver-delete-entry
-    description: "delete diver logbook entry"
+    description: 'delete diver logbook entry'
     warmup:
       default:
         enabled:

@@ -1,4 +1,4 @@
-import LandingNav from "../../landing/nav"
+import LandingNav from '../../landing/nav'
 
 export default function LandingLayout({ children }) {
   return (

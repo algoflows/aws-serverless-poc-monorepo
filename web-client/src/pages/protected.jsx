@@ -1,5 +1,5 @@
-import React from "react"
-import { withSSRContext } from "aws-amplify"
+import React from 'react'
+import { withSSRContext } from 'aws-amplify'
 
 export default function Protected({ authenticated, username }) {
   if (!authenticated) {
@@ -14,19 +14,19 @@ export async function getServerSideProps(context) {
 
   try {
     const user = await Auth.currentAuthenticatedUser()
-    console.table("user", user)
+    console.table('user', user)
     return {
       props: {
         authenticated: true,
-        username: user.username,
-      },
+        username: user.username
+      }
     }
   } catch (error) {
     console.error(error)
     return {
       props: {
-        authenticated: false,
-      },
+        authenticated: false
+      }
     }
   }
 }

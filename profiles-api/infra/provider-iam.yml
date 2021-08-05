@@ -11,7 +11,7 @@ provider-iam:
     Resource:
       - ${self:custom.logbook-service-table.arn}
     #   - !Join ["/", ["${self:custom.dive-diver-table.arn}", "index", "orderBy"]]
-  - Effect: "Allow"
+  - Effect: 'Allow'
     Action:
       - lambda:InvokeFunction # Permission for Lambda invoke warmup function
       - lambda:listAliases
@@ -19,4 +19,4 @@ provider-iam:
       - lambda:deleteFunction
       - lambda:listLayerVersions
       - lambda:deleteLayerVersion
-    Resource: "*"
+    Resource: '*'

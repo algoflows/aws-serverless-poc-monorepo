@@ -25,7 +25,7 @@ $animationSpeed: 120s;
   &::before,
   &::after {
     @include white-gradient;
-    content: "";
+    content: '';
     height: 80px;
     position: absolute;
     width: 100px;

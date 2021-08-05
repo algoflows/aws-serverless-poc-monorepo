@@ -1,5 +1,5 @@
-import React from "react"
-import UserLayout from "../../../components/layouts/user"
+import React from 'react'
+import UserLayout from '../../../components/layouts/user'
 
 export default function Home() {
   return (

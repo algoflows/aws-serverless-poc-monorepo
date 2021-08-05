@@ -1,10 +1,10 @@
-import Head from "next/head"
-import Image from "next/image"
-import { useQuery } from "react-query"
-import axios from "axios"
-import Hero from "../components/landing/hero"
-import Carousel from "../components/logo-carousel"
-import Spacer from "../components/spacer"
+import Head from 'next/head'
+import Image from 'next/image'
+import { useQuery } from 'react-query'
+import axios from 'axios'
+import Hero from '../components/landing/hero'
+import Carousel from '../components/logo-carousel'
+import Spacer from '../components/spacer'
 
 export default function Home() {
   // const { isLoading, error, data } = useQuery("todos", () =>

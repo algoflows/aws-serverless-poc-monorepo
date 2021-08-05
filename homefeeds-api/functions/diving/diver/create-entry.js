@@ -1,7 +1,7 @@
-import { lambdaHandler, dynamodb, commonMiddleware } from "../../../lib"
-import validator from "@middy/validator"
-import { v4 as uuid } from "uuid"
-import { Logbook } from "../logbookEnum"
+import { lambdaHandler, dynamodb, commonMiddleware } from '../../../lib'
+import validator from '@middy/validator'
+import { v4 as uuid } from 'uuid'
+import { Logbook } from '../logbookEnum'
 
 const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
 
@@ -33,13 +33,13 @@ const main = lambdaHandler(async (event, context) => {
       PK: `userId#${userId}`,
       SK: `diveId#${uuid()}`,
       LGBK: Logbook.diver,
-      userVerifiedAt: "false",
-      companyVerifiedAt: "false",
-      clientVerfiedAt: "false",
+      userVerifiedAt: 'false',
+      companyVerifiedAt: 'false',
+      clientVerfiedAt: 'false',
       createdAt: now.toISOString(),
-      updatedAt: now.toISOString(),
+      updatedAt: now.toISOString()
     },
-    ReturnValues: "ALL_OLD",
+    ReturnValues: 'ALL_OLD'
   }
 
   await dynamodb.put(params)
@@ -48,31 +48,31 @@ const main = lambdaHandler(async (event, context) => {
 })
 
 const schema = {
-  type: "object",
+  type: 'object',
   properties: {
     body: {
-      type: "object",
+      type: 'object',
       properties: {
         userId: {
-          type: "string",
+          type: 'string'
         },
         verifierId: {
-          type: "string",
+          type: 'string'
         },
         company: {
-          type: "string",
+          type: 'string'
         },
         logType: {
-          type: "string",
+          type: 'string'
         },
         country: {
-          type: "string",
-        },
+          type: 'string'
+        }
       },
-      required: ["userId", "verifierId", "company", "logType", "country"],
-    },
+      required: ['userId', 'verifierId', 'company', 'logType', 'country']
+    }
   },
-  required: ["body"],
+  required: ['body']
 }
 
 // exported lambda handler func with middleware
@@ -81,7 +81,7 @@ export const handler = commonMiddleware(main).use(
     inputSchema: schema,
     ajvOptions: {
       useDefaults: true,
-      strict: false,
-    },
+      strict: false
+    }
   })
 )

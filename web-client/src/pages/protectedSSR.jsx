@@ -1,5 +1,5 @@
 // pages/protected.js
-import { withSSRContext } from "aws-amplify"
+import { withSSRContext } from 'aws-amplify'
 
 function Protected({ username }) {
   return <h1>Hello {username} from SSR route!</h1>
@@ -12,11 +12,11 @@ export async function getServerSideProps({ req, res }) {
     return {
       props: {
         authenticated: true,
-        username: user.username,
-      },
+        username: user.username
+      }
     }
   } catch (err) {
-    res.writeHead(302, { Location: "/profile" })
+    res.writeHead(302, { Location: '/profile' })
     res.end()
   }
   return { props: {} }
