@@ -20,6 +20,7 @@ export default function Home() {
       </Head>
 
       <main className="h-screen">
+        <h1>Testing Testing</h1>
         <Hero />
         <Spacer />
         <Carousel />
