@@ -1,4 +1,4 @@
-import { lambdaHandler, dynamodb, commonMiddleware } from '../../../../../packages/api-helpers'
+import { lambdaHandler, dynamodb, commonMiddleware } from '../../../lib'
 // import { createSchema } from "./validation"
 // import validator from "@middy/validator"
 

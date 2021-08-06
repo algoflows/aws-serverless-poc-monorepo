@@ -1,4 +1,4 @@
-import { lambdaHandler, dynamodb, commonMiddleware } from '../../../../../packages/api-helpers'
+import { lambdaHandler, dynamodb, commonMiddleware } from '../../../lib'
 import validator from '@middy/validator'
 import { v4 as uuid } from 'uuid'
 import { Logbook } from '../logbookEnum'

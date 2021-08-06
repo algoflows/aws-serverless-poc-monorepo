@@ -1,4 +1,5 @@
-import { lambdaHandler, dynamodb, commonMiddleware } from '../../../../packages/api-helpers' // import validator from "@middy/validator"
+import { lambdaHandler, dynamodb, commonMiddleware } from '../../lib'
+//import validator from "@middy/validator"
 
 export const PROFILES_SERVICE_TABLE = process.env.PROFILES_SERVICE_TABLE
 
