@@ -5,9 +5,9 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "services/logbook/*",
-    "services/profiles/*",
-    "clients/client-web/*"
+    "services/*",
+    "packages/*",
+    "clients/*"
   ],
   "devDependencies": {
     "lerna": "^4.0.0",

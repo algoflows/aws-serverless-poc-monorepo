@@ -2,5 +2,5 @@
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "packages": ["services/logbook/*", "services/profiles/*", "clients/client-web/*"]
+  "packages": ["services/*", "packages/*", "clients/*"]
 }
