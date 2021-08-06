@@ -10,6 +10,7 @@ plugins:
   - serverless-dotenv-plugin # Load .env as environment variables
   - serverless-plugin-warmup # Keeps function warmed up, no cold starts
   - serverless-prune-plugin # Prune old functions
+  - serverless-seed # incremental serverless seed
 
 useDotenv: true
 configValidationMode: error
@@ -17,6 +18,12 @@ package: # Packages functions individually
   individually: true
 
 custom:
+  seed:
+    incremental:
+      enabled: true
+    disabledFor:
+      - production
+      - staging
   prune:
     automatic: true
     includeLayers: true
@@ -47,7 +54,7 @@ provider:
   name: aws
   runtime: nodejs14.x
   memorySize: 512
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage, 'develop'}
   region: eu-west-1
   lambdaHashingVersion: 20201221
   environment:

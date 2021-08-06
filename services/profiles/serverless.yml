@@ -10,6 +10,7 @@ plugins:
   - serverless-dotenv-plugin # Load .env as environment variables
   - serverless-plugin-warmup # Keeps function warmed up, no cold starts
   - serverless-prune-plugin # Prune old functions
+  - serverless-seed
 
 useDotenv: true
 configValidationMode: error
@@ -17,6 +18,12 @@ package: # Packages functions individually
   individually: true
 
 custom:
+  seed:
+    incremental:
+      enabled: true
+      disabledFor:
+        - prod
+        - staging
   prune:
     automatic: true
     includeLayers: true

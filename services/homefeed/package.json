@@ -7,6 +7,8 @@
   "scripts": {
     "test": "echo 'all package-a tests passed!'"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "serverless-seed": "^0.3.13"
+  },
   "dependencies": {}
 }
