@@ -9,7 +9,7 @@ provider-iam:
       - dynamodb:DeleteItem
       - dynamodb:DescribeTable
     Resource:
-      - ${self:custom.logbook-service-table.arn}
+      - ${self:custom.profiles-service-table.arn}
     #   - !Join ["/", ["${self:custom.dive-diver-table.arn}", "index", "orderBy"]]
   - Effect: 'Allow'
     Action:

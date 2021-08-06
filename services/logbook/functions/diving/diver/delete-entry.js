@@ -1,4 +1,4 @@
-import { lambdaHandler, dynamodb, commonMiddleware } from '../../../lib'
+import { lambdaHandler, dynamodb, commonMiddleware } from '../../../../../packages/api-helpers'
 // import validator from "@middy/validator"
 
 export const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE

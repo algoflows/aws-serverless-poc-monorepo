@@ -1,0 +1,36 @@
+service: auth-service
+app: opsap
+org: opsap
+
+configValidationMode: error
+
+plugins:
+  - serverless-bundle # Package our functions with Webpack
+  - serverless-offline
+  - serverless-dotenv-plugin # Load .env as environment variables
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 128
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-1
+  lambdaHashingVersion: 20201221
+
+resources:
+  Resources:
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPoolUser
+      Properties:
+        UserPoolName: ${self:provider.stage}-user-pool
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+
+custom:
+  bundle:
+    linting: true

@@ -1,4 +1,4 @@
-service: logbooks-api
+service: profiles-service
 app: opsap
 org: opsap
 
@@ -19,9 +19,9 @@ custom:
     automatic: true
     includeLayers: true
     number: 3
-  logbook-service-table:
-    name: !Ref LogbookServiceTable
-    arn: !GetAtt LogbookServiceTable.Arn
+  profiles-service-table:
+    name: !Ref ProfilesServiceTable
+    arn: !GetAtt ProfilesServiceTable.Arn
   bundle:
     linting: true
   warmup:
@@ -49,22 +49,21 @@ provider:
   region: eu-west-1
   lambdaHashingVersion: 20201221
   environment:
-    LOGBOOK_SERVICE_TABLE: ${self:custom.logbook-service-table.name}
+    PROFILES_SERVICE_TABLE: ${self:custom.profiles-service-table.name}
   iam:
     role:
       statements: ${file(infra/provider-iam.yml):provider-iam}
 
 resources:
   Resources:
-    LogbookServiceTable: ${file(infra/logbook-service-table.yml):logbook-service-table}
+    ProfilesServiceTable: ${file(infra/profiles-service-table.yml):profiles-service-table}
 
-############ Lambda functions & API endpoints ############
 functions:
-  ########## Diving - Diver #########
-  diving-diver-create-entry:
-    handler: functions/diving/diver/create-entry.handler
-    name: ${self:provider.stage}-${self:service}-diving-diver-create-entry
-    description: 'create diver logbook entry'
+  ########## Diver
+  user-create-profile:
+    handler: functions/user/create-profile.handler
+    name: ${self:service}-${self:provider.stage}-user-create-profile
+    description: 'create user profile'
     warmup:
       default:
         enabled:
@@ -73,13 +72,13 @@ functions:
     events:
       - http:
           method: POST
-          path: diving/diver/create-entry
+          path: user/create-profile
           cors: true
 
-  diving-diver-get-entries:
-    handler: functions/diving/diver/get-entries.handler
-    name: ${self:service}-${self:provider.stage}-diving-diver-get-entries
-    description: 'get all diver logbook entries'
+  user-get-profiles:
+    handler: functions/user/get-profiles.handler
+    name: ${self:service}-${self:provider.stage}-user-get-profiles
+    description: 'get all user profiles'
     warmup:
       default:
         enabled:
@@ -88,13 +87,13 @@ functions:
     events:
       - http:
           method: GET
-          path: diving/diver/get-entries/{userId}
+          path: user/get-profiles/{userId}
           cors: true
 
-  diving-diver-get-entry:
-    handler: functions/diving/diver/get-entry.handler
-    name: ${self:service}-${self:provider.stage}-diving-diver-get-entry
-    description: 'get diver logbook entry'
+  user-get-profile:
+    handler: functions/user/get-profile.handler
+    name: ${self:service}-${self:provider.stage}-user-get-profile
+    description: 'get user profile'
     warmup:
       default:
         enabled:
@@ -103,13 +102,13 @@ functions:
     events:
       - http:
           method: GET
-          path: /diving/diver/get-entry/{userId}/{entryId}
+          path: user/get-profile/{userId}/{profileId}
           cors: true
 
-  diving-diver-update-entry:
-    handler: functions/diving/diver/update-entry.handler
-    name: ${self:service}-${self:provider.stage}-diving-diver-update-entries
-    description: 'update diver logbook entry'
+  user-update-profile:
+    handler: functions/user/update-profile.handler
+    name: ${self:service}-${self:provider.stage}-user-update-profile
+    description: 'update user profile'
     warmup:
       default:
         enabled:
@@ -118,13 +117,13 @@ functions:
     events:
       - http:
           method: PATCH
-          path: diving/diver/update-entry/{userId}
+          path: user/update-profile/{userId}
           cors: true
 
-  diving-diver-delete-entry:
-    handler: functions/diving/diver/delete-entry.handler
-    name: ${self:service}-${self:provider.stage}-diving-diver-delete-entry
-    description: 'delete diver logbook entry'
+  user-delete-profile:
+    handler: functions/user/delete-profile.handler
+    name: ${self:service}-${self:provider.stage}-user-delete-profile
+    description: 'delete user profile'
     warmup:
       default:
         enabled:
@@ -133,5 +132,5 @@ functions:
     events:
       - http:
           method: DELETE
-          path: diving/diver/delete-entry/{userId}/{entryId}
+          path: user/delete-profile/{userId}/{profileId}
           cors: true

@@ -8,5 +8,7 @@
     "test": "echo 'all package-a tests passed!'"
   },
   "devDependencies": {},
-  "dependencies": {}
+  "dependencies": {
+    "dynamoose": "^3.0.0-alpha.2"
+  }
 }
