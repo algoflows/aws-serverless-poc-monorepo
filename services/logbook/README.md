@@ -1,5 +1,7 @@
 # Sean's: Base JS Serverless Framework Template
 
+[![Seed Status](https://api.seed.run/skopsap/opsap-monorepo/stages/prod/build_badge)](https://console.seed.run/skopsap/opsap-monorepo)
+
 https://seanknowles.dev
 
 ## What's included
