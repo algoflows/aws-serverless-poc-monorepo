@@ -7,7 +7,13 @@
   "scripts": {
     "test": "echo 'all package-a tests passed!'"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "serverless-bundle": "^4.4.0",
+    "serverless-dotenv-plugin": "^3.9.0",
+    "serverless-offline": "^7.1.0",
+    "serverless-plugin-warmup": "^5.3.1",
+    "serverless-prune-plugin": "^1.5.1"
+  },
   "dependencies": {
     "dynamoose": "^3.0.0-alpha.2"
   }
