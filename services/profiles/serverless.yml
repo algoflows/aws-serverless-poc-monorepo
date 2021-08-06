@@ -69,8 +69,8 @@ functions:
     warmup:
       default:
         enabled:
-          - dev
-          - prod
+          # - dev
+          # - prod
     events:
       - http:
           method: POST
@@ -84,8 +84,8 @@ functions:
     warmup:
       default:
         enabled:
-          - dev
-          - prod
+          # - dev
+          # - prod
     events:
       - http:
           method: GET
@@ -99,8 +99,8 @@ functions:
     warmup:
       default:
         enabled:
-          - dev
-          - prod
+          # - dev
+          # - prod
     events:
       - http:
           method: GET
@@ -114,8 +114,8 @@ functions:
     warmup:
       default:
         enabled:
-          - dev
-          - prod
+          # - dev
+          # - prod
     events:
       - http:
           method: PATCH
@@ -129,8 +129,8 @@ functions:
     warmup:
       default:
         enabled:
-          - dev
-          - prod
+          # - dev
+          # - prod
     events:
       - http:
           method: DELETE
