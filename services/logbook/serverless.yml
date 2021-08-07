@@ -2,8 +2,6 @@ service: logbook-service
 app: opsap
 org: opsap
 
-## test test
-
 plugins:
   - serverless-esbuild # Package our functions with Webpack
   - serverless-offline # Enables local devleopment
@@ -26,8 +24,6 @@ custom:
     domainName: ${self:custom.domains.${self:custom.stage}}
     basePath: logbook
     stage: ${self:provider.stage}
-    certificateName: '*.opsap.com'
-    certificateArn: 1:383627466135:certificate/3f1fa2fa-84cd-443a-b19d-b917033dd8bf
     createRoute53Record: true
     endpointType: edge
   prune:
