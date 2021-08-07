@@ -1,0 +1,64 @@
+service: domain-test-service
+app: opsap
+org: opsap
+
+plugins:
+  - serverless-esbuild # Package our functions with Webpack
+  - serverless-offline # Enables local devleopment
+  - serverless-prune-plugin # Prune old functions
+  - serverless-dotenv-plugin # Load .env as environment variable
+  - serverless-domain-manager
+
+useDotenv: true
+configValidationMode: error
+package: # Packages functions individually
+  individually: true
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    prod: api.opsap.com
+    staging: staging-api.opsap.com
+    dev: dev-api.opsap.com
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    basePath: logbook
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    endpointType: edge
+  prune:
+    automatic: true
+    includeLayers: true
+    number: 3
+  bundle:
+    linting: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 512
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-1
+  lambdaHashingVersion: 20201221
+  environment:
+    LOGBOOK_SERVICE_TABLE: ${self:custom.logbook-service-table.name}
+  iam:
+    role:
+      statements: ${file(infra/provider-iam.yml):provider-iam}
+
+resources:
+  Resources:
+    LogbookServiceTable: ${file(infra/logbook-service-table.yml):logbook-service-table}
+
+###### Lambda functions & API endpoints ######
+functions:
+  ########## Diving - Diver #########
+  test-base-url:
+    handler: functions/test-base-url.handler
+    name: ${self:service}-${self:provider.stage}-test-base-url
+    description: 'test base url to test custom domain functionality'
+    events:
+      - http:
+          method: GET
+          path: /
+          cors: true
