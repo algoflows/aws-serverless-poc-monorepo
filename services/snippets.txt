@@ -1,0 +1,39 @@
+# - serverless-plugin-warmup # Keeps function warmed up, no cold starts
+# - serverless-seed # incremental serverless seed
+
+// if (event.source === "serverless-plugin-warmup") {
+//   console.log("WarmUp - Lambda is warm!")
+//   /** Slightly delayed (25ms) response to ensure concurrent invocation */
+//   await new Promise((r) => setTimeout(r, 25))
+//   return "Lambda is warm!"
+// }
+
+  # seed: # CICD plugin to stop full re-deployments when updating non essential files
+  #   incremental:
+  #     enabled: true
+  #     disabledFor:
+  #       - prod
+  #       - staging
+
+	  # warmup:
+  #   default:
+  #     enabled: true
+  #     folderName: '.warmup'
+  #     concurrency: 1
+  #     # prewarm: true
+  #     schedule: rate(5 minutes)
+  #     sourceRaw: true
+  #     timeout: 60
+  #     memorySize: 128
+  #     name: ${self:service}-${self:provider.stage}-warmer-default
+  #     package:
+  #       individually: true
+  #     tags:
+  #       Project: opsap
+  #       createdBy: Sean Knowles
+
+    warmup:
+      default:
+        enabled:
+          # - dev
+          # - prod

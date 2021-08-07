@@ -7,10 +7,7 @@ org: opsap
 plugins:
   - serverless-esbuild
   - serverless-offline # Enables local devleopment
-  - serverless-dotenv-plugin # Load .env as environment variables
-  - serverless-plugin-warmup # Keeps function warmed up, no cold starts
   - serverless-prune-plugin # Prune old functions
-  - serverless-seed
   - serverless-domain-manager
 
 useDotenv: true
@@ -19,9 +16,14 @@ package: # Packages functions individually
   individually: true
 
 custom:
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    prod: api.opsap.com
+    staging: staging-api.opsap.com
+    dev: dev-api.opsap.com
   customDomain:
-    domainName: api.opsap.com
-    basePath: 'logbook'
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    basePath: profile
     stage: ${self:provider.stage}
     createRoute53Record: true
     endpointType: edge
@@ -29,12 +31,6 @@ custom:
     packager: yarn
     bundle: true
     minify: true
-  seed: # CICD plugin to stop full re-deployments when updating non essential files
-    incremental:
-      enabled: true
-      disabledFor:
-        - prod
-        - staging
   prune:
     automatic: true
     includeLayers: true
@@ -44,22 +40,6 @@ custom:
     arn: !GetAtt ProfilesServiceTable.Arn
   bundle:
     linting: true
-  warmup:
-    default:
-      enabled: true
-      folderName: '.warmup'
-      concurrency: 1
-      # prewarm: true
-      schedule: rate(5 minutes)
-      sourceRaw: true
-      timeout: 60
-      memorySize: 128
-      name: ${self:service}-${self:provider.stage}-warmer-default
-      package:
-        individually: true
-      tags:
-        Project: opsap
-        createdBy: Sean Knowles
 
 provider:
   name: aws
@@ -84,11 +64,6 @@ functions:
     handler: functions/user/create-profile.handler
     name: ${self:service}-${self:provider.stage}-user-create-profile
     description: 'create user profile'
-    warmup:
-      default:
-        enabled:
-          # - dev
-          # - prod
     events:
       - http:
           method: POST
@@ -99,11 +74,6 @@ functions:
     handler: functions/user/get-profiles.handler
     name: ${self:service}-${self:provider.stage}-user-get-profiles
     description: 'get all user profiles'
-    warmup:
-      default:
-        enabled:
-          # - dev
-          # - prod
     events:
       - http:
           method: GET
@@ -114,11 +84,6 @@ functions:
     handler: functions/user/get-profile.handler
     name: ${self:service}-${self:provider.stage}-user-get-profile
     description: 'get user profile'
-    warmup:
-      default:
-        enabled:
-          # - dev
-          # - prod
     events:
       - http:
           method: GET
@@ -129,11 +94,6 @@ functions:
     handler: functions/user/update-profile.handler
     name: ${self:service}-${self:provider.stage}-user-update-profile
     description: 'update user profile'
-    warmup:
-      default:
-        enabled:
-          # - dev
-          # - prod
     events:
       - http:
           method: PATCH
@@ -144,11 +104,6 @@ functions:
     handler: functions/user/delete-profile.handler
     name: ${self:service}-${self:provider.stage}-user-delete-profile
     description: 'delete user profile'
-    warmup:
-      default:
-        enabled:
-          # - dev
-          # - prod
     events:
       - http:
           method: DELETE
@@ -160,11 +115,6 @@ functions:
     handler: functions/company/create-profile.handler
     name: ${self:service}-${self:provider.stage}-company-create-profile
     description: 'create company profile'
-    warmup:
-      default:
-        enabled:
-          # - dev
-          # - prod
     events:
       - http:
           method: POST
