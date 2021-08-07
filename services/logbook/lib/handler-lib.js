@@ -1,12 +1,5 @@
 import { createError } from "./index"
 
-// if (event.source === "serverless-plugin-warmup") {
-//   console.log("WarmUp - Lambda is warm!")
-//   /** Slightly delayed (25ms) response to ensure concurrent invocation */
-//   await new Promise((r) => setTimeout(r, 25))
-//   return "Lambda is warm!"
-// }
-
 export function lambdaHandler(lambda) {
   return async function (event, context) {
     let body, statusCode
