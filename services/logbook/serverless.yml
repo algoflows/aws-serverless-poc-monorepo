@@ -8,6 +8,7 @@ plugins:
   - serverless-esbuild # Package our functions with Webpack
   - serverless-offline # Enables local devleopment
   - serverless-prune-plugin # Prune old functions
+  - serverless-dotenv-plugin # Load .env as environment variable
   - serverless-domain-manager
 
 useDotenv: true
@@ -25,8 +26,8 @@ custom:
     domainName: ${self:custom.domains.${self:custom.stage}}
     basePath: logbook
     stage: ${self:provider.stage}
-    certificateName: '*.opsap.com'
-    # certificateArn: arn:aws:acm:us-east-1:383627466135:certificate/dc9dbae5-cd03-4099-9c6d-fd321a9e7d7a
+    # certificateName: '*.opsap.com'
+    certificateArn: 1:383627466135:certificate/3f1fa2fa-84cd-443a-b19d-b917033dd8bf
     createRoute53Record: true
     endpointType: edge
   prune:
@@ -56,7 +57,7 @@ resources:
   Resources:
     LogbookServiceTable: ${file(infra/logbook-service-table.yml):logbook-service-table}
 
-############ Lambda functions & API endpoints ############
+###### Lambda functions & API endpoints ######
 functions:
   ########## Diving - Diver #########
   diving-diver-create-entry:

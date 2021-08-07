@@ -25,6 +25,7 @@ custom:
     domainName: ${self:custom.domains.${self:custom.stage}}
     basePath: profile
     stage: ${self:provider.stage}
+    certificateArn: 1:383627466135:certificate/3f1fa2fa-84cd-443a-b19d-b917033dd8bf
     createRoute53Record: true
     endpointType: edge
   esbuild:
