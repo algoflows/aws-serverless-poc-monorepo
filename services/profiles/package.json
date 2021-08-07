@@ -9,7 +9,9 @@
   },
   "devDependencies": {
     "serverless-bundle": "^4.4.0",
+    "serverless-domain-manager": "^5.1.5",
     "serverless-dotenv-plugin": "^3.9.0",
+    "serverless-esbuild": "^1.16.1",
     "serverless-offline": "^7.1.0",
     "serverless-plugin-warmup": "^5.3.1",
     "serverless-prune-plugin": "^1.5.1",
@@ -24,8 +26,9 @@
     "aws-sdk": "^2.961.0",
     "dynamoose": "^3.0.0-alpha.2",
     "http-errors": "^1.8.0",
+    "ioredis": "^4.27.7",
     "middy-middleware-json-error-handler": "^2.0.6",
-    "serverless": "^2.53.0",
+    "serverless": "^2.53.1",
     "uuid": "^8.3.2"
   }
 }

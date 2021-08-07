@@ -11,6 +11,7 @@ plugins:
   - serverless-plugin-warmup # Keeps function warmed up, no cold starts
   - serverless-prune-plugin # Prune old functions
   - serverless-seed # incremental serverless seed
+  - serverless-domain-manager
 
 useDotenv: true
 configValidationMode: error
@@ -18,11 +19,18 @@ package: # Packages functions individually
   individually: true
 
 custom:
+  customDomain:
+    domainName: api.opsap.com
+    basePath: 'logbook'
+    stage: ${self:provider.stage}
+    certificateName: '*.opsap.com'
+    createRoute53Record: true
+    endpointType: edge
   seed:
     incremental:
       enabled: true
     disabledFor:
-      - production
+      - prod
       - staging
   prune:
     automatic: true
@@ -54,7 +62,7 @@ provider:
   name: aws
   runtime: nodejs14.x
   memorySize: 512
-  stage: ${opt:stage, 'develop'}
+  stage: ${opt:stage, 'dev'}
   region: eu-west-1
   lambdaHashingVersion: 20201221
   environment:

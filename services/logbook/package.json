@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "serverless-bundle": "^4.4.0",
+    "serverless-domain-manager": "^5.1.5",
     "serverless-dotenv-plugin": "^3.9.0",
     "serverless-offline": "^7.1.0",
     "serverless-plugin-warmup": "^5.3.1",

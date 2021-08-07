@@ -5,12 +5,13 @@ org: opsap
 ## test test
 
 plugins:
-  - serverless-bundle # Package our functions with Webpack
+  - serverless-esbuild
   - serverless-offline # Enables local devleopment
   - serverless-dotenv-plugin # Load .env as environment variables
   - serverless-plugin-warmup # Keeps function warmed up, no cold starts
   - serverless-prune-plugin # Prune old functions
   - serverless-seed
+  - serverless-domain-manager
 
 useDotenv: true
 configValidationMode: error
@@ -18,7 +19,17 @@ package: # Packages functions individually
   individually: true
 
 custom:
-  seed:
+  customDomain:
+    domainName: api.opsap.com
+    basePath: 'logbook'
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    endpointType: edge
+  esbuild:
+    packager: yarn
+    bundle: true
+    minify: true
+  seed: # CICD plugin to stop full re-deployments when updating non essential files
     incremental:
       enabled: true
       disabledFor:
@@ -68,7 +79,7 @@ resources:
     ProfilesServiceTable: ${file(infra/profiles-service-table.yml):profiles-service-table}
 
 functions:
-  ########## Diver
+  ########## User
   user-create-profile:
     handler: functions/user/create-profile.handler
     name: ${self:service}-${self:provider.stage}-user-create-profile
@@ -142,4 +153,20 @@ functions:
       - http:
           method: DELETE
           path: user/delete-profile/{userId}/{profileId}
+          cors: true
+
+  ########## Company
+  company-create-profile:
+    handler: functions/company/create-profile.handler
+    name: ${self:service}-${self:provider.stage}-company-create-profile
+    description: 'create company profile'
+    warmup:
+      default:
+        enabled:
+          # - dev
+          # - prod
+    events:
+      - http:
+          method: POST
+          path: company/create-profile
           cors: true
