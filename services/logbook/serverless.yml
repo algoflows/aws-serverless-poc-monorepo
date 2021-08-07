@@ -2,8 +2,6 @@ service: logbook-service
 app: opsap
 org: opsap
 
-# test
-
 plugins:
   - serverless-esbuild # Package our functions with Webpack
   - serverless-offline # Enables local devleopment
