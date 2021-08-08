@@ -1,4 +1,6 @@
 service: auth-service
+app: opsap
+org: opsa
 
 plugins:
   - serverless-esbuild
