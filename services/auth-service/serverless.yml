@@ -1,8 +1,8 @@
 service: auth-service
 
 plugins:
-  - serverless-build
-  - serverless-domain-manage
+  - serverless-esbuild
+  - serverless-domain-manager
 
 provider:
   name: aws
@@ -12,7 +12,7 @@ provider:
   lambdaHashingVersion: 20201221
   memorySize: 128
   environment:
-    AUTH0_PUBLIC_KEY: ${file(secret.pem)}
+    AUTH0_PUBLIC_KEY: ${file(dev-opsap.pem)}
 
 custom:
   stage: ${opt:stage, self:provider.stage}
