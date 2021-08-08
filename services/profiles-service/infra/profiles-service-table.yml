@@ -1,0 +1,55 @@
+profiles-service-table:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ${self:service}-${self:provider.stage}-table
+    AttributeDefinitions:
+      - AttributeName: PK # userId
+        AttributeType: S
+      - AttributeName: SK # profileType
+        AttributeType: S
+      - AttributeName: company # role
+        AttributeType: S
+      - AttributeName: role # role
+        AttributeType: S
+      - AttributeName: city
+        AttributeType: S
+      - AttributeName: country # country
+        AttributeType: S
+      - AttributeName: createdAt # DateTime
+        AttributeType: S
+    KeySchema:
+      - AttributeName: PK
+        KeyType: HASH
+      - AttributeName: SK
+        KeyType: RANGE
+    BillingMode: PAY_PER_REQUEST
+    GlobalSecondaryIndexes:
+      - IndexName: rolesInCountry-index
+        KeySchema:
+          - AttributeName: country
+            KeyType: HASH
+          - AttributeName: role # DateTime
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: rolesInCity-index
+        KeySchema:
+          - AttributeName: city
+            KeyType: HASH
+          - AttributeName: role # DateTime
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: company-index
+        KeySchema:
+          - AttributeName: company
+            KeyType: HASH
+          - AttributeName: createdAt # DateTime
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+    Tags:
+      - Key: Name
+        Value: logbook service table
+      - Key: createdBy
+        Value: 'Sean Knowles'

@@ -1,0 +1,124 @@
+service: profiles-service
+app: opsap
+org: opsap
+
+## test test
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline # Enables local devleopment
+  - serverless-prune-plugin # Prune old functions
+  - serverless-domain-manager
+
+useDotenv: true
+configValidationMode: error
+package: # Packages functions individually
+  individually: true
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    prod: api.opsap.com
+    staging: staging-api.opsap.com
+    dev: dev-api.opsap.com
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    basePath: profile
+    stage: ${self:provider.stage}
+    certifcateName: '*.opsap.com'
+    certificateArn: 1:383627466135:certificate/3f1fa2fa-84cd-443a-b19d-b917033dd8bf
+    createRoute53Record: true
+    endpointType: edge
+  esbuild:
+    packager: yarn
+    bundle: true
+    minify: true
+  prune:
+    automatic: true
+    includeLayers: true
+    number: 3
+  profiles-service-table:
+    name: !Ref ProfilesServiceTable
+    arn: !GetAtt ProfilesServiceTable.Arn
+  bundle:
+    linting: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 512
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-1
+  lambdaHashingVersion: 20201221
+  environment:
+    PROFILES_SERVICE_TABLE: ${self:custom.profiles-service-table.name}
+  iam:
+    role:
+      statements: ${file(infra/provider-iam.yml):provider-iam}
+
+resources:
+  Resources:
+    ProfilesServiceTable: ${file(infra/profiles-service-table.yml):profiles-service-table}
+
+functions:
+  ########## User
+  user-create-profile:
+    handler: functions/user/create-profile.handler
+    name: ${self:service}-${self:provider.stage}-user-create-profile
+    description: 'create user profile'
+    events:
+      - http:
+          method: POST
+          path: user/create-profile
+          cors: true
+
+  user-get-profiles:
+    handler: functions/user/get-profiles.handler
+    name: ${self:service}-${self:provider.stage}-user-get-profiles
+    description: 'get all user profiles'
+    events:
+      - http:
+          method: GET
+          path: user/get-profiles/{userId}
+          cors: true
+
+  user-get-profile:
+    handler: functions/user/get-profile.handler
+    name: ${self:service}-${self:provider.stage}-user-get-profile
+    description: 'get user profile'
+    events:
+      - http:
+          method: GET
+          path: user/get-profile/{userId}/{profileId}
+          cors: true
+
+  user-update-profile:
+    handler: functions/user/update-profile.handler
+    name: ${self:service}-${self:provider.stage}-user-update-profile
+    description: 'update user profile'
+    events:
+      - http:
+          method: PATCH
+          path: user/update-profile/{userId}
+          cors: true
+
+  user-delete-profile:
+    handler: functions/user/delete-profile.handler
+    name: ${self:service}-${self:provider.stage}-user-delete-profile
+    description: 'delete user profile'
+    events:
+      - http:
+          method: DELETE
+          path: user/delete-profile/{userId}/{profileId}
+          cors: true
+
+  ########## Company
+  company-create-profile:
+    handler: functions/company/create-profile.handler
+    name: ${self:service}-${self:provider.stage}-company-create-profile
+    description: 'create company profile'
+    events:
+      - http:
+          method: POST
+          path: company/create-profile
+          cors: true
