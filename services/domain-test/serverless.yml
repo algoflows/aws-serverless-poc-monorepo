@@ -15,15 +15,12 @@ package: # Packages functions individually
   individually: true
 
 custom:
-  stage: ${opt:stage, self:provider.stage}
-  domains:
-    prod: api.opsap.com
-    staging: staging-api.opsap.com
-    dev: dev-api.opsap.com
+  # stage: ${opt:stage, self:provider.stage}
   customDomain:
-    domainName: ${self:custom.domains.${self:custom.stage}}
-    basePath: logbook
+    domainName: opsap.com
+    basePath: 'home'
     stage: ${self:provider.stage}
+    certificateArn: 1:383627466135:certificate/3f1fa2fa-84cd-443a-b19d-b917033dd8bf
     createRoute53Record: true
     endpointType: edge
   prune:
@@ -40,15 +37,9 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
   lambdaHashingVersion: 20201221
-  environment:
-    LOGBOOK_SERVICE_TABLE: ${self:custom.logbook-service-table.name}
   iam:
     role:
       statements: ${file(infra/provider-iam.yml):provider-iam}
-
-resources:
-  Resources:
-    LogbookServiceTable: ${file(infra/logbook-service-table.yml):logbook-service-table}
 
 ###### Lambda functions & API endpoints ######
 functions:
@@ -60,5 +51,5 @@ functions:
     events:
       - http:
           method: GET
-          path: /
+          path: 'test'
           cors: true

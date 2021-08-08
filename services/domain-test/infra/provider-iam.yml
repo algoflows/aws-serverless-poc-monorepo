@@ -1,16 +1,4 @@
 provider-iam:
-  - Effect: Allow
-    Action:
-      - dynamodb:Scan
-      - dynamodb:Query
-      - dynamodb:GetItem
-      - dynamodb:PutItem
-      - dynamodb:UpdateItem
-      - dynamodb:DeleteItem
-      - dynamodb:DescribeTable
-    Resource:
-      - ${self:custom.logbook-service-table.arn}
-    #   - !Join ["/", ["${self:custom.dive-diver-table.arn}", "index", "orderBy"]]
   - Effect: 'Allow'
     Action:
       - lambda:InvokeFunction # Permission for Lambda invoke warmup function

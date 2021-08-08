@@ -1,23 +1,15 @@
 // import validator from "@middy/validator"
 
 export const handler = async (event, context) => {
-  const { userId } = event.pathParameters
-  console.log('userId', userId)
+  console.log('awesome stuff its working')
+  console.log(event)
 
-  const params = {
-    TableName: LOGBOOK_SERVICE_TABLE,
-    KeyConditionExpression: '#DYNOBASE_PK = :pkey',
-    ExpressionAttributeValues: {
-      ':pkey': `userId#${userId}`
+  return {
+    statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true
     },
-    ExpressionAttributeNames: {
-      '#DYNOBASE_PK': 'PK'
-    },
-    ScanIndexForward: true,
-    limit: 100
+    body: JSON.stringify('awesome stuff its working')
   }
-
-  const result = await dynamodb.query(params)
-
-  return result
 }
