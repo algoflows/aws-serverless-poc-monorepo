@@ -37,3 +37,8 @@
         enabled:
           # - dev
           # - prod
+
+
+https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-export-api.html
+
+aws apigateway get-export --parameters extensions='apigateway' --rest-api YOUR_API_ID --stage-name YOUR_STAGE --export-type swagger  YOUR_AWESOME_API_COLLETION.json

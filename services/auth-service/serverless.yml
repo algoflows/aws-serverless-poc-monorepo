@@ -28,7 +28,7 @@ functions:
     handler: functions/public.handler
     events:
       - http:
-          path: auth/public
+          path: public
           method: POST
           # authorizer: my-auth-guard-func # public until authorizer is uncommented
           cors: true
@@ -36,7 +36,7 @@ functions:
     handler: functions/private.handler
     events:
       - http:
-          path: auth/private
+          path: private
           method: POST
           authorizer: my-auth-guard-func
           cors: true

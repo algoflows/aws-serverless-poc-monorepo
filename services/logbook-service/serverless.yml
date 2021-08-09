@@ -22,10 +22,9 @@ custom:
     dev: dev-api.opsap.com
   customDomain:
     domainName: ${self:custom.domains.${self:custom.stage}}
-    basePath: logbook
+    basePath: 'logbook'
     stage: ${self:provider.stage}
     createRoute53Record: true
-    endpointType: edge
   prune:
     automatic: true
     includeLayers: true
@@ -35,6 +34,7 @@ custom:
     arn: !GetAtt LogbookServiceTable.Arn
   bundle:
     linting: true
+  authorizer: arn:aws:lambda:${aws:region}:${aws:accountId}:function:auth-service-${self:provider.stage}-my-auth-guard-func
 
 provider:
   name: aws
@@ -104,4 +104,5 @@ functions:
       - http:
           method: DELETE
           path: diving/diver/delete-entry/{userId}/{entryId}
+          authorizer: ${self:custom.authorizer}
           cors: true
