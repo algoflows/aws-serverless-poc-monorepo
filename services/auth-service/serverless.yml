@@ -1,9 +1,9 @@
 service: auth-service
 app: opsap
-org: opsa
+org: opsap
 
 plugins:
-  - serverless-esbuild
+  - serverless-bundle
   - serverless-domain-manager
 
 provider:
@@ -12,9 +12,34 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
   lambdaHashingVersion: 20201221
-  memorySize: 128
+  memorySize: 512
   environment:
     AUTH0_PUBLIC_KEY: ${file(dev-opsap.pem)}
+
+functions:
+  my-auth-guard-func:
+    handler: functions/auth.handler
+    events:
+      - http:
+          path: auth
+          method: post
+          cors: true
+  public-endpoint:
+    handler: functions/public.handler
+    events:
+      - http:
+          path: auth/public
+          method: POST
+          # authorizer: my-auth-guard-func # public until authorizer is uncommented
+          cors: true
+  private-endpoint:
+    handler: functions/private.handler
+    events:
+      - http:
+          path: auth/private
+          method: POST
+          authorizer: my-auth-guard-func
+          cors: true
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -30,47 +55,3 @@ custom:
     endpointType: edge
   bundle:
     linting: true
-
-functions:
-  auth:
-    handler: functions/auth.handler
-    cors: true
-  public-endpoint:
-    handler: functions/public.handler
-    events:
-      - http:
-          path: public
-          method: POST
-          cors: true
-  private-endpoint:
-    handler: functions/private.handler
-    events:
-      - http:
-          path: private
-          method: POST
-          authorizer: auth
-          cors: true
-
-resources:
-  Resources:
-    # This response is needed for custom authorizer failures cors support ¯\_(ツ)_/¯
-    GatewayResponse:
-      Type: 'AWS::ApiGateway::GatewayResponse'
-      Properties:
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-        ResponseType: EXPIRED_TOKEN
-        RestApiId:
-          Ref: 'ApiGatewayRestApi'
-        StatusCode: '401'
-    AuthFailureGatewayResponse:
-      Type: 'AWS::ApiGateway::GatewayResponse'
-      Properties:
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-        ResponseType: UNAUTHORIZED
-        RestApiId:
-          Ref: 'ApiGatewayRestApi'
-        StatusCode: '401'

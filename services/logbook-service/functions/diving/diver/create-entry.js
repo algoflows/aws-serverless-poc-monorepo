@@ -1,5 +1,5 @@
 import { lambdaHandler, dynamodb, commonMiddleware } from '../../../lib'
-import validator from '@middy/validator'
+// import validator from '@middy/validator'
 import { v4 as uuid } from 'uuid'
 import { Logbook } from '../logbookEnum'
 
@@ -23,7 +23,8 @@ const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
 */
 
 const main = lambdaHandler(async (event, context) => {
-  const { userId } = event.body
+  const { userId } = event.requestContext.identity.cognitoIdentityId
+  console.log('cognitoIdentityId', userId)
   const now = new Date()
 
   const params = {
@@ -47,41 +48,43 @@ const main = lambdaHandler(async (event, context) => {
   return params.Item
 })
 
-const schema = {
-  type: 'object',
-  properties: {
-    body: {
-      type: 'object',
-      properties: {
-        userId: {
-          type: 'string'
-        },
-        verifierId: {
-          type: 'string'
-        },
-        company: {
-          type: 'string'
-        },
-        logType: {
-          type: 'string'
-        },
-        country: {
-          type: 'string'
-        }
-      },
-      required: ['userId', 'verifierId', 'company', 'logType', 'country']
-    }
-  },
-  required: ['body']
-}
+// const schema = {
+//   type: 'object',
+//   properties: {
+//     body: {
+//       type: 'object',
+//       properties: {
+//         userId: {
+//           type: 'string'
+//         },
+//         verifierId: {
+//           type: 'string'
+//         },
+//         company: {
+//           type: 'string'
+//         },
+//         logType: {
+//           type: 'string'
+//         },
+//         country: {
+//           type: 'string'
+//         }
+//       },
+//       required: ['userId', 'verifierId', 'company', 'logType', 'country']
+//     }
+//   },
+//   required: ['body']
+// }
 
 // exported lambda handler func with middleware
-export const handler = commonMiddleware(main).use(
-  validator({
-    inputSchema: schema,
-    ajvOptions: {
-      useDefaults: true,
-      strict: false
-    }
-  })
-)
+export const handler = commonMiddleware(main)
+
+// .use(
+//   validator({
+//     inputSchema: schema,
+//     ajvOptions: {
+//       useDefaults: true,
+//       strict: false
+//     }
+//   })
+// )

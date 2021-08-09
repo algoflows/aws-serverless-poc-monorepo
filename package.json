@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "audit": "lerna-audit"
+  },
   "workspaces": [
     "services/*",
     "packages/*",
