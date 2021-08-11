@@ -1,5 +1,13 @@
 module.exports = {
   reactStrictMode: true,
+  images: {
+    domains: [
+      's3-us-west-2.amazonaws.com',
+      's3-us-west-1.amazonaws.com',
+      's.gravatar.com',
+      'lh3.googleusercontent.com'
+    ]
+  },
   webpack: (config, { dev, isServer }) => {
     // Replace React with Preact only in client production build
     if (!dev && !isServer) {

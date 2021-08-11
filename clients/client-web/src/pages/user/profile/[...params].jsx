@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import UserLayout from '../../../../components/layouts/user'
+import UserLayout from '../../../components/layouts/user'
 
 export default function Profile() {
   const router = useRouter()

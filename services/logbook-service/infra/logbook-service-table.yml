@@ -5,7 +5,7 @@ logbook-service-table:
     AttributeDefinitions:
       - AttributeName: PK # userId
         AttributeType: S
-      - AttributeName: SK # example diveId
+      - AttributeName: SK # example entryId
         AttributeType: S
       - AttributeName: LGBK # logbook
         AttributeType: S
@@ -36,7 +36,7 @@ logbook-service-table:
         KeySchema:
           - AttributeName: verifierId # logbook
             KeyType: HASH
-          - AttributeName: createdAt
+          - AttributeName: SK
             KeyType: RANGE
         Projection:
           ProjectionType: ALL

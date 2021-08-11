@@ -31,7 +31,6 @@ const main = lambdaHandler(async (event, context) => {
       ...event.body,
       PK: `userId#${userId}`,
       SK: `diveId#${uuid()}`,
-      LGBK: Logbook.diver,
       userVerifiedAt: 'false',
       companyVerifiedAt: 'false',
       clientVerfiedAt: 'false',

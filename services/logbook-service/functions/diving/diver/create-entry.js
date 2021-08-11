@@ -23,8 +23,7 @@ const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
 */
 
 const main = lambdaHandler(async (event, context) => {
-  const { userId } = event.requestContext.identity.cognitoIdentityId
-  console.log('cognitoIdentityId', userId)
+  const { userId } = event.body
   const now = new Date()
 
   const params = {

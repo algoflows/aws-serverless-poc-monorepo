@@ -28,6 +28,8 @@ export async function handler(event, context) {
 
   const token = event.authorizationToken.replace('Bearer ', '')
 
+  console.log('TOKEN !!!!!!', token)
+
   try {
     const claims = jwt.verify(token, process.env.AUTH0_PUBLIC_KEY)
     const policy = generatePolicy(claims.sub, event.methodArn)
