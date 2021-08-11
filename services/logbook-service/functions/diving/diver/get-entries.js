@@ -11,7 +11,7 @@ const main = lambdaHandler(async (event, context) => {
     TableName: LOGBOOK_SERVICE_TABLE,
     KeyConditionExpression: '#DYNOBASE_PK = :pkey',
     ExpressionAttributeValues: {
-      ':pkey': `userId#${userId}`
+      ':pkey': `userId#${decodeURI(userId)}`
     },
     ExpressionAttributeNames: {
       '#DYNOBASE_PK': 'PK'

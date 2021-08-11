@@ -3,38 +3,16 @@ app: opsap
 org: opsap
 
 plugins:
-  - serverless-esbuild # Package our functions with Webpack
+  - serverless-bundle # Package our functions with Webpack
   - serverless-offline # Enables local devleopment
   - serverless-prune-plugin # Prune old functions
-  - serverless-dotenv-plugin # Load .env as environment variable
+  # - serverless-dotenv-plugin # Load .env as environment variable
   - serverless-domain-manager
 
 useDotenv: true
 configValidationMode: error
 package: # Packages functions individually
   individually: true
-
-custom:
-  stage: ${opt:stage, self:provider.stage}
-  domains:
-    prod: api.opsap.com
-    staging: staging-api.opsap.com
-    dev: dev-api.opsap.com
-  customDomain:
-    domainName: ${self:custom.domains.${self:custom.stage}}
-    basePath: 'logbook'
-    stage: ${self:provider.stage}
-    createRoute53Record: true
-  prune:
-    automatic: true
-    includeLayers: true
-    number: 3
-  logbook-service-table:
-    name: !Ref LogbookServiceTable
-    arn: !GetAtt LogbookServiceTable.Arn
-  bundle:
-    linting: true
-  authorizer: arn:aws:lambda:${aws:region}:${aws:accountId}:function:auth-service-${self:provider.stage}-my-auth-guard-func
 
 provider:
   name: aws
@@ -64,6 +42,7 @@ functions:
       - http:
           method: POST
           path: diving/diver/create-entry
+          authorizer: ${self:custom.authorizer}
           cors: true
 
   diving-diver-get-entries:
@@ -94,6 +73,7 @@ functions:
       - http:
           method: PATCH
           path: diving/diver/update-entry/{userId}
+          # authorizer: ${self:custom.authorizer}
           cors: true
 
   diving-diver-delete-entry:
@@ -104,5 +84,35 @@ functions:
       - http:
           method: DELETE
           path: diving/diver/delete-entry/{userId}/{entryId}
-          authorizer: ${self:custom.authorizer}
+          # authorizer: ${self:custom.authorizer}
           cors: true
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    prod: api.opsap.com
+    staging: staging-api.opsap.com
+    dev: dev-api.opsap.com
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    basePath: logbook
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+  prune:
+    automatic: true
+    includeLayers: true
+    number: 3
+  logbook-service-table:
+    name: !Ref LogbookServiceTable
+    arn: !GetAtt LogbookServiceTable.Arn
+  bundle:
+    packager: yarn
+    linting: true
+    sourcemaps: true # Enable source maps
+    caching: true # Enable Webpack caching
+    stats: false # includes Webpack's stats
+    forceExclude: # Don't include these in the package
+      - chrome-aws-lambda # Because it'll be provided through a Lambda Layer
+    ignorePackages:
+      - hiredis
+  authorizer: arn:aws:lambda:${aws:region}:${aws:accountId}:function:auth-service-${self:provider.stage}-my-auth-guard-func

@@ -16,7 +16,5 @@
     "aws-sdk": "^2.961.0",
     "lerna": "^4.0.0"
   },
-  "dependencies": {
-    "serverless": "^2.53.0"
-  }
+  "dependencies": {}
 }

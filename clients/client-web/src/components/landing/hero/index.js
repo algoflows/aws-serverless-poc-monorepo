@@ -17,7 +17,7 @@ export default function Hero() {
             <div className="rounded-md shadow">
               <a
                 href="#"
-                className="flex items-center justify-center w-full px-4 py-3 text-base font-medium text-white border border-transparent rounded-md bg-gradient-to-r from-blue-900 to-blue-600 hover:bg-blue-500 md:py-4 md:text-lg md:px-10"
+                className="flex items-center justify-center w-full px-4 py-3 text-base font-medium text-white border border-transparent rounded-md bg-gradient-to-r from-blue-900 to-blue-600 hover:bg-blue-500 md:py-3 md:text-lg md:px-6"
               >
                 Signup for FREE
               </a>
