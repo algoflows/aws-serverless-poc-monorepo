@@ -1,8 +1,8 @@
 import styles from './carousel.module.scss'
-import LogoCard from '../logo-card'
+import LogoCard from './logo-card'
 import Image from 'next/image'
 
-export default function Carousel({ logos, height }) {
+export default function ProfileCarousel({ logos, height }) {
   const defaultLogoList = [
     'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png',
     'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png',
@@ -25,7 +25,7 @@ export default function Carousel({ logos, height }) {
           {defaultLogoList.map((logo, i) => (
             <LogoCard key={i}>
               <div className="slide">
-                <Image src={logo} height={height || 50} width="150" alt="" />
+                <Image src={logo} height={height || 30} width="80" alt="" />
               </div>
             </LogoCard>
           ))}

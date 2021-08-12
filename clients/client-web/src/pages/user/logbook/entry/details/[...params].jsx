@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import UserLayout from '../../../../../layouts/user'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
+import Loader from '../../../../../components/loaders'
 
 export default function EntryDetails() {
   const {
@@ -16,7 +17,7 @@ export default function EntryDetails() {
 
   const { isLoading, isError, data, error } = useQuery('get-entries', fetchRecords)
 
-  if (isLoading) return <span>Loading...</span>
+  if (isLoading) return <Loader size={100} loading={true} />
   if (isError) return <span>Error: {error.message}</span>
 
   return (

@@ -3,6 +3,7 @@ import UserLayout from '../../../../layouts/user'
 import EntryItem from '../../../../components/logbook/entry-item'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
+import Loader from '../../../../components/loaders'
 
 export default function Logbook() {
   const {
@@ -17,7 +18,7 @@ export default function Logbook() {
 
   const { isLoading, isError, data, error } = useQuery('get-entries', fetchRecords)
 
-  if (isLoading) return <span>Loading...</span>
+  if (isLoading) return <Loader size={100} loading={isLoading} />
   if (isError) return <span>Error: {error.message}</span>
 
   return (
@@ -26,9 +27,7 @@ export default function Logbook() {
         <ul className="divide-y divide-gray-200">
           {data.Items.map((data, i) => (
             <div className="cursor-pointer" key={i}>
-              <Link href={`/user/logbook/entry/details/${entry.userId}/${entry.SK}`} passHref>
-                <EntryItem entry={data} />
-              </Link>
+              <EntryItem entry={data} />
             </div>
           ))}
         </ul>
