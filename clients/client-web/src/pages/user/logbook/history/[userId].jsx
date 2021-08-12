@@ -25,8 +25,10 @@ export default function Logbook() {
       <div className="overflow-hidden bg-white shadow sm:rounded-md">
         <ul className="divide-y divide-gray-200">
           {data.Items.map((data, i) => (
-            <div onClick={() => console.log('clicked', data.SK)} className="cursor-pointer" key={i}>
-              <EntryItem entry={data} />
+            <div className="cursor-pointer" key={i}>
+              <Link href={`/user/logbook/entry/details/${entry.userId}/${entry.SK}`} passHref>
+                <EntryItem entry={data} />
+              </Link>
             </div>
           ))}
         </ul>
