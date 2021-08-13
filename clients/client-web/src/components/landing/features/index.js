@@ -2,19 +2,21 @@ import { CheckIcon } from '@heroicons/react/outline'
 
 const features = [
   {
-    name: 'Safeguard your career history',
-    description: 'Never worry about losing your logbook again.'
+    name: 'Safeguard Career History',
+    description:
+      'Never worry about losing your logbook again, your career history backed up on cloud storage used by intelligence organisations'
   },
   {
-    name: 'Build a verifiable track record',
-    description: 'Get each dive verified via our cross channel supervisor diver verification system'
+    name: 'A Verifiable Track Record',
+    description:
+      'Get each dive verified by our proprietary verification system, automating your resume and dive history'
   },
   {
-    name: 'Track your statistics and progression',
+    name: 'Track Statistics',
     description: 'See in depth statistics of of your commercial diving history, let us do the maths for you.'
   },
   {
-    name: 'Stay informed',
+    name: 'Keep Informed',
     description:
       'Keep informed on industry news and key industry metrics. Find out which regions of the world pay best.'
   },
@@ -28,12 +30,11 @@ const features = [
       'More easily fulfil your legal obligation to keep a immutable diving record, we help to make it painless.'
   },
   {
-    name: 'Stay in contact with industry',
-    description:
-      'Our goal is to unify a fragmented industry and bring it into the 21st century with modern tooling.'
+    name: 'Stay Connected',
+    description: 'No more being in the dark, get the industry visibility you always needed.'
   },
   {
-    name: 'Mobile app',
+    name: 'Mobile App (coming soon)',
     description:
       'Your new logbook is your phone, let it sync with our secure servers to never worry about loss of your career history.'
   }
@@ -44,13 +45,13 @@ export default function Features() {
     <div className="bg-white">
       <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:py-15 lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
         <div>
-          <h2 className="text-base font-semibold tracking-wide text-indigo-600 uppercase">
+          <h2 className="text-base font-semibold tracking-wide text-blue-600 uppercase">
             Everything you need
           </h2>
           <p className="mt-2 text-3xl font-extrabold text-gray-900">All-in-one platform</p>
           <p className="mt-4 text-lg text-gray-500">
-            Ac euismod vel sit maecenas id pellentesque eu sed consectetur. Malesuada adipiscing sagittis vel
-            nulla nec.
+            Finally, professional grade tooling for Commercial Diving and ROV specialists, that make the small
+            things easy.
           </p>
         </div>
         <div className="mt-12 lg:mt-0 lg:col-span-2">
