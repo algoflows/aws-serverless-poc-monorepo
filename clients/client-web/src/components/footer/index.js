@@ -4,7 +4,7 @@ import opsapSymbol from '/public/opsap6-white-symbol-final.png'
 
 export default function Footer() {
   return (
-    <footer className="bottom-0 px-6 py-2 mt-10 text-gray-100 bg-gradient-to-r from-gray-900 to-blue-800">
+    <footer className="bottom-0 px-6 py-2 mt-10 text-gray-100 bg-gradient-to-r from-gray-900 to-blue-800 rounded-t-md">
       <div className="container flex flex-col items-center justify-between mx-auto md:flex-row">
         <a className="mt-1">
           <Image width="35" height="40" src={opsapSymbol} alt="opsap logo" />

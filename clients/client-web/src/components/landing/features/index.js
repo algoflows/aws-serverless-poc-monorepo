@@ -2,33 +2,40 @@ import { CheckIcon } from '@heroicons/react/outline'
 
 const features = [
   {
-    name: 'Invite team members',
-    description: 'You can manage phone, email and chat conversations all from a single mailbox.'
+    name: 'Safeguard your career history',
+    description: 'Never worry about losing your logbook again.'
   },
   {
-    name: 'List view',
-    description: 'You can manage phone, email and chat conversations all from a single mailbox.'
+    name: 'Build a verifiable track record',
+    description: 'Get each dive verified via our cross channel supervisor diver verification system'
   },
   {
-    name: 'Keyboard shortcuts',
-    description: 'You can manage phone, email and chat conversations all from a single mailbox.'
+    name: 'Track your statistics and progression',
+    description: 'See in depth statistics of of your commercial diving history, let us do the maths for you.'
   },
   {
-    name: 'Calendars',
-    description: 'You can manage phone, email and chat conversations all from a single mailbox.'
+    name: 'Stay informed',
+    description:
+      'Keep informed on industry news and key industry metrics. Find out which regions of the world pay best.'
   },
   {
     name: 'Notifications',
-    description: 'Find what you need with advanced filters, bulk actions, and quick views.'
+    description: 'Get alerts when new jobs hit the jobs board so you never miss an opportunity.'
   },
-  { name: 'Boards', description: 'Find what you need with advanced filters, bulk actions, and quick views.' },
   {
     name: 'Reporting',
-    description: 'Find what you need with advanced filters, bulk actions, and quick views.'
+    description:
+      'More easily fulfil your legal obligation to keep a immutable diving record, we help to make it painless.'
+  },
+  {
+    name: 'Stay in contact with industry',
+    description:
+      'Our goal is to unify a fragmented industry and bring it into the 21st century with modern tooling.'
   },
   {
     name: 'Mobile app',
-    description: 'Find what you need with advanced filters, bulk actions, and quick views.'
+    description:
+      'Your new logbook is your phone, let it sync with our secure servers to never worry about loss of your career history.'
   }
 ]
 
