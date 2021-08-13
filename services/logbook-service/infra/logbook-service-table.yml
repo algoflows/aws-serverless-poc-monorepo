@@ -5,99 +5,115 @@ logbook-service-table:
     AttributeDefinitions:
       - AttributeName: PK # userId
         AttributeType: S
-      - AttributeName: SK # example entryId
+      - AttributeName: SK # entryId
         AttributeType: S
-      - AttributeName: LGBK # logbook
+      - AttributeName: logbook
         AttributeType: S
-      - AttributeName: company # company
+      - AttributeName: company
         AttributeType: S
-      - AttributeName: country # country
+      - AttributeName: clientRep
         AttributeType: S
-      - AttributeName: createdAt # DateTime
+      - AttributeName: country
         AttributeType: S
-      - AttributeName: logType # DiveType or similar
+      - AttributeName: entryType #(air or saturation)
         AttributeType: S
-      - AttributeName: verifierId # VerifierEmail
+      - AttributeName: primaryCat #(inshore or offshore)
         AttributeType: S
-      - AttributeName: userVerifiedAt
+      - AttributeName: secondaryCat #(construction/inspection/salvage)
         AttributeType: S
-      - AttributeName: companyVerifiedAt
+      - AttributeName: verifierId
         AttributeType: S
-      - AttributeName: clientVerifiedAt
+      - AttributeName: createdAt
         AttributeType: S
+      - AttributeName: GSK1
+        AttributeType: S
+      - AttributeName: GSK2
+        AttributeType: S
+    BillingMode: PAY_PER_REQUEST
     KeySchema:
       - AttributeName: PK
         KeyType: HASH
       - AttributeName: SK
         KeyType: RANGE
-    BillingMode: PAY_PER_REQUEST
     GlobalSecondaryIndexes:
-      - IndexName: verifier-index
+      - IndexName: userId-index
         KeySchema:
-          - AttributeName: verifierId # logbook
+          - AttributeName: PK
             KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: entriesId-index
+        KeySchema:
           - AttributeName: SK
-            KeyType: RANGE
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: GSK1-index
+        KeySchema:
+          - AttributeName: GSK1
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: GSK2-index
+        KeySchema:
+          - AttributeName: GSK2
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: verifierId-index
+        KeySchema:
+          - AttributeName: verifierId
+            KeyType: HASH
         Projection:
           ProjectionType: ALL
       - IndexName: logbook-index
         KeySchema:
-          - AttributeName: LGBK # logbook
+          - AttributeName: logbook
             KeyType: HASH
-          - AttributeName: createdAt
-            KeyType: RANGE
         Projection:
           ProjectionType: ALL
-      - IndexName: 'company-index'
+      - IndexName: company-index
         KeySchema:
           - AttributeName: company
             KeyType: HASH
-          - AttributeName: createdAt
-            KeyType: RANGE
         Projection:
           ProjectionType: ALL
-      - IndexName: 'country-index'
+      - IndexName: clientRep-index
+        KeySchema:
+          - AttributeName: clientRep
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: country-index
         KeySchema:
           - AttributeName: country
             KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: entryType-index
+        KeySchema:
+          - AttributeName: entryType
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: primaryCat-index
+        KeySchema:
+          - AttributeName: primaryCat
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: secondaryCat-index
+        KeySchema:
+          - AttributeName: secondaryCat
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: createdAt-index
+        KeySchema:
           - AttributeName: createdAt
-            KeyType: RANGE
-        Projection:
-          ProjectionType: ALL
-      - IndexName: 'entryType-index'
-        KeySchema:
-          - AttributeName: logType
             KeyType: HASH
-          - AttributeName: createdAt
-            KeyType: RANGE
-        Projection:
-          ProjectionType: ALL
-      - IndexName: userVerifiedAtByPK-index
-        KeySchema:
-          - AttributeName: userVerifiedAt # userVerified
-            KeyType: HASH
-          - AttributeName: PK
-            KeyType: RANGE
-        Projection:
-          ProjectionType: ALL
-      - IndexName: companyVerifiedAtByPK-index
-        KeySchema:
-          - AttributeName: companyVerifiedAt # companyVerified
-            KeyType: HASH
-          - AttributeName: PK
-            KeyType: RANGE
-        Projection:
-          ProjectionType: ALL
-      - IndexName: clientVerifiedAtByPK-index
-        KeySchema:
-          - AttributeName: clientVerifiedAt # clientVerified
-            KeyType: HASH
-          - AttributeName: PK
-            KeyType: RANGE
         Projection:
           ProjectionType: ALL
     Tags:
-      - Key: Name
-        Value: logbook service table
-      - Key: createdBy
+      - Key: created-by
         Value: 'Sean Knowles'
