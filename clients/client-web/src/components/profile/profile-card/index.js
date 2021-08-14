@@ -5,33 +5,33 @@ import profileTitleImage from '/public/images/profile-title-image.png'
 export default function ProfileCard({ user }) {
   return (
     <>
-      <div className="relative container pb-2 pt-20 px-8 overflow-hidden">
+      <div className="container relative px-8 pt-20 pb-2 overflow-hidden">
         <Image
           layout="fill"
           objectFit="cover"
-          className="absolute top-1 filter brightness-50 left-0 w-full h-24 object-cover rounded-t-lg"
+          className="absolute left-0 object-cover w-full h-24 rounded-t-lg top-1 filter brightness-50"
           src={profileTitleImage}
           alt="background"
         />
-        <div className="relative w-full pt-21  object-cover flex items-end">
-          <Image width={90} height={90} className="rounded-xl " src={user.picture} />
-          <span className="ml-6 font-semibold text-3xl text-white">Sean Knowles</span>
-          <button className="ml-5 mb-1 text-white font-semibold px-4 border border-green-500 rounded-lg">
+        <div className="relative flex items-end object-cover w-full pt-21">
+          <Image width={90} height={90} className="rounded-xl " src={user.picture} alt="profile picture" />
+          <span className="ml-6 text-3xl font-semibold text-white">Sean Knowles</span>
+          <button className="px-4 mb-1 ml-5 font-semibold text-white border border-green-500 rounded-lg">
             Available
           </button>
         </div>
       </div>
-      <div className="container h-81 rounded-b-lg flex flex-col justify-between shadow-md">
+      <div className="container flex flex-col justify-between rounded-b-lg shadow-md h-81">
         <div className="h-33">
-          <div className="pl-9 py-4 text-sm font-semibold text-lg ">Companies Worked For</div>
+          <div className="py-4 text-sm text-lg font-semibold pl-9 ">Companies Worked For</div>
           <div className="px-4">
             <ProfileCarousel />
           </div>
         </div>
-        <div className="p-5 flex-grow">
-          <div className="border-t h-full flex items-center justify-around">
-            <div className="w-4/5 p-3 col-span-3">
-              <div className="font-semibold text-lg mb-4">Diver Bio</div>
+        <div className="flex-grow p-5">
+          <div className="flex items-center justify-around h-full border-t">
+            <div className="w-4/5 col-span-3 p-3">
+              <div className="mb-4 text-lg font-semibold">Diver Bio</div>
               <div className="text-sm font-light text-gray-501">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci explicabo id incidunt iure
                 nobis quia ratione rem similique suscipit? Ad alias commodi, consectetur cumque deleniti
@@ -40,9 +40,9 @@ export default function ProfileCard({ user }) {
                 maiores maxime minus optio, pariatur quaerat sed sit vero.
               </div>
             </div>
-            <div className="w-2/5 p-3 col-span-1">
+            <div className="w-2/5 col-span-1 p-3">
               <div className="mb-3">
-                <span className="font-semibold text-lg">Details</span>
+                <span className="text-lg font-semibold">Details</span>
               </div>
               <div className="flex mb-2">
                 <h2 className="text-sm font-semibold text-blue-400">

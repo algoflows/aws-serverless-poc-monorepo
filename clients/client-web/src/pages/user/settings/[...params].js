@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react'
 import { useRouter } from 'next/router'
 import UserLayout from '../../../layouts/user'
