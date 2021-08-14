@@ -2,9 +2,5 @@
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "packages": [
-    "services/*",
-    "packages/*",
-    "clients/*"
-  ]
+  "packages": ["services/*", "clients/*"]
 }

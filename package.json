@@ -9,7 +9,6 @@
   },
   "workspaces": [
     "services/*",
-    "packages/*",
     "clients/*"
   ],
   "devDependencies": {
