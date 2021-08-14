@@ -17,12 +17,12 @@ export default function MyApp({ Component, pageProps }) {
     <UserProvider>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           <Head>
             <title>OPSAP - Platform</title>
             <link rel="shortcut icon" href="/opsap-favicon.png" />
           </Head>
-          <div className="mx-auto sm:px-0 max-w-7xl">
+          <div className="max-w-5xl mx-auto sm:px-0">
             <Layout>
               <Component {...pageProps} />
             </Layout>
