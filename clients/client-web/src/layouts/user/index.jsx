@@ -5,8 +5,6 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { useUser } from '@auth0/nextjs-auth0'
 import opsapLogo from '/public/opsap6-white-final.png'
-import Breadcrumbs from 'nextjs-breadcrumbs'
-import 'nextjs-breadcrumbs/dist/index.css'
 import Footer from '../../components/footer'
 
 const navigation = ['Home', 'Profile', 'Logbook']
@@ -18,7 +16,7 @@ function classNames(...classes) {
 
 export default function UserLayout({ children }) {
   const { user, error, isLoading } = useUser()
-  if (isLoading) return <span>''</span>
+  if (isLoading) return <span>...loading</span>
   if (error) return <div>{error.message}</div>
   return (
     <div className="flex flex-col h-screen max-w-890px">
@@ -200,7 +198,6 @@ export default function UserLayout({ children }) {
       <header className="bg-white shadow-sm">
         <div className="flex px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <h1 className="text-lg font-semibold leading-6 text-gray-900">Dashboard</h1>
-          {false && <Breadcrumbs omitRootLabel />}
         </div>
       </header>
       <main className="flex-grow">
