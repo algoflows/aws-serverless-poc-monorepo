@@ -5,10 +5,12 @@ import dayjs from 'dayjs'
 
 export default function EntryItem({ entry }) {
   const lsTime = dayjs(entry.lsTime)
-  console.log(entry)
+  console.log('EntryItem', entry.entryId)
+  console.log('EntryItem', entry.userId)
+
   return (
     <>
-      <Link href={`/user/logbook/entry/details/${entry.userId}/${entry.SK}`} passHref>
+      <Link href={`/user/logbook/entry/details/${entry.userId}/${entry.entryId}`} passHref>
         <li className="block hover:bg-gray-50">
           <div className="flex items-center px-4 py-4 sm:px-6">
             <div className="flex items-center flex-1 min-w-0">

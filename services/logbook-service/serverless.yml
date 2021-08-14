@@ -67,13 +67,13 @@ functions:
 
   diving-diver-update-entry:
     handler: functions/diving/diver/update-entry.handler
-    name: ${self:service}-${self:provider.stage}-diving-diver-update-entries
+    name: ${self:service}-${self:provider.stage}-diving-diver-update-entry
     description: 'update diver logbook entry'
     events:
       - http:
           method: PATCH
           path: diving/diver/update-entry/{userId}
-          # authorizer: ${self:custom.authorizer}
+          authorizer: ${self:custom.authorizer}
           cors: true
 
   diving-diver-delete-entry:
@@ -84,7 +84,7 @@ functions:
       - http:
           method: DELETE
           path: diving/diver/delete-entry/{userId}/{entryId}
-          # authorizer: ${self:custom.authorizer}
+          authorizer: ${self:custom.authorizer}
           cors: true
 
 custom:

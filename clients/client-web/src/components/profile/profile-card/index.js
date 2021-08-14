@@ -23,7 +23,7 @@ export default function ProfileCard({ user }) {
       </div>
       <div className="container flex flex-col justify-between rounded-b-lg shadow-md h-81">
         <div className="h-33">
-          <div className="py-4 text-sm text-lg font-semibold pl-9 ">Companies Worked For</div>
+          <div className="py-4 text-lg font-semibold pl-9 ">Companies Worked For</div>
           <div className="px-4">
             <ProfileCarousel />
           </div>

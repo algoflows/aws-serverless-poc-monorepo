@@ -7,16 +7,17 @@ const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
 
 const main = lambdaHandler(async (event) => {
   const { userId } = event.body
-  const now = new Date()
 
-  console.log('CREATE-DIVE-EVENT-BODY', event.body)
+  const now = new Date()
+  const entryId = uuid()
 
   const params = {
     TableName: LOGBOOK_SERVICE_TABLE,
     Item: {
       ...event.body,
       PK: `userId#${userId}`,
-      SK: `diveId#${uuid()}`,
+      SK: `diveId#${entryId}`,
+      entryId: entryId,
       logbook: Logbook.diver,
       companyVerifierId: 'null',
       clientVeriferId: 'null',
