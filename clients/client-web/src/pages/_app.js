@@ -5,8 +5,9 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Hydrate } from 'react-query/hydration'
 import LandingLayout from '../layouts/landing'
-import '../styles/globals.css'
 import { UserProvider } from '@auth0/nextjs-auth0'
+
+import '../styles/globals.css'
 
 export default function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient())
