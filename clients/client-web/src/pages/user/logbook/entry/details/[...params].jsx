@@ -300,7 +300,8 @@ export default function EntryDetails() {
         <div className="pt-5">
           <div className="flex items-center justify-end">
             <span className="mr-6 text-gray-400">
-              Confirmation will automatically inform the superviser to verifiy this dives authenticity{' '}
+              By confirming you the active will be signing this recorded entry and our system will
+              automatically notify the supervisor to validate this records authenticity.
             </span>
             <button
               type="button"

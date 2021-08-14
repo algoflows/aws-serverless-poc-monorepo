@@ -7,21 +7,27 @@ logbook-service-table:
         AttributeType: S
       - AttributeName: SK # entryId
         AttributeType: S
+      - AttributeName: entryType #(air or saturation)
+        AttributeType: S
+      - AttributeName: subTypeA #(inshore or offshore)
+        AttributeType: S
+      - AttributeName: subTypeB #(construction/inspection/salvage)
+        AttributeType: S
       - AttributeName: logbook
         AttributeType: S
       - AttributeName: company
         AttributeType: S
-      - AttributeName: clientRep
+      - AttributeName: client
         AttributeType: S
       - AttributeName: country
         AttributeType: S
-      - AttributeName: entryType #(air or saturation)
+      - AttributeName: userVerifierId
         AttributeType: S
-      - AttributeName: primaryCat #(inshore or offshore)
+      - AttributeName: userVerified
         AttributeType: S
-      - AttributeName: secondaryCat #(construction/inspection/salvage)
+      - AttributeName: companyVerified
         AttributeType: S
-      - AttributeName: verifierId
+      - AttributeName: clientVerified
         AttributeType: S
       - AttributeName: createdAt
         AttributeType: S
@@ -60,12 +66,6 @@ logbook-service-table:
             KeyType: HASH
         Projection:
           ProjectionType: ALL
-      - IndexName: verifierId-index
-        KeySchema:
-          - AttributeName: verifierId
-            KeyType: HASH
-        Projection:
-          ProjectionType: ALL
       - IndexName: logbook-index
         KeySchema:
           - AttributeName: logbook
@@ -78,9 +78,9 @@ logbook-service-table:
             KeyType: HASH
         Projection:
           ProjectionType: ALL
-      - IndexName: clientRep-index
+      - IndexName: client-index
         KeySchema:
-          - AttributeName: clientRep
+          - AttributeName: client
             KeyType: HASH
         Projection:
           ProjectionType: ALL
@@ -96,15 +96,39 @@ logbook-service-table:
             KeyType: HASH
         Projection:
           ProjectionType: ALL
-      - IndexName: primaryCat-index
+      - IndexName: subTypeA-index
         KeySchema:
-          - AttributeName: primaryCat
+          - AttributeName: subTypeA
             KeyType: HASH
         Projection:
           ProjectionType: ALL
-      - IndexName: secondaryCat-index
+      - IndexName: subTypeB-index
         KeySchema:
-          - AttributeName: secondaryCat
+          - AttributeName: subTypeB
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: userVerifierId-index
+        KeySchema:
+          - AttributeName: userVerifierId
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: userVerfied-index
+        KeySchema:
+          - AttributeName: userVerified
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: companyVerfied-index
+        KeySchema:
+          - AttributeName: companyVerified
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: clientVerfied-index
+        KeySchema:
+          - AttributeName: clientVerified
             KeyType: HASH
         Projection:
           ProjectionType: ALL

@@ -2,22 +2,28 @@ import React from 'react'
 import UserLayout from '../../../../layouts/user'
 import { useForm } from 'react-hook-form'
 import { useUser } from '@auth0/nextjs-auth0'
+import { DevTool } from '@hookform/devtools'
 
 export default function Logbooks() {
   const { user } = useUser()
   const {
     register,
+    control,
     handleSubmit,
     formState: { error }
   } = useForm()
 
   const onSubmit = async (data) => {
-    console.log(user)
-
     const newEntry = {
       ...data,
-      userId: user.sub
+      userId: user.sub,
+      company: data.company.toLowerCase(),
+      client: data.client.toLowerCase(),
+      country: data.country.toLowerCase(),
+      userVerifierId: data.userVerifierId.toLowerCase()
     }
+
+    console.log(newEntry)
 
     try {
       const response = await fetch('/api/logbook/diving/diver/create-entry', {
@@ -37,6 +43,7 @@ export default function Logbooks() {
 
   return (
     <div className="px-20 py-12 mt-6">
+      <DevTool control={control} /> {/* set up the dev tool */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="px-10 py-10 space-y-8 border-gray-700 divide-y divide-gray-200 shadow-lg rounded-xl"
@@ -48,28 +55,110 @@ export default function Logbooks() {
               <p className="max-w-2xl mt-1 text-sm text-yellow-400">Fill in all required fields.</p>
             </div>
 
+            {/* ENTRY TYPE AIR/SAT*/}
+            <div className="space-y-6 divide-y divide-gray-200 sm:space-y-5">
+              <div className="mt-6 space-y-6 sm:mt-5 sm:space-y-5">
+                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                  <label
+                    htmlFor="username"
+                    className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                  >
+                    Air/Sat <span className="text-gray-400 "> - (entry-type)</span>
+                  </label>
+
+                  <div className="mt-1 sm:mt-0 sm:col-span-2">
+                    <div className="flex max-w-lg">
+                      <div>
+                        <label className="inline-flex items-center">
+                          <input
+                            {...register('entryType', { required: true })}
+                            type="radio"
+                            className="form-radio"
+                            name="entryType"
+                            value="air"
+                          />
+                          <span className="ml-2 text-sm font-medium text-gray-700 ">AIR</span>
+                        </label>
+                      </div>
+                      <span className="mx-10"></span>
+                      <div>
+                        <label className="inline-flex items-center">
+                          <input
+                            {...register('entryType', { required: true })}
+                            type="radio"
+                            className="form-radio"
+                            name="entryType"
+                            value="sat"
+                          />
+                          <span className="ml-2 text-sm font-medium text-gray-700 ">SAT</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ENTRY TYPE INSHORE/OFFSHORE*/}
+            <div className="space-y-6 divide-y divide-gray-200 sm:space-y-5">
+              <div className="mt-6 space-y-6 sm:mt-5 sm:space-y-5">
+                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                  <label
+                    htmlFor="username"
+                    className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                  >
+                    Inshore/Offshore <span className="text-gray-400 "> - (sub-type-a)</span>
+                  </label>
+                  <div className="mt-1 sm:mt-0 sm:col-span-2">
+                    <div className="flex max-w-lg">
+                      <div>
+                        <label className="inline-flex items-center">
+                          <input
+                            {...register('subTypeA', { required: true })}
+                            type="radio"
+                            className="form-radio"
+                            name="subTypeA"
+                            value="inshore"
+                          />
+                          <span className="ml-2 text-sm font-medium text-gray-700 ">INSHORE</span>
+                        </label>
+                      </div>
+                      <span className="mx-5"></span>
+                      <div>
+                        <label className="inline-flex items-center">
+                          <input
+                            {...register('subTypeA', { required: true })}
+                            type="radio"
+                            className="form-radio"
+                            name="subTypeA"
+                            value="offshore"
+                          />
+                          <span className="ml-2 text-sm font-medium text-gray-700">OFFSHORE</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* COMPANY*/}
             <div className="mt-6 space-y-6 sm:mt-5 sm:space-y-5">
               <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                 <label
                   htmlFor="username"
                   className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                 >
-                  Company
+                  Company <span className="text-gray-400 "> - (contractor / direct employer)</span>
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
-                  <div className="flex max-w-lg rounded-md shadow-sm">
-                    <span className="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50 sm:text-sm">
-                      contractor
-                    </span>
-                    <input
-                      type="text"
-                      name="company"
-                      id="company"
-                      autoComplete="company"
-                      {...register('company', { required: true })}
-                      className="flex-1 block w-full min-w-0 border-gray-300 rounded-none focus:ring-blue-500 focus:border-blue-500 rounded-r-md sm:text-sm"
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    name="company"
+                    autoComplete="company"
+                    {...register('company', { required: true })}
+                    className="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm"
+                  />
                 </div>
               </div>
 
@@ -78,22 +167,16 @@ export default function Logbooks() {
                   htmlFor="username"
                   className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                 >
-                  Client
+                  Client <span className="text-gray-400 "> - (end client / project owner)</span>
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
-                  <div className="flex max-w-lg rounded-md shadow-sm">
-                    <span className="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50 sm:text-sm">
-                      client/rep
-                    </span>
-                    <input
-                      type="text"
-                      name="client"
-                      id="client"
-                      autoComplete="client"
-                      {...register('client', { required: true })}
-                      className="flex-1 block w-full min-w-0 border-gray-300 rounded-none focus:ring-blue-500 focus:border-blue-500 rounded-r-md sm:text-sm"
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    name="client"
+                    autoComplete="organization"
+                    {...register('client', { required: true })}
+                    className="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm"
+                  />
                 </div>
               </div>
 
@@ -102,22 +185,16 @@ export default function Logbooks() {
                   htmlFor="username"
                   className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                 >
-                  Location
+                  Location <span className="text-gray-400 "> - (vessel or town)</span>
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
-                  <div className="flex max-w-lg rounded-md shadow-sm">
-                    <span className="inline-flex items-center px-3 text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50 sm:text-sm">
-                      vessel/town
-                    </span>
-                    <input
-                      type="text"
-                      name="location"
-                      id="location"
-                      autoComplete="location"
-                      {...register('location', { required: true })}
-                      className="flex-1 block w-full min-w-0 border-gray-300 rounded-none focus:ring-blue-500 focus:border-blue-500 rounded-r-md sm:text-sm"
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    name="location"
+                    autoComplete="street-address"
+                    {...register('location', { required: true })}
+                    className="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm"
+                  />
                 </div>
               </div>
 
@@ -127,7 +204,6 @@ export default function Logbooks() {
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                   <select
-                    id="country"
                     name="country"
                     autoComplete="country"
                     {...register('country', { required: true })}
@@ -168,7 +244,7 @@ export default function Logbooks() {
               <div className="pt-8 space-y-6 sm:pt-10 sm:space-y-5">
                 <div>
                   <h3 className="text-lg font-medium leading-6 text-blue-400">Stats</h3>
-                  <p className="max-w-2xl mt-1 text-sm text-gray-500">Dive times and depth</p>
+                  <p className="max-w-2xl mt-1 text-sm text-yellow-400">Dive times and depth</p>
                 </div>
                 <div className="space-y-6 sm:space-y-5">
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
@@ -176,15 +252,14 @@ export default function Logbooks() {
                       htmlFor="first-name"
                       className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                     >
-                      Depth (m)
+                      Depth <span className="text-gray-400 "> - (meters)</span>)
                     </label>
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                       <input
                         type="number"
-                        name="depth-m"
-                        id="depth-m"
-                        autoComplete="depth-m"
-                        {...register('depthM', { required: true })}
+                        name="depthMeters"
+                        autoComplete="number"
+                        {...register('depthMeters', { required: true })}
                         className="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm"
                       />
                     </div>
@@ -200,10 +275,9 @@ export default function Logbooks() {
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                       <input
                         type="datetime-local"
-                        name="left-surface"
-                        id="left-surface"
+                        name="leftSurface"
                         autoComplete="left-surface"
-                        {...register('lsTime', { required: true })}
+                        {...register('leftSurface', { required: true })}
                         className="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm"
                       />
                     </div>
@@ -219,10 +293,9 @@ export default function Logbooks() {
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                       <input
                         type="number"
-                        name="bottom-time"
-                        id="bottom-time"
+                        name="bottomTime"
                         autoComplete="bottom-time"
-                        {...register('btTime', { required: true })}
+                        {...register('bottomTime', { required: true })}
                         className="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm"
                       />
                     </div>
@@ -238,10 +311,9 @@ export default function Logbooks() {
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                       <input
                         type="time"
-                        name="arrived-surface"
-                        id="arrived-surface"
+                        name="arrivedSurface"
                         autoComplete="arrived-surface"
-                        {...register('asTime', { required: true })}
+                        {...register('arrivedSurface', { required: true })}
                         className="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm"
                       />
                     </div>
@@ -257,9 +329,9 @@ export default function Logbooks() {
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                       <input
                         type="text"
-                        name="mixture"
-                        id="mixture"
-                        autoComplete="mixture"
+                        name="table"
+                        autoComplete="table"
+                        {...register('table', { required: true })}
                         className="block border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       />
                     </div>
@@ -276,8 +348,8 @@ export default function Logbooks() {
                       <input
                         type="text"
                         name="mixture"
-                        id="mixture"
                         autoComplete="mixture"
+                        {...register('mixture', { required: true })}
                         className="block border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       />
                     </div>
@@ -287,89 +359,12 @@ export default function Logbooks() {
 
               <div className="pt-8 space-y-6 divide-y divide-gray-200 sm:pt-10 sm:space-y-5">
                 <div>
-                  <h3 className="text-lg font-medium leading-6 text-gray-900">Details</h3>
-                  <p className="max-w-2xl mt-1 text-sm text-gray-500">
+                  <h3 className="text-lg font-medium leading-6 text-blue-400">Details</h3>
+                  <p className="max-w-2xl mt-1 text-sm text-yellow-400">
                     Additional remarks and important information.
                   </p>
                 </div>
                 <div className="space-y-6 divide-y divide-gray-200 sm:space-y-5">
-                  {/* <div className="pt-6 sm:pt-5">
-                    <div role="group" aria-labelledby="label-email">
-                      <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-baseline">
-                        <div>
-                          <div
-                            className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700"
-                            id="label-email"
-                          >
-                            By Email
-                          </div>
-                        </div>
-                        <div className="mt-4 sm:mt-0 sm:col-span-2">
-                          <div className="max-w-lg space-y-4">
-                            <div className="relative flex items-start">
-                              <div className="flex items-center h-5">
-                                <input
-                                  id="comments"
-                                  name="comments"
-                                  type="checkbox"
-                                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                                />
-                              </div>
-                              <div className="ml-3 text-sm">
-                                <label htmlFor="comments" className="font-medium text-gray-700">
-                                  Comments
-                                </label>
-                                <p className="text-gray-500">
-                                  Get notified when someones posts a comment on a posting.
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <div className="relative flex items-start">
-                                <div className="flex items-center h-5">
-                                  <input
-                                    id="candidates"
-                                    name="candidates"
-                                    type="checkbox"
-                                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                                  />
-                                </div>
-                                <div className="ml-3 text-sm">
-                                  <label htmlFor="candidates" className="font-medium text-gray-700">
-                                    Candidates
-                                  </label>
-                                  <p className="text-gray-500">
-                                    Get notified when a candidate applies for a job.
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <div>
-                              <div className="relative flex items-start">
-                                <div className="flex items-center h-5">
-                                  <input
-                                    id="offers"
-                                    name="offers"
-                                    type="checkbox"
-                                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                                  />
-                                </div>
-                                <div className="ml-3 text-sm">
-                                  <label htmlFor="offers" className="font-medium text-gray-700">
-                                    Offers
-                                  </label>
-                                  <p className="text-gray-500">
-                                    Get notified when a candidate accepts or rejects an offer.
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
-
                   <div className="pt-6 sm:pt-5">
                     <div role="group" aria-labelledby="label-notifications">
                       <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-baseline">
@@ -378,7 +373,7 @@ export default function Logbooks() {
                             className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700"
                             id="label-notifications"
                           >
-                            Type
+                            Type <span className="text-gray-400 "> - (cat-c)</span>
                           </div>
                         </div>
                         <div className="sm:col-span-2">
@@ -387,9 +382,12 @@ export default function Logbooks() {
                             <div className="mt-4 space-y-4">
                               <div className="flex items-center">
                                 <input
-                                  id="dive-role"
-                                  name="push-notifications"
+                                  {...register('subTypeB', {
+                                    required: true
+                                  })}
                                   type="radio"
+                                  name="subTypeB"
+                                  value="construction"
                                   className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                 />
                                 <label
@@ -401,9 +399,12 @@ export default function Logbooks() {
                               </div>
                               <div className="flex items-center">
                                 <input
-                                  id="dive-role"
-                                  name="push-notifications"
+                                  {...register('subTypeB', {
+                                    required: true
+                                  })}
                                   type="radio"
+                                  name="subTypeB"
+                                  value="inspection"
                                   className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                 />
                                 <label
@@ -415,9 +416,10 @@ export default function Logbooks() {
                               </div>
                               <div className="flex items-center">
                                 <input
-                                  id="dive-role"
-                                  name="push-notifications"
+                                  {...register('subTypeB', { required: true })}
                                   type="radio"
+                                  name="subtypeB"
+                                  value="salvage"
                                   className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                 />
                                 <label
@@ -442,7 +444,6 @@ export default function Logbooks() {
                     </label>
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                       <textarea
-                        id="details"
                         name="details"
                         rows={3}
                         {...register('details', { required: true })}
@@ -453,6 +454,7 @@ export default function Logbooks() {
                     </div>
                   </div>
 
+                  {/* PHOTO UPLOAD SECTION*/}
                   {/* <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                     <label
                       htmlFor="cover-photo"
@@ -506,11 +508,10 @@ export default function Logbooks() {
                           Email
                         </span>
                         <input
-                          type="text"
-                          name="supervisor"
-                          id="supervisor"
-                          autoComplete="supervisor"
-                          {...register('verifierId', { required: true })}
+                          type="email"
+                          name="userVerifierId"
+                          autoComplete="email"
+                          {...register('userVerifierId', { required: true })}
                           className="flex-1 block w-full min-w-0 border-gray-300 rounded-none focus:ring-blue-500 focus:border-blue-500 rounded-r-md sm:text-sm"
                         />
                       </div>
@@ -525,7 +526,8 @@ export default function Logbooks() {
         <div className="pt-5">
           <div className="flex items-center justify-end">
             <span className="mr-6 text-gray-400">
-              Confirmation will automatically inform the superviser to verifiy this dives authenticity{' '}
+              By confirming you the active will be signing this recorded entry and our system will
+              automatically notify the supervisor to validate this records authenticity.
             </span>
             <button
               type="button"

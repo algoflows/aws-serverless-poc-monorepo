@@ -1,30 +1,15 @@
 import { lambdaHandler, dynamodb, commonMiddleware } from '../../../lib'
-// import validator from '@middy/validator'
+import validator from '@middy/validator'
 import { v4 as uuid } from 'uuid'
 import { Logbook } from '../logbookEnum'
 
 const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
 
-/* Schema validation fields - TODO
-    userId,
-    supervisorName,
-    supervisorEmail,
-    companyName,
-    clientName,
-    diveLocation,
-    maximumDepthMeters,
-    leftSurfaceAt,
-    bottomTimeMinutes,
-    decoCompletedAt,
-    tableUsed,
-    breathingMixture,
-    equipmentUsed,
-    diveDescription,
-*/
-
-const main = lambdaHandler(async (event, context) => {
+const main = lambdaHandler(async (event) => {
   const { userId } = event.body
   const now = new Date()
+
+  console.log('CREATE-DIVE-EVENT-BODY', event.body)
 
   const params = {
     TableName: LOGBOOK_SERVICE_TABLE,
@@ -32,10 +17,14 @@ const main = lambdaHandler(async (event, context) => {
       ...event.body,
       PK: `userId#${userId}`,
       SK: `diveId#${uuid()}`,
-      LGBK: Logbook.diver,
-      userVerifiedAt: 'false',
-      companyVerifiedAt: 'false',
-      clientVerfiedAt: 'false',
+      logbook: Logbook.diver,
+      companyVerifierId: 'null',
+      clientVeriferId: 'null',
+      userVerified: 'false',
+      companyVerified: 'false',
+      clientVerified: 'false',
+      GSK1: event.body.GSK1 || 'null',
+      GSK2: event.body.GSK2 || 'null',
       createdAt: now.toISOString(),
       updatedAt: now.toISOString()
     },
@@ -47,43 +36,70 @@ const main = lambdaHandler(async (event, context) => {
   return params.Item
 })
 
-// const schema = {
-//   type: 'object',
-//   properties: {
-//     body: {
-//       type: 'object',
-//       properties: {
-//         userId: {
-//           type: 'string'
-//         },
-//         verifierId: {
-//           type: 'string'
-//         },
-//         company: {
-//           type: 'string'
-//         },
-//         logType: {
-//           type: 'string'
-//         },
-//         country: {
-//           type: 'string'
-//         }
-//       },
-//       required: ['userId', 'verifierId', 'company', 'logType', 'country']
-//     }
-//   },
-//   required: ['body']
-// }
+const schema = {
+  type: 'object',
+  properties: {
+    body: {
+      type: 'object',
+      properties: {
+        userId: {
+          type: 'string'
+        },
+        entryType: {
+          type: 'string'
+        },
+        subTypeA: {
+          type: 'string'
+        },
+        company: {
+          type: 'string'
+        },
+        client: {
+          type: 'string'
+        },
+        location: {
+          type: 'string'
+        },
+        country: {
+          type: 'string'
+        },
+        depthMeters: {
+          type: 'string'
+        },
+        leftSurface: {
+          type: 'string'
+        },
+        bottomTime: {
+          type: 'string'
+        },
+        arrivedSurface: {
+          type: 'string'
+        },
+        table: {
+          type: 'string'
+        },
+        mixture: {
+          type: 'string'
+        },
+        subTypeB: {
+          type: 'string'
+        },
+        details: {
+          type: 'string'
+        }
+      },
+      required: ['userId']
+    }
+  },
+  required: ['body']
+}
 
-// exported lambda handler func with middleware
-export const handler = commonMiddleware(main)
-
-// .use(
-//   validator({
-//     inputSchema: schema,
-//     ajvOptions: {
-//       useDefaults: true,
-//       strict: false
-//     }
-//   })
-// )
+export const handler = commonMiddleware(main).use(
+  validator({
+    inputSchema: schema,
+    ajvOptions: {
+      useDefaults: true,
+      strict: false
+    }
+  })
+)
