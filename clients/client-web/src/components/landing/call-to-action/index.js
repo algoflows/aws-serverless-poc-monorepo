@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Example() {
   return (
-    <div className="bg-gradient-to-l opacity-90 from-gray-900 to-blue-900 rounded-2xl">
+    <div className="bg-gradient-to-l opacity-90 from-gray-900 to-blue-900 rounded-xl">
       <div className="max-w-2xl px-4 py-16 mx-auto text-center sm:py-20 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
           <span className="block">Safeguard your career history</span>
