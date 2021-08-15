@@ -1,0 +1,24 @@
+service: notification-service
+app: opsap
+org: opsap
+
+plugins:
+  - serverless-bundle
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-1
+  lambdaHashingVersion: 20201221
+  memorySize: 256
+  iam:
+    role:
+      statements:
+        - ${file(resources/send-mail-iam.yml):send-mail-iam}
+
+functions:
+  notification-send-mail:
+    handler: functions/send-mail.handler
+    name: ${self:service}-${self:provider.stage}-send-mail
+    description: 'sends email'

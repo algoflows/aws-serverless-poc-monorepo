@@ -1,0 +1,8 @@
+rules:
+  semi: 0
+parserOptions:
+  ecmaFeatures:
+    modules: true
+env:
+  es6: true
+sourceType: module
