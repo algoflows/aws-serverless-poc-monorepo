@@ -1,0 +1,10 @@
+mail-queue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: ${self:custom.mail-queue.name}
+
+Outputs:
+  MailQueueArn:
+    Value: ${self:custom.mail-queue.arn}
+  MailQueueUrl:
+    Value: ${self:custom.mail-queue.url}

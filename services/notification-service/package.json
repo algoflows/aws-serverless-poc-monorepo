@@ -1,7 +1,7 @@
 {
-  "name": "@opsap/auth-service",
+  "name": "@opsap/notification-service",
   "version": "1.0.0",
-  "author": "Ariel Weinberger <sean@opsap.com>",
+  "author": "Sean Knowles <sean@opsap.com>",
   "description": "protecting API gateway endpoints with auth0",
   "license": "MIT",
   "dependencies": {

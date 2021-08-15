@@ -1,0 +1,1 @@
+{"subject":"Test Mail using AWS SQS","body":"Test Body","recipient":"youremail@domain.com"}

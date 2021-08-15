@@ -20,3 +20,7 @@ provider-iam:
       - lambda:listLayerVersions
       - lambda:deleteLayerVersion
     Resource: '*'
+  - Effect: Allow
+    Action:
+      - sqs:SendMessage
+    Resource: ${self:custom.MailQueue.arn}

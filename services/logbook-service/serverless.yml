@@ -23,6 +23,7 @@ provider:
   lambdaHashingVersion: 20201221
   environment:
     LOGBOOK_SERVICE_TABLE: ${self:custom.logbook-service-table.name}
+    MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
   iam:
     role:
       statements: ${file(infra/provider-iam.yml):provider-iam}
@@ -105,6 +106,9 @@ custom:
   logbook-service-table:
     name: !Ref LogbookServiceTable
     arn: !GetAtt LogbookServiceTable.Arn
+  MailQueue:
+    arn: ${cf:notification-service-${self:provider.stage}.NotificationMailQueueArn}
+    url: ${cf:notification-service-${self:provider.stage}.NotificationMailQueueUrl}
   bundle:
     packager: yarn
     linting: true

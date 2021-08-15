@@ -5,6 +5,12 @@ org: opsap
 plugins:
   - serverless-bundle
 
+custom:
+  mail-queue:
+    name: ${self:service}-${self:provider}-mail-queue
+    arn: !GetAtt NotificationMailQueue.Arn
+    url: !Ref NotificationMailQueue # Url is returned/assigned to !Ref instead of being available as an attribute
+
 provider:
   name: aws
   runtime: nodejs14.x
@@ -15,10 +21,22 @@ provider:
   iam:
     role:
       statements:
-        - ${file(resources/send-mail-iam.yml):send-mail-iam}
+        - ${file(iam/send-mail-iam.yml):send-mail-iam}
+
+resources:
+  Resources:
+    NotificationMailQueue: ${file(resources/mail-queue.yml):mail-queue}
+  Outputs:
+    NotificationMailQueueArn: ${file(resources/mail-queue.yml):Outputs.MailQueueArn}
+    NotificationMailQueueUrl: ${file(resources/mail-queue.yml):Outputs.MailQueueUrl}
 
 functions:
   notification-send-mail:
     handler: functions/send-mail.handler
     name: ${self:service}-${self:provider.stage}-send-mail
     description: 'sends email'
+    events:
+      - sqs:
+          arn: ${self:custom.mail-queue.arn}
+          batchSize: 1 # default batchSize is 10, in production we should care about setting the correct batch size
+
