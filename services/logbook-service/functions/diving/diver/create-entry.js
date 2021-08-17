@@ -56,15 +56,15 @@ const main = lambdaHandler(async (event) => {
     .sendMessage({
       QueueUrl: MAIL_QUEUE_URL,
       MessageBody: JSON.stringify({
-        subject: 'You have recorded a new logbook entry',
+        subject: 'OPSAP: New logbook entry successfully added',
         recipient: 'sean@opsap.com',
         body: `
 
         Hi ${userId},
 
-        This is an automated message.
+        Hey rockstar, this is an automated message.
 
-        You have successfully added a new entry:
+        You have successfully added a new entry.
       
         entryType: ${entryType}
         subType:   ${subTypeA}
@@ -74,14 +74,15 @@ const main = lambdaHandler(async (event) => {
         Depth:     ${depthMeters}m 
         DateTime:  ${leftSurface}
         
-        User verified?: ${userVerified}
-        Company verified?: ${companyVerified}
-        Client verified?: ${clientVerified}
+        Verification status: 
+        User: ${userVerified}
+        Company: ${companyVerified}
+        Client: ${clientVerified}
 
 
-        Our automated verification system has notified ${userVerifierId}. The verifier must digitally sign the entry for the entry to become an official verified record.
+        Our automated verification system has notified ${userVerifierId} to verify the entry.
 
-        Thanks you.
+        Dive safe, thank you.
 
         OPSAP Team.
         `
@@ -93,15 +94,15 @@ const main = lambdaHandler(async (event) => {
     .sendMessage({
       QueueUrl: MAIL_QUEUE_URL,
       MessageBody: JSON.stringify({
-        subject: 'You have recorded a new logbook entry',
+        subject: 'OSPAP: New entry for you to verify',
         recipient: 'sean@opsap.com',
         body: `
 
-        Hi PLACEHOLDER(userVerifierID),
+        Hi (userVerifierName),
 
-        This is an automated message.
+        Hey rockstar, this is an automated message.
 
-        You have hav been listed as a verifiying party for recorded entry listed below:
+        You have have been listed as the verifiying supervisor for the entry listed below:
       
         user:      ${userId}
         entryType: ${entryType}
@@ -112,13 +113,19 @@ const main = lambdaHandler(async (event) => {
         Depth:     ${depthMeters}m 
         DateTime:  ${leftSurface}
         
-        User verified?: ${userVerified}
-        Company verified?: ${companyVerified}
-        Client verified?: ${clientVerified}
+        Verfication status:
+        User: ${userVerified}
+        Company: ${companyVerified}
+        Client: ${clientVerified}
 
-        Please signin into the OPSAP platform to verifiy and validate the record.
+        Please signin into your account to verifiy and validate the record.
 
-        Thanks you.
+        Alternatively follow this link to take you straight record. If all the details are correct, click the verify button and the entry will become officially signed and verified.
+
+        https://dev.opsap.com/user/logbook/entry/details/${userId}/${entryId}
+
+
+        Thank you.
 
         OPSAP Team.
         `
