@@ -4,6 +4,8 @@ import { v4 as uuid } from 'uuid'
 import { Logbook } from '../logbookEnum'
 import AWS from 'aws-sdk'
 
+//  testing cicd
+
 const sqs = new AWS.SQS()
 
 const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
