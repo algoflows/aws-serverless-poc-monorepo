@@ -24,7 +24,7 @@
 
 #### Stack
 
-> Tools, libraries and awesome tech sanctioned for this project
+> Tools, libraries used
 
 - Major languages - Javascript(ES6), HTML, SASS
 - Frameworks - Reactjs 17.02, Nextjs 11, Nodejs 14/16x
