@@ -5,12 +5,12 @@
 </div>
 <br>
 
-#### OPSAP - [Live DEV branch demo](https://dev.opsap.com/)
-
 [![Updated Badge](https://img.shields.io/github/last-commit/opsap/monorepo)](https://github.com/opsap/monorepo)
 [![Seed Status](https://api.seed.run/opsap/monorepo/stages/develop/build_badge)](https://console.seed.run/opsap/monorepo)
 [![Seed Status](https://api.seed.run/opsap/monorepo/stages/staging/build_badge)](https://console.seed.run/opsap/monorepo)
 [![Seed Status](https://api.seed.run/opsap/monorepo/stages/production/build_badge)](https://console.seed.run/opsap/monorepo)
+
+#### DEV Branch - [demo](https://dev.opsap.com/)
 
 > Fullstack commercial project using React, Node, AWS Lambda, DynamoDB etc..
 <br>
@@ -76,9 +76,19 @@ Git clone the repository to your local computer.
 - Node 14x - latest installed.
 - Serverless Framework installed (latest)
 
-#### Deployment
+#### Frontend Deployment domain mapping
 
-Our 'main' deployment branch is CI into Netlify so any pushes to the main branch will auto publish to Netlify hosting and thier edge CDN.
+We have three branches "main | production", "staging" and "dev", development and staging are deployed to subdomains.
+- Production: https://opsap.com
+- Staging: https://staging.opsap.com
+- Development: https://dev.opsap.com
+
+#### Backend API Services domain mapping
+
+We have three branches "main | production", "staging" and "dev", development and staging are deployed to subdomains.
+- Production: https://opsap.com
+- Staging: https://staging-api.opsap.com
+- Development: https://dev-api.opsap.com
 
 #### Team
 
