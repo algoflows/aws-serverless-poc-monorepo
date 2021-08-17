@@ -10,14 +10,17 @@
 </div>
 <br>
 
-#### OPSAP - [Live demo](https://opsap.com/)
+#### OPSAP - [Live DEV branch demo](https://dev.opsap.com/)
 
 > Fullstack commercial project using React, Node, AWS Lambda, DynamoDB etc..
 <br>
 
-![image](https://user-images.githubusercontent.com/65465380/113683400-0eb9ae80-96bc-11eb-9a10-6f1b10c95a22.png)
+<!-- ![image](https://user-images.githubusercontent.com/65465380/113683400-0eb9ae80-96bc-11eb-9a10-6f1b10c95a22.png) -->
+<img width="634" alt="home-page" src="https://user-images.githubusercontent.com/65465380/129702633-7644b5de-b02c-4a26-b30e-d6af08a0980b.PNG">
+<img width="928" alt="profile-page" src="https://user-images.githubusercontent.com/65465380/129702700-fb99708b-a944-4447-a8bc-5cd046375c18.PNG">
 
 > All contributors have taken ownership of multiple critical issues and feature enhancements listed on the project boards submitting commits of at the highest standard possible.
+
 
 #### Stack
 
@@ -93,11 +96,11 @@ Our 'main' deployment branch is CI into Netlify so any pushes to the main branch
   </dv>
 </div>
 
-#### 🤝 Contributing
+#### 🤝 Join the team
 
-Contributions, issues, and feature requests are welcome!
+If you are interested in joining the team contact us through the issues list in gh!
 
-Feel free to check the [issues page](https://github.com/SKopsap/SpotifyV2/issues).
+Feel free to check the [issues page](https://github.com/opsap/monorepo/issues).
 
 #### Show your support
 
