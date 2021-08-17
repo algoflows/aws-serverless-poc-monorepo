@@ -2,22 +2,14 @@ import styles from './carousel.module.scss'
 import LogoCard from './logo-card'
 import Image from 'next/image'
 
+import dcnLogo from '/public/logos/dcn.png'
+import fugroLogo from '/public/logos/fugro.png'
+import ndeLogo from '/public/logos/nde.png'
+import sub7Logo from '/public/logos/nde.png'
+import technip from '/public/logos/technip.png'
+
 export default function ProfileCarousel({ logos, height }) {
-  const defaultLogoList = [
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png'
-  ]
+  const defaultLogoList = [dcnLogo, fugroLogo, ndeLogo, sub7Logo, technip]
   return (
     <div>
       <div className={styles.slider}>
