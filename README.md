@@ -31,7 +31,7 @@
 - Project Management - Github project kanban boards
 
 #### Wakatime stats
-<img width="800" src="https://github.com/OPSAP/monorepo/blob/dev/images/stat.svg" alt="Waka stats for develop branch"/>
+<img width="800" src="https://github.com/skopsap/spotifyv2/blob/develop/images/stat.svg" alt="Waka stats for develop branch"/>
 
 #### Devops
 
