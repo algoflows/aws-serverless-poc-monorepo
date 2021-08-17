@@ -84,23 +84,15 @@ Our 'main' deployment branch is CI into Netlify so any pushes to the main branch
 
 <div float="left">
   <div>
-    👤 
-  </dv>
-  <div>
-    👤 
-  </dv>
-  <div>
     👤 Sean Knowles
     <a href="https://github.com/juniorDEVed">Github</a> |
     <a href="https://linkedin.com/seanknowlesmd">LinkedIn</a>
-  </dv>
+  </div>
 </div>
 
 #### 🤝 Join the team
 
 If you are interested in joining the team contact us through the issues list in gh!
-
-Feel free to check the [issues page](https://github.com/opsap/monorepo/issues).
 
 #### Show your support
 
