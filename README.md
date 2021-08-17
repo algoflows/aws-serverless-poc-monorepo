@@ -17,10 +17,10 @@
 
 <!-- ![image](https://user-images.githubusercontent.com/65465380/113683400-0eb9ae80-96bc-11eb-9a10-6f1b10c95a22.png) -->
 <!-- <img width="356" alt="home-page" src="https://user-images.githubusercontent.com/65465380/129702633-7644b5de-b02c-4a26-b30e-d6af08a0980b.PNG">  -->
-<img width="522" alt="profile-page" src="https://user-images.githubusercontent.com/65465380/129702700-fb99708b-a944-4447-a8bc-5cd046375c18.PNG">
-
-> All contributors have taken ownership of multiple critical issues and feature enhancements listed on the project boards submitting commits of at the highest standard possible.
-
+<div align="center" justify="center">
+  <img width="620" alt="profile-page" src="https://user-images.githubusercontent.com/65465380/129702700-fb99708b-a944-4447-a8bc-5cd046375c18.PNG">
+</div>
+<br>
 
 #### Stack
 
