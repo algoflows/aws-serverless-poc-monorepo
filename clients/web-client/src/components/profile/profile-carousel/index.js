@@ -8,6 +8,8 @@ import ndeLogo from '/public/logos/nde.png'
 import sub7Logo from '/public/logos/nde.png'
 import technip from '/public/logos/technip.png'
 
+// testing deployment
+
 export default function ProfileCarousel({ logos, height }) {
   const defaultLogoList = [dcnLogo, fugroLogo, ndeLogo, sub7Logo, technip]
   return (
