@@ -120,7 +120,7 @@ const main = lambdaHandler(async (event) => {
 
         Please signin into your account to verifiy and validate the record.
 
-        Alternatively follow this link to take you straight record. If all the details are correct, click the verify button and the entry will become officially signed and verified.
+        Alternatively follow this link, if all the details are correct then click the verify button and the entry will become officially signed and verified.
 
         https://dev.opsap.com/user/logbook/entry/details/${userId}/${entryId}
 
