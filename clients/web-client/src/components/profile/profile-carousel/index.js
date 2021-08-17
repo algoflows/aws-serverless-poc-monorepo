@@ -19,7 +19,7 @@ export default function ProfileCarousel({ logos, height }) {
           {defaultLogoList.map((logo, i) => (
             <LogoCard key={i}>
               <div className="slide">
-                <Image src={logo} height={height || 30} width="80" alt="" />
+                <Image src={logo} height={height || 50} width="120" alt="" />
               </div>
             </LogoCard>
           ))}
