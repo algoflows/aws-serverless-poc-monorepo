@@ -1,0 +1,12 @@
+logbook-service-table-iam:
+  Effect: Allow
+  Action:
+    - dynamodb:Scan
+    - dynamodb:Query
+    - dynamodb:GetItem
+    - dynamodb:PutItem
+    - dynamodb:UpdateItem
+    - dynamodb:DeleteItem
+    - dynamodb:DescribeTable
+  Resource:
+    - ${self:custom.logbook-service-table.arn}

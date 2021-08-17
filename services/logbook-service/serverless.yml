@@ -23,18 +23,22 @@ provider:
   lambdaHashingVersion: 20201221
   environment:
     LOGBOOK_SERVICE_TABLE: ${self:custom.logbook-service-table.name}
-    MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
+    MAIL_QUEUE_URL: ${self:custom.mail-queue.url}
+    LOGBOOK_BUCKET_NAME: ${self:custom.logbook-bucket.name}
   iam:
     role:
-      statements: ${file(infra/provider-iam.yml):provider-iam}
+      statements:
+        - ${file(infra/iam/logbook-service-table-iam.yml):logbook-service-table-iam}
+        - ${file(infra/iam/mail-queue-iam.yml):mail-queue-iam}
+        - ${file(infra/iam/logbook-bucket-iam.yml):logbook-bucket-iam}
 
 resources:
   Resources:
-    LogbookServiceTable: ${file(infra/logbook-service-table.yml):logbook-service-table}
+    LogbookServiceTable: ${file(infra/resources/logbook-service-table.yml):logbook-service-table}
+    LogbookBucket: ${file(infra/resources/logbook-bucket.yml):logbook-bucket}
+    LogbookBucketPolicy: ${file(infra/resources/logbook-bucket.yml):logbook-bucket-policy}
 
-###### Lambda functions & API endpoints ######
 functions:
-  ########## Diving - Diver #########
   diving-diver-create-entry:
     handler: functions/diving/diver/create-entry.handler
     name: ${self:service}-${self:provider.stage}-diving-diver-create-entry
@@ -88,6 +92,17 @@ functions:
           authorizer: ${self:custom.authorizer}
           cors: true
 
+  diving-diver-upload-picture:
+    handler: functions/diving/diver/upload-picture.handler
+    name: ${self:service}-${self:provider.stage}-diving-diver-upload-picture
+    description: 'upload diver logbook entry picture to s3'
+    events:
+      - http:
+          method: PATCH
+          path: diving/diver/upload-picture/{userId}/{entryId}
+          # authorizer: ${self:custom.authorizer}
+          cors: true
+
 custom:
   stage: ${opt:stage, self:provider.stage}
   domains:
@@ -106,9 +121,11 @@ custom:
   logbook-service-table:
     name: !Ref LogbookServiceTable
     arn: !GetAtt LogbookServiceTable.Arn
-  MailQueue:
+  mail-queue:
     arn: ${cf:notification-service-${self:provider.stage}.NotificationMailQueueArn}
     url: ${cf:notification-service-${self:provider.stage}.NotificationMailQueueUrl}
+  logbook-bucket:
+    name: bucket-opsap-${self:service}-${self:provider.stage}
   bundle:
     packager: yarn
     linting: true

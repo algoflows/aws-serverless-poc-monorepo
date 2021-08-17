@@ -3,6 +3,7 @@ import UserLayout from '../../../../layouts/user'
 import { useForm } from 'react-hook-form'
 import { useUser } from '@auth0/nextjs-auth0'
 import { DevTool } from '@hookform/devtools'
+import { toBase64 } from 'src/utils/toBase64'
 
 export default function Logbooks() {
   const { user } = useUser()
@@ -14,12 +15,13 @@ export default function Logbooks() {
   } = useForm()
 
   const onSubmit = async (data) => {
+    const file = data.coverPhoto[0]
+    const coverPhoto = await toBase64(file)
+
     const newEntry = {
       ...data,
       userId: user.sub,
-      company: data.company.toLowerCase(),
-      client: data.client.toLowerCase(),
-      country: data.country.toLowerCase(),
+      coverPhoto: coverPhoto,
       userVerifierId: data.userVerifierId.toLowerCase()
     }
 
@@ -35,6 +37,7 @@ export default function Logbooks() {
       })
 
       const data = await response.json()
+
       console.log(data)
     } catch (err) {
       console.log(err)
@@ -446,7 +449,7 @@ export default function Logbooks() {
                       <textarea
                         name="details"
                         rows={3}
-                        {...register('details', { required: true })}
+                        {...register('details')}
                         className="block w-full max-w-lg border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         defaultValue={''}
                       />
@@ -455,12 +458,12 @@ export default function Logbooks() {
                   </div>
 
                   {/* PHOTO UPLOAD SECTION*/}
-                  {/* <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                     <label
                       htmlFor="cover-photo"
                       className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                     >
-                      Photo / Evidence <p className="mt-2 text-sm text-gray-500">(optional)</p>
+                      Cover Photo <p className="mt-2 text-sm text-gray-500">(supporting photo optional)</p>
                     </label>
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                       <div className="flex justify-center max-w-lg px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -485,7 +488,13 @@ export default function Logbooks() {
                               className="relative font-medium text-blue-600 bg-white rounded-md cursor-pointer hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                             >
                               <span>Upload a file</span>
-                              <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                              <input
+                                {...register('coverPhoto')}
+                                id="file-upload"
+                                name="coverPhoto"
+                                type="file"
+                                className="sr-only"
+                              />
                             </label>
                             <p className="pl-1">or drag and drop</p>
                           </div>
@@ -493,7 +502,7 @@ export default function Logbooks() {
                         </div>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
 
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                     <label

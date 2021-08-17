@@ -1,0 +1,5 @@
+mail-queue-iam:
+  Effect: Allow
+  Action:
+    - sqs:SendMessage
+  Resource: ${self:custom.mail-queue.arn}

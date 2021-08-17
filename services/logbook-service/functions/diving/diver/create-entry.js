@@ -1,10 +1,9 @@
 import { lambdaHandler, dynamodb, commonMiddleware } from '../../../lib'
+import { uploadImageToS3, setCoverImageUrl } from '../../../lib/DAL'
 import validator from '@middy/validator'
 import { v4 as uuid } from 'uuid'
 import { Logbook } from '../logbookEnum'
 import AWS from 'aws-sdk'
-
-//  testing cicd
 
 const sqs = new AWS.SQS()
 
@@ -39,6 +38,18 @@ const main = lambdaHandler(async (event) => {
   }
 
   await dynamodb.put(params)
+
+  let updatedEntry
+
+  // image upload
+  if (event.body.coverPhoto) {
+    const file = event.body.coverPhoto.replace(/^data:image\/\w+;base64,/, '')
+    const buffer = Buffer.from(file, 'base64')
+    const key = entryId + '.jpg'
+    const uploadResult = await uploadImageToS3(key, buffer)
+    const imageUrl = uploadResult.Location
+    updatedEntry = await setCoverImageUrl(userId, entryId, imageUrl)
+  }
 
   const {
     entryType,
@@ -97,7 +108,7 @@ const main = lambdaHandler(async (event) => {
       QueueUrl: MAIL_QUEUE_URL,
       MessageBody: JSON.stringify({
         subject: 'OSPAP: New entry for you to verify',
-        recipient: 'sean@opsap.com',
+        recipient: userVerifierId,
         body: `
 
         Hi (userVerifierName),
@@ -135,7 +146,14 @@ const main = lambdaHandler(async (event) => {
     })
     .promise()
 
-  return Promise.all([notifyUser, notifyVerifier])
+  const mailResults = await Promise.all([notifyUser, notifyVerifier])
+
+  const result = {
+    Item: updatedEntry,
+    mailResults
+  }
+
+  return result
 })
 
 const schema = {
