@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import UserLayout from '../../../../../layouts/user'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
@@ -30,9 +31,25 @@ export default function EntryDetails() {
       <form className="px-10 py-10 space-y-8 border-gray-700 divide-y divide-gray-200 shadow-lg rounded-xl">
         <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
           <div>
-            <div>
+            <div className="mb-5">
               <h3 className="text-lg font-medium leading-6 text-blue-400">DETAILS</h3>
               <p className="max-w-2xl mt-1 text-sm text-yellow-400">Entry details.</p>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                Cover photo
+              </label>
+              <div className="mt-1 sm:mt-0 sm:col-span-2">
+                <div className="flex max-w-lg font-semibold">
+                  {!entry.coverPhoto && (
+                    <span className="text-sm text-gray-400">No images added for this entry...</span>
+                  )}
+                  {entry.coverPhoto && (
+                    <Image width={200} height={150} src={entry.coverPhoto} alt="cover photo" />
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* ENTRY TYPE AIR/SAT*/}
@@ -228,7 +245,6 @@ export default function EntryDetails() {
                     <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry.details}</div>
                   </div>
 
-                  {/* PHOTO UPLOAD SECTION*/}
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                     <label
                       htmlFor="username"

@@ -5,7 +5,8 @@ module.exports = {
       's3-us-west-2.amazonaws.com',
       's3-us-west-1.amazonaws.com',
       's.gravatar.com',
-      'lh3.googleusercontent.com'
+      'lh3.googleusercontent.com',
+      'bucket-opsap-logbook-service-dev.s3.eu-west-1.amazonaws.com'
     ]
   },
   webpack: (config, { dev, isServer }) => {

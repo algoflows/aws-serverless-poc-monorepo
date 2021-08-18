@@ -15,13 +15,16 @@ export default function Logbooks() {
   } = useForm()
 
   const onSubmit = async (data) => {
-    const file = data.coverPhoto[0]
-    const coverPhoto = await toBase64(file)
+    let coverPhoto
+    if (data.coverPhoto[0]) {
+      const file = data.coverPhoto[0]
+      coverPhoto = await toBase64(file)
+    }
 
     const newEntry = {
       ...data,
       userId: user.sub,
-      coverPhoto: coverPhoto,
+      coverPhoto: coverPhoto || null,
       userVerifierId: data.userVerifierId.toLowerCase()
     }
 

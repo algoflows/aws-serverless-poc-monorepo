@@ -25,6 +25,7 @@
     "@middy/http-json-body-parser": "^2.4.3",
     "@middy/validator": "^2.4.3",
     "aws-sdk": "^2.961.0",
+    "formidable": "^2.0.0-canary.20200504.1",
     "http-errors": "^1.8.0",
     "middy-middleware-json-error-handler": "^2.0.6",
     "serverless": "^2.53.0",

@@ -2,7 +2,7 @@ import { dynamodb, createError } from '../index'
 
 export const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
 
-export async function setCoverImageUrl(userId, entryId, imageUrl) {
+export async function setImageUrl(userId, entryId, imageUrl) {
   try {
     // const now = new Date()
     const params = {

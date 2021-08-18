@@ -1,21 +1,26 @@
 import { lambdaHandler, dynamodb, commonMiddleware } from '../../../lib'
-import { uploadImageToS3, setCoverImageUrl } from '../../../lib/DAL'
+import { notifyUser, notifyVerifier } from '../../../lib/email-templates'
+import { uploadImageToS3, setImageUrl } from '../../../lib/DAL'
 import validator from '@middy/validator'
 import { v4 as uuid } from 'uuid'
 import { Logbook } from '../logbookEnum'
-import AWS from 'aws-sdk'
-
-const sqs = new AWS.SQS()
 
 const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
-const MAIL_QUEUE_URL = process.env.MAIL_QUEUE_URL
 
 const main = lambdaHandler(async (event) => {
   const { userId } = event.body
-
   const now = new Date()
   const entryId = uuid()
+  let coverPhoto
 
+  // check if image has been uploaded from client
+  // set event.body image to field to null because of dynamodb 400kb item limit
+  if (event.body.coverPhoto) {
+    coverPhoto = event.body.coverPhoto
+    event.body.coverPhoto = null
+  }
+
+  // construct new entry object
   const params = {
     TableName: LOGBOOK_SERVICE_TABLE,
     Item: {
@@ -37,119 +42,21 @@ const main = lambdaHandler(async (event) => {
     ReturnValues: 'ALL_OLD'
   }
 
+  // save entry to db
   await dynamodb.put(params)
 
-  let updatedEntry
-
-  // image upload
-  if (event.body.coverPhoto) {
-    const file = event.body.coverPhoto.replace(/^data:image\/\w+;base64,/, '')
-    const buffer = Buffer.from(file, 'base64')
-    const key = entryId + '.jpg'
-    const uploadResult = await uploadImageToS3(key, buffer)
-    const imageUrl = uploadResult.Location
-    updatedEntry = await setCoverImageUrl(userId, entryId, imageUrl)
+  // add photo to s3 and add image url to return object
+  if (coverPhoto) {
+    const location = await uploadImageToS3(entryId, coverPhoto)
+    params.Item = await setImageUrl(userId, entryId, location)
   }
 
-  const {
-    entryType,
-    subTypeA,
-    subTypeB,
-    company,
-    client,
-    depthMeters,
-    leftSurface,
-    userVerified,
-    userVerifierId,
-    companyVerified,
-    clientVerified
-  } = params.Item
+  // send notification emails to both verifier and user
+  const mailResults = await Promise.all([notifyUser(params.Item), notifyVerifier(params.Item)])
 
-  const notifyUser = sqs
-    .sendMessage({
-      QueueUrl: MAIL_QUEUE_URL,
-      MessageBody: JSON.stringify({
-        subject: 'OPSAP: New logbook entry successfully added',
-        recipient: 'sean@opsap.com',
-        body: `
-
-        Hi ${userId},
-
-        Hey rockstar, this is an automated message.
-
-        You have successfully added a new entry.
-      
-        entryType: ${entryType}
-        subType:   ${subTypeA}
-        subType:   ${subTypeB}
-        Company:   ${company}
-        Client:    ${client}
-        Depth:     ${depthMeters}m 
-        DateTime:  ${leftSurface}
-        
-        Verification status: 
-        User: ${userVerified}
-        Company: ${companyVerified}
-        Client: ${clientVerified}
-
-
-        Our automated verification system has notified ${userVerifierId} to verify the entry.
-
-        Dive safe, thank you.
-
-        OPSAP Team.
-        `
-      })
-    })
-    .promise()
-
-  const notifyVerifier = sqs
-    .sendMessage({
-      QueueUrl: MAIL_QUEUE_URL,
-      MessageBody: JSON.stringify({
-        subject: 'OSPAP: New entry for you to verify',
-        recipient: userVerifierId,
-        body: `
-
-        Hi (userVerifierName),
-
-        Hey rockstar, this is an automated message.
-
-        You have have been listed as the verifiying supervisor for the entry listed below:
-      
-        user:      ${userId}
-        entryType: ${entryType}
-        subType:   ${subTypeA}
-        subType:   ${subTypeB}
-        Company:   ${company}
-        Client:    ${client}
-        Depth:     ${depthMeters}m 
-        DateTime:  ${leftSurface}
-        
-        Verfication status:
-        User: ${userVerified}
-        Company: ${companyVerified}
-        Client: ${clientVerified}
-
-        Please signin into your account to verifiy and validate the record.
-
-        Alternatively follow this link, if all the details are correct then click the verify button and the entry will become officially signed and verified.
-
-        https://dev.opsap.com/user/logbook/entry/details/${userId}/${entryId}
-
-
-        Thank you.
-
-        OPSAP Team.
-        `
-      })
-    })
-    .promise()
-
-  const mailResults = await Promise.all([notifyUser, notifyVerifier])
-
+  // construct result object
   const result = {
-    Item: updatedEntry,
+    Item: params.Item,
     mailResults
   }
 
