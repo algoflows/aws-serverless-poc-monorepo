@@ -4,7 +4,7 @@ import { useUser } from '@auth0/nextjs-auth0'
 import UserLayout from '../../../layouts/user' // placeholder assets
 import Loader from '../../../components/loaders'
 import ProfileCard from '../../../components/profile/profile-card'
-import ProfileCalendar from '../../../components/profile/profile-calendar'
+import ProfileCalendar from '../../../components/profile/chart-frequency'
 
 export default function Profile() {
   const { user, error, isLoading } = useUser()
@@ -19,12 +19,12 @@ export default function Profile() {
   console.log(id)
   return (
     <div className="mt-5">
-      <div className="px-10 py-8 flex flex-col container mx-auto">
+      <div className="container flex flex-col px-10 py-8 mx-auto">
         <div className="mb-10">
           <ProfileCard user={user} />
         </div>
-        <div className="max-h-150 p-3 w-full border border-gray-100 shadow-md rounded-lg">
-          <h4 className="pt-5 px-8 font-semibold text-lg">Log Frequency</h4>
+        <div className="w-full p-3 border border-gray-100 rounded-lg shadow-md max-h-150">
+          <h4 className="px-8 pt-5 text-lg font-semibold">Log Frequency</h4>
           <div className="h-96 ">
             <ProfileCalendar />
           </div>
@@ -33,6 +33,5 @@ export default function Profile() {
     </div>
   )
 }
-
 
 Profile.Layout = UserLayout

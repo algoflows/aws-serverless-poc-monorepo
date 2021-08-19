@@ -1,0 +1,5 @@
+kinesis-stream-iam:
+  Effect:
+  Action:
+    - kinesis:PutRecord
+  Resource: ${self:custom.kinesis-stream.arn}

@@ -1,0 +1,5 @@
+events-stream-create-entry:
+  Type: AWS::Kinesis::Stream
+  Properties:
+    Name: ${self:service}-${self:provider.stage}-events-stream-create-entry
+    ShardCount: 1

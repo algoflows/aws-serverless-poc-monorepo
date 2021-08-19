@@ -6,7 +6,6 @@ plugins:
   - serverless-bundle # Package our functions with Webpack
   - serverless-offline # Enables local devleopment
   - serverless-prune-plugin # Prune old functions
-  # - serverless-dotenv-plugin # Load .env as environment variable
   - serverless-domain-manager
 
 useDotenv: true
@@ -17,7 +16,7 @@ package: # Packages functions individually
 provider:
   name: aws
   runtime: nodejs14.x
-  memorySize: 1024
+  memorySize: 512
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
   lambdaHashingVersion: 20201221
@@ -37,6 +36,7 @@ resources:
     LogbookServiceTable: ${file(infra/resources/logbook-service-table.yml):logbook-service-table}
     LogbookBucket: ${file(infra/resources/logbook-bucket.yml):logbook-bucket}
     LogbookBucketPolicy: ${file(infra/resources/logbook-bucket.yml):logbook-bucket-policy}
+    EventsStreamCreateEntry: ${file(infra/resources/events-stream-create-entry.yml):events-stream-create-entry}
 
 functions:
   diving-diver-create-entry:
@@ -49,6 +49,8 @@ functions:
           path: diving/diver/create-entry
           authorizer: ${self:custom.authorizer}
           cors: true
+    environment:
+      EVENTS_STREAM_CREATE_ENTRY: ${self:custom.kinesis-stream.name}
 
   diving-diver-get-entries:
     handler: functions/diving/diver/get-entries.handler
@@ -124,6 +126,9 @@ custom:
   mail-queue:
     arn: ${cf:notification-service-${self:provider.stage}.NotificationMailQueueArn}
     url: ${cf:notification-service-${self:provider.stage}.NotificationMailQueueUrl}
+  kinesis-stream:
+    name: !Ref EventsStreamCreateEntry
+    arn: !GetAtt EventsStreamCreateEntry.Arn
   logbook-bucket:
     name: bucket-opsap-${self:service}-${self:provider.stage}
   bundle:

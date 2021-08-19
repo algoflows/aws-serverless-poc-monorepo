@@ -4,8 +4,12 @@ import { uploadImageToS3, setImageUrl } from '../../../lib/DAL'
 import validator from '@middy/validator'
 import { v4 as uuid } from 'uuid'
 import { Logbook } from '../logbookEnum'
+import AWS from 'aws-sdk'
+
+const kinesis = new AWS.Kinesis()
 
 const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
+const EVENTS_STREAM_CREATE_ENTRY = process.env.EVENT_STREAM_CREATE_ENTRY
 
 const main = lambdaHandler(async (event) => {
   const { userId } = event.body
@@ -13,14 +17,14 @@ const main = lambdaHandler(async (event) => {
   const entryId = uuid()
   let coverPhoto
 
-  // check if image has been uploaded from client
-  // set event.body image to field to null because of dynamodb 400kb item limit
+  // Check if image has been uploaded from client
+  // Set event.body image to field to null because of dynamodb 400kb item limit
   if (event.body.coverPhoto) {
     coverPhoto = event.body.coverPhoto
     event.body.coverPhoto = null
   }
 
-  // construct new entry object
+  // Construct new lobook entry object
   const params = {
     TableName: LOGBOOK_SERVICE_TABLE,
     Item: {
@@ -42,19 +46,36 @@ const main = lambdaHandler(async (event) => {
     ReturnValues: 'ALL_OLD'
   }
 
-  // save entry to db
+  // Save entry object to db
   await dynamodb.put(params)
 
-  // add photo to s3 and add image url to return object
+  // Add photo to s3 and add s3 imageUrl to item stored in dynamodb
   if (coverPhoto) {
     const location = await uploadImageToS3(entryId, coverPhoto)
     params.Item = await setImageUrl(userId, entryId, location)
   }
 
-  // send notification emails to both verifier and user
+  // Send notification emails to both verifier and user
   const mailResults = await Promise.all([notifyUser(params.Item), notifyVerifier(params.Item)])
 
-  // construct result object
+  // Construct kineses stream data object
+  const data = {
+    ...params.Item,
+    eventType: 'create-entry'
+  }
+
+  // Construct kineses event putReq object
+  const putReq = {
+    Data: JSON.stringify(data),
+    PartitionKey: params.Item.entryId,
+    StreamName: EVENTS_STREAM_CREATE_ENTRY
+  }
+
+  // Put event kinesis object into stream
+  await kinesis.putRecord(putReq).promise()
+  console.log('published new entry to kineses')
+
+  // Construct result object
   const result = {
     Item: params.Item,
     mailResults
