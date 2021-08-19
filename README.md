@@ -24,13 +24,13 @@
 
 #### Stack
 
-> Tools, libraries used
+> Tools, libraries chosen for this project
 
-- Major languages - Javascript(ES6), HTML, SASS
-- Frameworks - Reactjs 17.02, Nextjs 11, Nodejs 14/16x
-- Packages - Axios, React Spring, Tailwindcss/ui
-- Technologies - Vercel, AWS Route53, Cloudfront, DynamoDB
-- Infrastructure - AWS, Lambda, API Gatway, SQS, SNS, Kinesis, Github
+- Major languages - Javascript(ES6), HTML, SASS, Nodejs 14/16x
+- Frameworks - Reactjs 17.02, Nextjs 11, <a href="https://github.com/middyjs/middy">Middy</a>
+- Packages - Axios, React Spring, Tailwindcss
+- Technologies - Vercel, AWS Cloud Services, Serverless Framework
+- Infrastructure - Lambda, Route53, Cloudfront, API Gatway, S3, DynamoDB, SQS, SNS, SES, Kinesis, Github, SEED
 - Project Management - Github project kanban boards
 
 #### Wakatime stats
