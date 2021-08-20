@@ -9,12 +9,13 @@ import AWS from 'aws-sdk'
 const kinesis = new AWS.Kinesis()
 
 const LOGBOOK_SERVICE_TABLE = process.env.LOGBOOK_SERVICE_TABLE
-const EVENTS_STREAM_CREATE_ENTRY = process.env.EVENT_STREAM_CREATE_ENTRY
+const ENTRY_CREATED = process.env.ENTRY_CREATED
 
 const main = lambdaHandler(async (event) => {
   const { userId } = event.body
   const now = new Date()
   const entryId = uuid()
+  let result
   let coverPhoto
 
   // Check if image has been uploaded from client
@@ -61,27 +62,25 @@ const main = lambdaHandler(async (event) => {
   // Construct kineses stream data object
   const data = {
     ...params.Item,
-    eventType: 'create-entry'
+    eventType: 'entry-created'
   }
 
   // Construct kineses event putReq object
   const putReq = {
     Data: JSON.stringify(data),
     PartitionKey: params.Item.entryId,
-    StreamName: EVENTS_STREAM_CREATE_ENTRY
+    StreamName: ENTRY_CREATED
   }
 
   // Put event kinesis object into stream
   await kinesis.putRecord(putReq).promise()
-  console.log('published new entry to kineses')
+  console.log('published entry-created to kinesis stream')
 
   // Construct result object
-  const result = {
+  return (result = {
     Item: params.Item,
     mailResults
-  }
-
-  return result
+  })
 })
 
 const schema = {

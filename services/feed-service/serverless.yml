@@ -1,0 +1,64 @@
+service: feed-service
+app: opsap
+org: opsap
+
+plugins:
+  - serverless-bundle
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-1
+  lambdaHashingVersion: 20201221
+  memorySize: 256
+  iam:
+    role:
+      statements:
+        - ${file(infra/kinesis-streams/kinesis-stream-iam.yml):kinesis-stream-iam}
+        - ${file(infra/dynamodb-table/dynamodb-table-iam.yml):dynamodb-table-iam}
+
+resources:
+  Resources:
+    FeedServiceTable: ${file(infra/dynamodb-table/dynamodb-table.yml):dynamodb-table}
+
+functions:
+  entry-created:
+    handler: functions/entry-created.handler
+    name: ${self:service}-${self:provider.stage}-entry-created
+    description: 'process entry created stream'
+    events:
+      - stream:
+          arn: ${self:custom.logbook-kinesis-entry-created.arn}
+    environment:
+      ENTRY_CREATED: ${self:custom.logbook-kinesis-entry-created.name}
+
+  get-posts:
+    handler: functions/get-posts.handler
+    name: ${self:service}-${self:provider.stage}-get-posts
+    description: 'gets all posts for the feed page'
+    events:
+      - http:
+          method: GET
+          path: /get-posts
+          cors: true
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    prod: api.opsap.com
+    staging: staging-api.opsap.com
+    dev: dev-api.opsap.com
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    basePath: feed
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    endpointType: edge
+  logbook-kinesis-entry-created:
+    name: logbook-service-${self:provider.stage}-kinesis-entry-created
+    arn: arn:aws:kinesis:${aws:region}:${aws:accountId}:stream/logbook-service-${self:provider.stage}-kinesis-entry-created
+  dynamodb-table: # local service table
+    name: !Ref FeedServiceTable
+    arn: !GetAtt FeedServiceTable.Arn

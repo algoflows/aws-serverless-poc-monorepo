@@ -1,0 +1,19 @@
+{
+  "name": "@opsap/feed-service",
+  "version": "1.0.0",
+  "author": "Sean Knowles <sean@opsap.com>",
+  "description": "protecting API gateway endpoints with auth0",
+  "license": "MIT",
+  "dependencies": {
+    "ioredis": "^4.27.8",
+    "jsonwebtoken": "^8.5.1",
+    "nanoid": "^3.1.25"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.961.0",
+    "serverless": "^2.53.0",
+    "serverless-bundle": "^4.4.0",
+    "serverless-domain-manager": "^5.1.5",
+    "serverless-esbuild": "^1.3.3"
+  }
+}

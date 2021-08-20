@@ -5,12 +5,6 @@ org: opsap
 plugins:
   - serverless-bundle
 
-custom:
-  mail-queue:
-    name: ${self:service}-${self:provider}-mail-queue
-    arn: !GetAtt NotificationMailQueue.Arn
-    url: !Ref NotificationMailQueue # Url is returned/assigned to !Ref instead of being available as an attribute
-
 provider:
   name: aws
   runtime: nodejs14.x
@@ -40,3 +34,8 @@ functions:
           arn: ${self:custom.mail-queue.arn}
           batchSize: 1 # default batchSize is 10, in production we should care about setting the correct batch size
 
+custom:
+  mail-queue:
+    name: ${self:service}-${self:provider}-mail-queue
+    arn: !GetAtt NotificationMailQueue.Arn
+    url: !Ref NotificationMailQueue # Url is returned/assigned to !Ref instead of being available as an attribute

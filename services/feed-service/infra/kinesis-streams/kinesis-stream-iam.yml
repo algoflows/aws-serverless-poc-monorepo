@@ -1,5 +1,5 @@
 kinesis-stream-iam:
   Effect: Allow
   Action:
-    - kinesis:PutRecord
+    - kinesis:GetRecords
   Resource: ${self:custom.logbook-kinesis-entry-created.arn}

@@ -30,13 +30,14 @@ provider:
         - ${file(infra/iam/logbook-service-table-iam.yml):logbook-service-table-iam}
         - ${file(infra/iam/mail-queue-iam.yml):mail-queue-iam}
         - ${file(infra/iam/logbook-bucket-iam.yml):logbook-bucket-iam}
+        - ${file(infra/iam/kinesis-stream-iam.yml):kinesis-stream-iam}
 
 resources:
   Resources:
     LogbookServiceTable: ${file(infra/resources/logbook-service-table.yml):logbook-service-table}
     LogbookBucket: ${file(infra/resources/logbook-bucket.yml):logbook-bucket}
     LogbookBucketPolicy: ${file(infra/resources/logbook-bucket.yml):logbook-bucket-policy}
-    EventsStreamCreateEntry: ${file(infra/resources/events-stream-create-entry.yml):events-stream-create-entry}
+    LogbookKinesisEntryCreated: ${file(infra/resources/kinesis-stream.yml):kinesis-entry-created}
 
 functions:
   diving-diver-create-entry:
@@ -50,7 +51,7 @@ functions:
           authorizer: ${self:custom.authorizer}
           cors: true
     environment:
-      EVENTS_STREAM_CREATE_ENTRY: ${self:custom.kinesis-stream.name}
+      ENTRY_CREATED: ${self:custom.logbook-kinesis-entry-created.name}
 
   diving-diver-get-entries:
     handler: functions/diving/diver/get-entries.handler
@@ -126,9 +127,9 @@ custom:
   mail-queue:
     arn: ${cf:notification-service-${self:provider.stage}.NotificationMailQueueArn}
     url: ${cf:notification-service-${self:provider.stage}.NotificationMailQueueUrl}
-  kinesis-stream:
-    name: !Ref EventsStreamCreateEntry
-    arn: !GetAtt EventsStreamCreateEntry.Arn
+  logbook-kinesis-entry-created:
+    name: !Ref LogbookKinesisEntryCreated
+    arn: !GetAtt LogbookKinesisEntryCreated.Arn
   logbook-bucket:
     name: bucket-opsap-${self:service}-${self:provider.stage}
   bundle:
