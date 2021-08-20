@@ -5,10 +5,9 @@ var client
 
 if (typeof client === 'undefined') {
   var client = new Redis({
-    port: 32595,
-    host: 'eu1-thorough-possum-32595.upstash.io',
-    password: '4c2bfea6684c41ca9bab7ba544bd5376',
-    tls: {}
+    port: 11953,
+    host: 'redis-11953.c268.eu-west-1-2.ec2.cloud.redislabs.com',
+    password: 'S4HSxrTumOcCsCopDqDK0rXrnDfoQ0g4'
   })
 }
 
@@ -16,7 +15,6 @@ const main = lambdaHandler(async (event, context) => {
   // Gets kinesis records from event object
   // Uses custom helper function to get event and convert from base64 to json
   const result = await client.hvals('posts')
-
   console.log('redis hvals result: ', result)
 
   return result

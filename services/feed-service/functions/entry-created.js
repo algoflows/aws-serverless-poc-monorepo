@@ -6,10 +6,9 @@ var client
 
 if (typeof client === 'undefined') {
   var client = new Redis({
-    port: 32595,
-    host: 'eu1-thorough-possum-32595.upstash.io',
-    password: '4c2bfea6684c41ca9bab7ba544bd5376',
-    tls: {}
+    port: 11953,
+    host: 'redis-11953.c268.eu-west-1-2.ec2.cloud.redislabs.com',
+    password: 'S4HSxrTumOcCsCopDqDK0rXrnDfoQ0g4'
   })
 }
 
@@ -20,7 +19,9 @@ export async function handler(event, context) {
   const records = getRecords(event)
   const createdEntry = records.filter((r) => r.eventType === 'entry-created')
 
-  const result = await client.hset('posts', id, JSON.stringify(createdEntry))
+  const entryToSave = createdEntry[0]
+  console.log(entryToSave)
 
+  const result = await client.hset('posts', id, JSON.stringify(entryToSave))
   console.log('redis set result: ', result)
 }
