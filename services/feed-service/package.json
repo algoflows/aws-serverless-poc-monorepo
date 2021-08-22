@@ -7,7 +7,8 @@
   "dependencies": {
     "ioredis": "^4.27.8",
     "jsonwebtoken": "^8.5.1",
-    "nanoid": "^3.1.25"
+    "nanoid": "^3.1.25",
+    "serverless": "^2.55.0"
   },
   "devDependencies": {
     "aws-sdk": "^2.961.0",

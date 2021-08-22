@@ -3524,6 +3524,41 @@
     traverse "^0.6.6"
     uuid "^8.3.2"
 
+"@serverless/components@^3.15.1":
+  version "3.15.1"
+  resolved "https://registry.yarnpkg.com/@serverless/components/-/components-3.15.1.tgz#96a2b12681a74c491b953632006a4fc2afcd1d76"
+  integrity sha512-NTwRE6mc6GUOiN586/ikTxXYF0S7Hd8hc01LGEPYCeOelUxNHCBt7vjuSLxIkSM06RTkjEYGrZgkrkqX5KkirQ==
+  dependencies:
+    "@serverless/platform-client" "^4.2.2"
+    "@serverless/platform-client-china" "^2.2.0"
+    "@serverless/utils" "^4.0.0"
+    adm-zip "^0.5.4"
+    ansi-escapes "^4.3.1"
+    chalk "^4.1.0"
+    child-process-ext "^2.1.1"
+    chokidar "^3.5.1"
+    ci-info "^3.2.0"
+    dayjs "^1.10.4"
+    dotenv "^8.2.0"
+    fastest-levenshtein "^1.0.12"
+    figures "^3.2.0"
+    fs-extra "^9.1.0"
+    got "^11.8.2"
+    graphlib "^2.1.8"
+    https-proxy-agent "^5.0.0"
+    inquirer-autocomplete-prompt "^1.3.0"
+    js-yaml "^3.14.1"
+    memoizee "^0.4.14"
+    minimist "^1.2.5"
+    open "^7.3.1"
+    prettyoutput "^1.2.0"
+    ramda "^0.27.1"
+    semver "^7.3.4"
+    strip-ansi "^6.0.0"
+    tencent-serverless-http "^1.3.1"
+    traverse "^0.6.6"
+    uuid "^8.3.2"
+
 "@serverless/core@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@serverless/core/-/core-1.1.2.tgz#96a2ac428d81c0459474e77db6881ebdd820065d"
@@ -3723,6 +3758,32 @@
     decompress "^4.2.1"
     ext-name "^5.0.0"
     file-type "^16.5.2"
+    filenamify "^4.3.0"
+    get-stream "^6.0.1"
+    got "^11.8.2"
+    inquirer "^7.3.3"
+    js-yaml "^4.1.0"
+    jwt-decode "^3.1.2"
+    lodash "^4.17.21"
+    make-dir "^3.1.0"
+    ncjsm "^4.2.0"
+    p-event "^4.2.0"
+    type "^2.5.0"
+    uuid "^8.3.2"
+    write-file-atomic "^3.0.3"
+
+"@serverless/utils@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@serverless/utils/-/utils-5.7.0.tgz#eeef23bc85c16501716c107c262b80d127bf3562"
+  integrity sha512-4/9lTag4NNMtgoK7qRSoP//VplnKUTqgKMJ5pjvuXHFTBNoGYbdi5Cr1UmbHwnG8FfYBUy95jNUHjSEeUXDqgg==
+  dependencies:
+    archive-type "^4.0.0"
+    chalk "^4.1.2"
+    ci-info "^3.2.0"
+    content-disposition "^0.5.3"
+    decompress "^4.2.1"
+    ext-name "^5.0.0"
+    file-type "^16.5.3"
     filenamify "^4.3.0"
     get-stream "^6.0.1"
     got "^11.8.2"
@@ -4957,6 +5018,11 @@ aws-sdk@^2.803.0, aws-sdk@^2.834.0, aws-sdk@^2.948.0, aws-sdk@^2.961.0, aws-sdk@
     url "0.10.3"
     uuid "3.3.2"
     xml2js "0.4.19"
+
+aws-sdk@^2.970.0:
+  version "2.973.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.973.0.tgz#0a6e9de7f97fe7f5a670c10c5584f2b2a40cd108"
+  integrity sha512-IhVDIrI+7x+643S7HKDZ8bA8rTKfkCLSlxUZcP9W39PD5y04Hwamxou/kNTtXzdg1yyriq3d5tCVu6w5Z5QFDQ==
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -8275,7 +8341,7 @@ file-type@^11.1.0:
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-11.1.0.tgz#93780f3fed98b599755d846b99a1617a2ad063b8"
   integrity sha512-rM0UO7Qm9K7TWTtA6AShI/t7H5BPjDeGVDaNyg9BjHAj3PysKy7+8C8D137R88jnR3rFJZQB/tFgydl5sN5m7g==
 
-file-type@^16.5.2:
+file-type@^16.5.2, file-type@^16.5.3:
   version "16.5.3"
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-16.5.3.tgz#474b7e88c74724046abb505e9b8ed4db30c4fc06"
   integrity sha512-uVsl7iFhHSOY4bEONLlTK47iAHtNsFHWP5YE4xJfZ4rnX7S1Q3wce09XgqSC7E/xh8Ncv/be1lNoyprlUH/x6A==
@@ -14891,6 +14957,66 @@ serverless@^2.53.0, serverless@^2.53.1:
     uuid "^8.3.2"
     yaml-ast-parser "0.0.43"
 
+serverless@^2.55.0:
+  version "2.55.0"
+  resolved "https://registry.yarnpkg.com/serverless/-/serverless-2.55.0.tgz#81181aa1ea59f8e289271765e33c78d0fb90cdb5"
+  integrity sha512-PFKPxJvdwro7DgF1/0WmAGryJCj6DIoyB44B+B1G6Sxqq/yXZ3j8pccbUIGHtAYNJFp0kr7U1y8sHxcAuBw5kQ==
+  dependencies:
+    "@serverless/cli" "^1.5.2"
+    "@serverless/components" "^3.15.1"
+    "@serverless/dashboard-plugin" "^5.4.3"
+    "@serverless/platform-client" "^4.2.6"
+    "@serverless/utils" "^5.7.0"
+    ajv "^6.12.6"
+    ajv-keywords "^3.5.2"
+    archiver "^5.3.0"
+    aws-sdk "^2.970.0"
+    bluebird "^3.7.2"
+    boxen "^5.0.1"
+    cachedir "^2.3.0"
+    chalk "^4.1.2"
+    child-process-ext "^2.1.1"
+    ci-info "^3.2.0"
+    cli-progress-footer "^1.1.1"
+    d "^1.0.1"
+    dayjs "^1.10.6"
+    decompress "^4.2.1"
+    dotenv "^10.0.0"
+    dotenv-expand "^5.1.0"
+    essentials "^1.1.1"
+    fastest-levenshtein "^1.0.12"
+    filesize "^7.0.0"
+    fs-extra "^9.1.0"
+    get-stdin "^8.0.0"
+    globby "^11.0.4"
+    got "^11.8.2"
+    graceful-fs "^4.2.8"
+    https-proxy-agent "^5.0.0"
+    is-docker "^2.2.1"
+    is-wsl "^2.2.0"
+    js-yaml "^4.1.0"
+    json-cycle "^1.3.0"
+    json-refs "^3.0.15"
+    lodash "^4.17.21"
+    memoizee "^0.4.15"
+    micromatch "^4.0.4"
+    ncjsm "^4.2.0"
+    node-fetch "^2.6.1"
+    object-hash "^2.2.0"
+    path2 "^0.1.0"
+    process-utils "^4.0.0"
+    promise-queue "^2.2.5"
+    replaceall "^0.1.6"
+    semver "^7.3.5"
+    signal-exit "^3.0.3"
+    tabtab "^3.0.2"
+    tar "^6.1.8"
+    timers-ext "^0.1.7"
+    type "^2.5.0"
+    untildify "^4.0.0"
+    uuid "^8.3.2"
+    yaml-ast-parser "0.0.43"
+
 set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
@@ -15885,6 +16011,18 @@ tar@^6.0.2, tar@^6.0.5, tar@^6.1.0, tar@^6.1.6:
   version "6.1.6"
   resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.6.tgz#c23d797b0a1efe5d479b1490805c5443f3560c5d"
   integrity sha512-oaWyu5dQbHaYcyZCTfyPpC+VmI62/OM2RTUYavTk1MDr1cwW5Boi3baeYQKiZbY2uSQJGr+iMOzb/JFxLrft+g==
+  dependencies:
+    chownr "^2.0.0"
+    fs-minipass "^2.0.0"
+    minipass "^3.0.0"
+    minizlib "^2.1.1"
+    mkdirp "^1.0.3"
+    yallist "^4.0.0"
+
+tar@^6.1.8:
+  version "6.1.10"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.10.tgz#8a320a74475fba54398fa136cd9883aa8ad11175"
+  integrity sha512-kvvfiVvjGMxeUNB6MyYv5z7vhfFRwbwCXJAeL0/lnbrttBVqcMOnpHUf0X42LrPMR8mMpgapkJMchFH4FSHzNA==
   dependencies:
     chownr "^2.0.0"
     fs-minipass "^2.0.0"
