@@ -20,12 +20,6 @@ export default function Home() {
     return dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
   })
 
-  const sortedEntries = data.Items.sort((a, b) => {
-    return dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
-  })
-
-  console.log(sortedEntries)
-
   return (
     <>
       {sortedPosts.map((post, i) => (
