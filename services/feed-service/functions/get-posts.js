@@ -14,7 +14,10 @@ if (typeof client === 'undefined') {
 const main = lambdaHandler(async (event, context) => {
   // Gets kinesis records from event object
   // Uses custom helper function to get event and convert from base64 to json
-  const result = await client.hvals('posts')
+  let response = await client.hvals('posts')
+
+  const result = response.map((item) => JSON.parse(item))
+
   console.log('redis hvals result: ', result)
 
   return result

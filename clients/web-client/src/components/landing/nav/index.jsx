@@ -40,11 +40,12 @@ export default function LandingNav() {
           </div>
           <div className="ml-10 space-x-4">
             {!user ? (
-              <Link href="/api/auth/login">
-                <a className="inline-block px-4 py-2 text-base font-medium text-white bg-blue-700 border border-transparent rounded-md hover:bg-opacity-75">
-                  Sign in
-                </a>
-              </Link>
+              <a
+                href="/api/auth/login"
+                className="inline-block px-4 py-2 text-base font-medium text-white bg-blue-700 border border-transparent rounded-md hover:bg-opacity-75"
+              >
+                Sign in
+              </a>
             ) : (
               <>
                 <Link href="/user/feed">
@@ -52,11 +53,13 @@ export default function LandingNav() {
                     Dashboard
                   </a>
                 </Link>
-                <Link href="/api/auth/logout">
-                  <a className="inline-block px-4 py-2 text-base font-medium text-blue-700 bg-white border border-transparent rounded-md hover:bg-indigo-50">
-                    Logout
-                  </a>
-                </Link>
+
+                <a
+                  href="/api/auth/logout"
+                  className="inline-block px-4 py-2 text-base font-medium text-blue-700 bg-white border border-transparent rounded-md hover:bg-indigo-50"
+                >
+                  Logout
+                </a>
               </>
             )}
           </div>

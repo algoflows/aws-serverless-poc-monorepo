@@ -15,7 +15,7 @@ export default function ProfileCard({ user }) {
         />
         <div className="relative flex items-end object-cover w-full pt-21">
           <Image width={90} height={90} className="rounded-xl " src={user.picture} alt="profile picture" />
-          <span className="ml-6 text-3xl font-semibold text-white">Sean Knowles</span>
+          <span className="ml-6 text-3xl font-semibold text-white">{user.name}</span>
           <button className="px-4 mb-1 ml-5 font-semibold text-white border border-green-500 rounded-lg">
             Available
           </button>
@@ -46,12 +46,12 @@ export default function ProfileCard({ user }) {
               </div>
               <div className="flex mb-2">
                 <h2 className="text-sm font-semibold text-blue-400">
-                  Nearest Airport: <span className="text-yellow-400">LHR HEATHROW</span>
+                  Nearest Airport: <span className="text-gray-600">LHR HEATHROW</span>
                 </h2>
               </div>
               <div className="flex">
                 <h2 className="text-sm font-semibold text-blue-400">
-                  Phone: <span className="text-yellow-400"> +44 07360 003789</span>
+                  Phone: <span className="text-gray-600">+44 07360 003789</span>
                 </h2>
               </div>
             </div>

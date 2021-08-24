@@ -1,14 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useQuery } from 'react-query'
 import { ResponsiveCalendar } from '@nivo/calendar'
-import { data } from './data'
 import dayjs from 'dayjs'
+import Loader from '../../loaders'
 
-function ProfileCalendar(props) {
+function ProfileCalendar({ userId }) {
   const now = dayjs()
-  console.log(data)
+
+  const fetchEntries = async () => {
+    return await (
+      await fetch(`https://dev-api.opsap.com/logbook/diving/diver/get-entries/${encodeURI(userId)}`)
+    ).json()
+  }
+
+  const { isLoading, isError, data, error } = useQuery('get-entries', fetchEntries)
+
+  if (isLoading) return <Loader />
+  if (isError) return <div>{error.message}</div>
+
+  // Select required field props for chartComponent
+  const selectedFields = data.Items.map((item) => {
+    const entry = {
+      value: item['bottomTime'],
+      day: dayjs(item['leftSurface']).format('YYYY-MM-DD')
+    }
+
+    return entry
+  })
+
   return (
     <ResponsiveCalendar
-      data={data}
+      data={selectedFields}
       from={now.subtract(1, 'year')}
       to={now}
       emptyColor="#eeeeee"

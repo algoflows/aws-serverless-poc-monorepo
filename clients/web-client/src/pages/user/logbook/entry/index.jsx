@@ -23,6 +23,9 @@ export default function Logbooks() {
 
     const newEntry = {
       ...data,
+      fullName: user.name,
+      givenName: user.given_name,
+      familyName: user.family_name,
       userId: user.sub,
       coverPhoto: coverPhoto || null,
       userVerifierId: data.userVerifierId.toLowerCase()

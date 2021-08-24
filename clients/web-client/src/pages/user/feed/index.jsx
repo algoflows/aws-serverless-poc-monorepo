@@ -1,61 +1,36 @@
 import React from 'react'
-import Image from 'next/image'
 import UserLayout from '../../../layouts/user'
-import homefeed0 from '/public/images/homefeed2.jpg'
 import homefeed1 from '/public/images/homefeed1.jpg'
+import Loader from '../../../components/loaders'
+import { useQuery } from 'react-query'
+import PostItem from '../../../components/feed/post-item'
+import dayjs from 'dayjs'
 
 export default function Home() {
+  const fetchPosts = async () => {
+    return await (await fetch(`https://dev-api.opsap.com/feed/get-posts`)).json()
+  }
+
+  const { isLoading, isError, data, error } = useQuery('get-posts', fetchPosts)
+
+  if (isLoading) return <Loader size={100} loading={isLoading} />
+  if (isError) return <span>Error: {error.message}</span>
+
+  const sortedPosts = data.sort((a, b) => {
+    return dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
+  })
+
+  const sortedEntries = data.Items.sort((a, b) => {
+    return dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
+  })
+
+  console.log(sortedEntries)
+
   return (
     <>
-      <div className="flex flex-col items-center justify-center overflow-x-hidden">
-        <div className="p-10">
-          <div className="max-w-sm overflow-hidden rounded shadow-lg">
-            <Image width="420" height="320" className="w-full" src={homefeed1} alt="Mountain" />
-            <div className="px-6 py-4">
-              <div className="mb-2 text-xl font-bold">Saturation</div>
-              <p className="text-base text-gray-700">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et
-                perferendis eaque, exercitationem praesentium nihil.
-              </p>
-            </div>
-            <div className="px-6 pt-4 pb-2">
-              <span className="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
-                #Offshore
-              </span>
-              <span className="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
-                #Nigeria
-              </span>
-              <span className="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
-                <div id="Saturation">#Saturation</div>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="p-10">
-          <div className="max-w-sm overflow-hidden rounded shadow-lg">
-            <Image width="420" height="320" className="w-full" src={homefeed0} alt="Mountain" />
-            <div className="px-6 py-4">
-              <div className="mb-2 text-xl font-bold">Wet Welding</div>
-              <p className="text-base text-gray-700">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et
-                perferendis eaque, exercitationem praesentium nihil.
-              </p>
-            </div>
-            <div className="px-6 pt-4 pb-2">
-              <span className="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
-                #Offshore
-              </span>
-              <span className="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
-                #Nigeria
-              </span>
-              <span className="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
-                <div id="Saturation">#Saturation</div>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+      {sortedPosts.map((post, i) => (
+        <PostItem key={i} image={post.coverPhoto || homefeed1} description={post.details} title={post.type} />
+      ))}
     </>
   )
 }
