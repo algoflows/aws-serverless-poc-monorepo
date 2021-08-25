@@ -15,7 +15,6 @@ const main = lambdaHandler(async (event) => {
   const { userId } = event.body
   const now = new Date()
   const entryId = uuid()
-  let result
   let coverPhoto
 
   // Check if image has been uploaded from client
@@ -77,10 +76,12 @@ const main = lambdaHandler(async (event) => {
   console.log('published entry-created to kinesis stream')
 
   // Construct result object
-  return (result = {
+  const result = {
     Item: params.Item,
     mailResults
-  })
+  }
+
+  return result
 })
 
 const schema = {
