@@ -4,8 +4,12 @@ import { useForm } from 'react-hook-form'
 import { useUser } from '@auth0/nextjs-auth0'
 import { DevTool } from '@hookform/devtools'
 import { toBase64 } from 'src/utils/toBase64'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
 
 export default function Logbooks() {
+  const toastId = React.useRef(null)
+  const router = useRouter()
   const { user } = useUser()
   const {
     register,
@@ -15,6 +19,8 @@ export default function Logbooks() {
   } = useForm()
 
   const onSubmit = async (data) => {
+    toastId.current = toast('Saving in progress...', { autoClose: false })
+
     let coverPhoto
     if (data.coverPhoto[0]) {
       const file = data.coverPhoto[0]
@@ -44,6 +50,14 @@ export default function Logbooks() {
 
       const data = await response.json()
 
+      toast.update(toastId.current, {
+        render: 'Successfully saved!',
+        type: toast.TYPE.INFO,
+        autoClose: 3000
+      })
+
+      router.push(`/user/logbook/history/${user.sub}`)
+
       console.log(data)
     } catch (err) {
       console.log(err)
@@ -52,7 +66,7 @@ export default function Logbooks() {
 
   return (
     <div className="px-20 py-12 mt-6">
-      <DevTool control={control} /> {/* set up the dev tool */}
+      {/* <DevTool control={control} /> set up the dev tool */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="px-10 py-10 space-y-8 border-gray-700 divide-y divide-gray-200 shadow-lg rounded-xl"
@@ -554,7 +568,7 @@ export default function Logbooks() {
               type="submit"
               className="inline-flex justify-center px-4 py-2 ml-3 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              ADD
+              Save
             </button>
           </div>
         </div>

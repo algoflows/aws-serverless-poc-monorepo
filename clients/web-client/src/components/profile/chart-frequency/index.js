@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useQuery } from 'react-query'
 import { ResponsiveCalendar } from '@nivo/calendar'
 import dayjs from 'dayjs'
 import Loader from '../../loaders'
 
-function ProfileCalendar({ userId }) {
-  const now = dayjs()
+const now = dayjs()
 
+function ProfileCalendar({ userId }) {
   const fetchEntries = async () => {
     return await (
       await fetch(`https://dev-api.opsap.com/logbook/diving/diver/get-entries/${encodeURI(userId)}`)
@@ -34,7 +34,7 @@ function ProfileCalendar({ userId }) {
       from={now.subtract(1, 'year')}
       to={now}
       emptyColor="#eeeeee"
-      colors={['darkblue', 'lightblue', 'lightyellow', 'orange']}
+      colors={['#5ba4cf', '#0079bf', '#055a8c', '#0c3953']}
       margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
       yearSpacing={40}
       monthBorderColor="#ffffff"

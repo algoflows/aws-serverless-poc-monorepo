@@ -6,10 +6,12 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { Hydrate } from 'react-query/hydration'
 import LandingLayout from '../layouts/landing'
 import { UserProvider } from '@auth0/nextjs-auth0'
-
+import { ToastContainer, toast } from 'react-toastify'
+import { AnimatePresence } from 'framer-motion'
+import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.css'
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps, router }) {
   const [queryClient] = useState(() => new QueryClient())
 
   const Layout = Component.Layout || LandingLayout
@@ -18,14 +20,28 @@ export default function MyApp({ Component, pageProps }) {
     <UserProvider>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+          <ReactQueryDevtools initialIsOpen={false} />
           <Head>
             <title>OPSAP - Platform</title>
             <link rel="shortcut icon" href="/opsap-favicon.png" />
           </Head>
           <div className="max-w-5xl mx-auto sm:px-0">
             <Layout>
-              <Component {...pageProps} />
+              <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
+              {/* AnimatePresence Framer-Motion */}
+              <AnimatePresence exitBeforeEnter>
+                <Component {...pageProps} key={router.route} />
+              </AnimatePresence>
             </Layout>
           </div>
         </Hydrate>

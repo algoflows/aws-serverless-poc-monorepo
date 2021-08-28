@@ -195,7 +195,7 @@ export default function UserLayout({ children }) {
         )}
       </Disclosure>
 
-      <header className="bg-white shadow-sm">
+      <header className="bg-white rounded-b-lg shadow-sm">
         <div className="flex px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <h1 className="text-lg font-semibold leading-6 text-gray-900">Dashboard</h1>
         </div>

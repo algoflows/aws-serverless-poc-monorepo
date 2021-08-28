@@ -23,6 +23,8 @@ export default function EntryDetails() {
 
   const entry = data.Items[0]
 
+  console.log(entry)
+
   const leftSurface = dayjs(entry.leftSurface)
   const arrivedSurface = dayjs(entry.arrivedSurface)
 
@@ -54,7 +56,7 @@ export default function EntryDetails() {
 
             {/* ENTRY TYPE AIR/SAT*/}
             <div className="space-y-6 divide-y divide-gray-200 sm:space-y-5">
-              <div className="mt-6 space-y-6 sm:mt-5 sm:space-y-5">
+              <div className="mt-6 space-y-6 sm:mt-5 sm:space-y3-5">
                 <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                   <label
                     htmlFor="username"
