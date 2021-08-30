@@ -7,7 +7,7 @@ import { Hydrate } from 'react-query/hydration'
 import LandingLayout from '../layouts/landing'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import { ToastContainer, toast } from 'react-toastify'
-import { AnimatePresence } from 'framer-motion'
+// import { AnimatePresence } from 'framer-motion'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.css'
 
