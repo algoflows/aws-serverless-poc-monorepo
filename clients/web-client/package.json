@@ -37,6 +37,7 @@
     "react-spring": "^9.2.4",
     "react-toastify": "^7.0.4",
     "sass": "^1.35.2",
+    "swr": "^1.0.0",
     "tailwindcss": "^2.2.7",
     "xstate": "^4.20.2"
   },

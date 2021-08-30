@@ -27,6 +27,8 @@ export default function MyApp({ Component, pageProps, router }) {
           </Head>
           <div className="max-w-5xl mx-auto sm:px-0">
             <Layout>
+              {/* AnimatePresence Framer-Motion */}
+              {/*<AnimatePresence exitBeforeEnter>*/}
               <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -38,8 +40,6 @@ export default function MyApp({ Component, pageProps, router }) {
                 draggable
                 pauseOnHover
               />
-              {/* AnimatePresence Framer-Motion */}
-              {/*<AnimatePresence exitBeforeEnter>*/}
                 <Component {...pageProps} key={router.route} />
               {/*</AnimatePresence>*/}
             </Layout>
