@@ -6,7 +6,7 @@ logbook-bucket:
       Rules:
         - Id: ExpirePictures
           Status: Enabled
-          ExpirationInDays: 1
+          ExpirationInDays: 365
 
 logbook-bucket-policy:
   Type: AWS::S3::BucketPolicy

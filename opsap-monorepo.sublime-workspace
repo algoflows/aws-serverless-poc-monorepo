@@ -9,19 +9,6 @@
 	[
 		{
 			"file": "services/logbook-service/functions/diving/diver/create-entry.js",
-			"redo_stack":
-			[
-				[
-					26,
-					1,
-					"run_macro_file",
-					{
-						"file": "res://Packages/Default/Delete to Hard EOL.sublime-macro"
-					},
-					"AQAAANwHAAAAAAAA4AcAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA3AcAAAAAAADcBwAAAAAAAAAAAAAAAPC/"
-				]
-			],
 			"settings":
 			{
 				"buffer_size": 3633,
@@ -65,6 +52,14 @@
 					},
 					"AQAAAHoFAAAAAAAAfAUAAAAAAAAAAAAA",
 					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAB6BQAAAAAAAHoFAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					748,
+					1,
+					"revert",
+					null,
+					"AgAAAAAAAAAAAAAAAAAAAAAAAAAxDgAAaW1wb3J0IHsgbGFtYmRhSGFuZGxlciwgZHluYW1vZGIsIGNvbW1vbk1pZGRsZXdhcmUgfSBmcm9tICcuLi8uLi8uLi9saWInCmltcG9ydCB7IG5vdGlmeVVzZXIsIG5vdGlmeVZlcmlmaWVyIH0gZnJvbSAnLi4vLi4vLi4vbGliL2VtYWlsLXRlbXBsYXRlcycKaW1wb3J0IHsgdXBsb2FkSW1hZ2VUb1MzLCBzZXRJbWFnZVVybCB9IGZyb20gJy4uLy4uLy4uL2xpYi9EQUwnCmltcG9ydCB2YWxpZGF0b3IgZnJvbSAnQG1pZGR5L3ZhbGlkYXRvcicKaW1wb3J0IHsgdjQgYXMgdXVpZCB9IGZyb20gJ3V1aWQnCmltcG9ydCB7IExvZ2Jvb2sgfSBmcm9tICcuLi9sb2dib29rRW51bScKaW1wb3J0IEFXUyBmcm9tICdhd3Mtc2RrJwoKY29uc3Qga2luZXNpcyA9IG5ldyBBV1MuS2luZXNpcygpCgpjb25zdCBMT0dCT09LX1NFUlZJQ0VfVEFCTEUgPSBwcm9jZXNzLmVudi5MT0dCT09LX1NFUlZJQ0VfVEFCTEUKY29uc3QgRU5UUllfQ1JFQVRFRCA9IHByb2Nlc3MuZW52LkVOVFJZX0NSRUFURUQKCmNvbnN0IG1haW4gPSBsYW1iZGFIYW5kbGVyKGFzeW5jIChldmVudCkgPT4gewogIGNvbnN0IHsgdXNlcklkIH0gPSBldmVudC5ib2R5CiAgY29uc3Qgbm93ID0gbmV3IERhdGUoKQogIGNvbnN0IGVudHJ5SWQgPSB1dWlkKCkKICBsZXQgY292ZXJQaG90bwoKICAvLyBDaGVjayBpZiBpbWFnZSBoYXMgYmVlbiB1cGxvYWRlZCBmcm9tIGNsaWVudAogIC8vIFNldCBldmVudC5ib2R5IGltYWdlIHRvIGZpZWxkIHRvIG51bGwgYmVjYXVzZSBvZiBkeW5hbW9kYiA0MDBrYiBpdGVtIGxpbWl0CiAgaWYgKGV2ZW50LmJvZHkuY292ZXJQaG90bykgewogICAgY292ZXJQaG90byA9IGV2ZW50LmJvZHkuY292ZXJQaG90bwogICAgZXZlbnQuYm9keS5jb3ZlclBob3RvID0gbnVsbAogIH0KCiAgLy8gQ29uc3RydWN0IG5ldyBsb2Jvb2sgZW50cnkgb2JqZWN0CiAgY29uc3QgcGFyYW1zID0gewogICAgVGFibGVOYW1lOiBMT0dCT09LX1NFUlZJQ0VfVEFCTEUsCiAgICBJdGVtOiB7CiAgICAgIC4uLmV2ZW50LmJvZHksCiAgICAgIFBLOiBgdXNlcklkIyR7dXNlcklkfWAsCiAgICAgIFNLOiBgZGl2ZUlkIyR7ZW50cnlJZH1gLAogICAgICBlbnRyeUlkOiBlbnRyeUlkLAogICAgICBsb2dib29rOiBMb2dib29rLmRpdmVyLAogICAgICBjb21wYW55VmVyaWZpZXJJZDogJ251bGwnLAogICAgICBjbGllbnRWZXJpZmVySWQ6ICdudWxsJywKICAgICAgdXNlclZlcmlmaWVkOiAnZmFsc2UnLAogICAgICBjb21wYW55VmVyaWZpZWQ6ICdmYWxzZScsCiAgICAgIGNsaWVudFZlcmlmaWVkOiAnZmFsc2UnLAogICAgICBHU0sxOiBldmVudC5ib2R5LkdTSzEgfHwgJ251bGwnLAogICAgICBHU0syOiBldmVudC5ib2R5LkdTSzIgfHwgJ251bGwnLAogICAgICBjcmVhdGVkQXQ6IG5vdy50b0lTT1N0cmluZygpLAogICAgICB1cGRhdGVkQXQ6IG5vdy50b0lTT1N0cmluZygpCiAgICB9LAogICAgUmV0dXJuVmFsdWVzOiAnQUxMX09MRCcKICB9CgogIC8vIFNhdmUgZW50cnkgb2JqZWN0IHRvIGRiCiAgYXdhaXQgZHluYW1vZGIucHV0KHBhcmFtcykKCiAgLy8gQWRkIHBob3RvIHRvIHMzIGFuZCBhZGQgczMgaW1hZ2VVcmwgdG8gaXRlbSBzdG9yZWQgaW4gZHluYW1vZGIKICBpZiAoY292ZXJQaG90bykgewogICAgY29uc3QgbG9jYXRpb24gPSBhd2FpdCB1cGxvYWRJbWFnZVRvUzMoZW50cnlJZCwgY292ZXJQaG90bykKICAgIHBhcmFtcy5JdGVtID0gYXdhaXQgc2V0SW1hZ2VVcmwodXNlcklkLCBlbnRyeUlkLCBsb2NhdGlvbikKICB9CgogIC8vIFNlbmQgbm90aWZpY2F0aW9uIGVtYWlscyB0byBib3RoIHZlcmlmaWVyIGFuZCB1c2VyCiAgY29uc3QgbWFpbFJlc3VsdHMgPSBhd2FpdCBQcm9taXNlLmFsbChbbm90aWZ5VXNlcihwYXJhbXMuSXRlbSksIG5vdGlmeVZlcmlmaWVyKHBhcmFtcy5JdGVtKV0pCgogIC8vIENvbnN0cnVjdCBraW5lc2VzIHN0cmVhbSBkYXRhIG9iamVjdAogIGNvbnN0IGRhdGEgPSB7CiAgICAuLi5wYXJhbXMuSXRlbSwKICAgIGV2ZW50VHlwZTogJ2VudHJ5LWNyZWF0ZWQnCiAgfQoKICAvLyBDb25zdHJ1Y3Qga2luZXNlcyBldmVudCBwdXRSZXEgb2JqZWN0CiAgY29uc3QgcHV0UmVxID0gewogICAgRGF0YTogSlNPTi5zdHJpbmdpZnkoZGF0YSksCiAgICBQYXJ0aXRpb25LZXk6IHBhcmFtcy5JdGVtLmVudHJ5SWQsCiAgICBTdHJlYW1OYW1lOiBFTlRSWV9DUkVBVEVECiAgfQoKICAvLyBQdXQgZXZlbnQga2luZXNpcyBvYmplY3QgaW50byBzdHJlYW0KICBhd2FpdCBraW5lc2lzLnB1dFJlY29yZChwdXRSZXEpLnByb21pc2UoKQogIGNvbnNvbGUubG9nKCdwdWJsaXNoZWQgZW50cnktY3JlYXRlZCB0byBraW5lc2lzIHN0cmVhbScpCgogIC8vIENvbnN0cnVjdCByZXN1bHQgb2JqZWN0CiAgY29uc3QgcmVzdWx0ID0gewogICAgSXRlbTogcGFyYW1zLkl0ZW0sCiAgICBtYWlsUmVzdWx0cwogIH0KCiAgcmV0dXJuIHJlc3VsdAp9KQoKY29uc3Qgc2NoZW1hID0gewogIHR5cGU6ICdvYmplY3QnLAogIHByb3BlcnRpZXM6IHsKICAgIGJvZHk6IHsKICAgICAgdHlwZTogJ29iamVjdCcsCiAgICAgIHByb3BlcnRpZXM6IHsKICAgICAgICB1c2VySWQ6IHsKICAgICAgICAgIHR5cGU6ICdzdHJpbmcnCiAgICAgICAgfSwKICAgICAgICBlbnRyeVR5cGU6IHsKICAgICAgICAgIHR5cGU6ICdzdHJpbmcnCiAgICAgICAgfSwKICAgICAgICBzdWJUeXBlQTogewogICAgICAgICAgdHlwZTogJ3N0cmluZycKICAgICAgICB9LAogICAgICAgIGNvbXBhbnk6IHsKICAgICAgICAgIHR5cGU6ICdzdHJpbmcnCiAgICAgICAgfSwKICAgICAgICBjbGllbnQ6IHsKICAgICAgICAgIHR5cGU6ICdzdHJpbmcnCiAgICAgICAgfSwKICAgICAgICBsb2NhdGlvbjogewogICAgICAgICAgdHlwZTogJ3N0cmluZycKICAgICAgICB9LAogICAgICAgIGNvdW50cnk6IHsKICAgICAgICAgIHR5cGU6ICdzdHJpbmcnCiAgICAgICAgfSwKICAgICAgICBkZXB0aE1ldGVyczogewogICAgICAgICAgdHlwZTogJ3N0cmluZycKICAgICAgICB9LAogICAgICAgIGxlZnRTdXJmYWNlOiB7CiAgICAgICAgICB0eXBlOiAnc3RyaW5nJwogICAgICAgIH0sCiAgICAgICAgYm90dG9tVGltZTogewogICAgICAgICAgdHlwZTogJ3N0cmluZycKICAgICAgICB9LAogICAgICAgIGFycml2ZWRTdXJmYWNlOiB7CiAgICAgICAgICB0eXBlOiAnc3RyaW5nJwogICAgICAgIH0sCiAgICAgICAgdGFibGU6IHsKICAgICAgICAgIHR5cGU6ICdzdHJpbmcnCiAgICAgICAgfSwKICAgICAgICBtaXh0dXJlOiB7CiAgICAgICAgICB0eXBlOiAnc3RyaW5nJwogICAgICAgIH0sCiAgICAgICAgc3ViVHlwZUI6IHsKICAgICAgICAgIHR5cGU6ICdzdHJpbmcnCiAgICAgICAgfSwKICAgICAgICBkZXRhaWxzOiB7CiAgICAgICAgICB0eXBlOiAnc3RyaW5nJwogICAgICAgIH0KICAgICAgfSwKICAgICAgcmVxdWlyZWQ6IFsndXNlcklkJ10KICAgIH0KICB9LAogIHJlcXVpcmVkOiBbJ2JvZHknXQp9CgpleHBvcnQgY29uc3QgaGFuZGxlciA9IGNvbW1vbk1pZGRsZXdhcmUobWFpbikudXNlKAogIHZhbGlkYXRvcih7CiAgICBpbnB1dFNjaGVtYTogc2NoZW1hLAogICAgYWp2T3B0aW9uczogewogICAgICB1c2VEZWZhdWx0czogdHJ1ZSwKICAgICAgc3RyaWN0OiBmYWxzZQogICAgfQogIH0pCikKAAAAAAAAAAAxDgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAcwMAAAAAAABzAwAAAAAAAAAAAAAAAPC/"
 				]
 			]
 		}
@@ -80,6 +75,22 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"open tu",
+				"Terminus: Open Default Shell in Tab (View)"
+			],
+			[
+				"open",
+				"Go: Open Terminal"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"theme",
+				"UI: Select Theme"
+			],
 			[
 				"terminus",
 				"Terminus: List Shells"
@@ -99,10 +110,6 @@
 			[
 				"terminop",
 				"Terminus: Open Default Shell in Panel"
-			],
-			[
-				"instal",
-				"Package Control: Install Package"
 			],
 			[
 				"install",
@@ -147,11 +154,7 @@
 	"expanded_folders":
 	[
 		"/C/Users/s/Projects/opsap/monorepo",
-		"/C/Users/s/Projects/opsap/monorepo/services",
-		"/C/Users/s/Projects/opsap/monorepo/services/logbook-service",
-		"/C/Users/s/Projects/opsap/monorepo/services/logbook-service/functions",
-		"/C/Users/s/Projects/opsap/monorepo/services/logbook-service/functions/diving",
-		"/C/Users/s/Projects/opsap/monorepo/services/logbook-service/functions/diving/diver"
+		"/C/Users/s/Projects/opsap/monorepo/services"
 	],
 	"file_history":
 	[
@@ -209,8 +212,8 @@
 						"selection":
 						[
 							[
-								250,
-								250
+								2531,
+								2531
 							]
 						],
 						"settings":
@@ -235,8 +238,8 @@
 								{
 									"1":
 									[
-										250,
-										251
+										2530,
+										2531
 									]
 								},
 								"icon":
@@ -251,8 +254,8 @@
 								{
 									"1":
 									[
-										233,
-										234
+										2523,
+										2524
 									]
 								},
 								"unmatched":
@@ -372,7 +375,7 @@
 	},
 	"output.Terminus":
 	{
-		"height": 96.0
+		"height": 240.0
 	},
 	"output.diagnostics":
 	{
@@ -436,8 +439,8 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
-	"side_bar_width": 194.0,
+	"side_bar_visible": true,
+	"side_bar_width": 155.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

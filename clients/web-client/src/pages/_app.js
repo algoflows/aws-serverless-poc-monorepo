@@ -39,9 +39,9 @@ export default function MyApp({ Component, pageProps, router }) {
                 pauseOnHover
               />
               {/* AnimatePresence Framer-Motion */}
-              <AnimatePresence exitBeforeEnter>
+              {/*<AnimatePresence exitBeforeEnter>*/}
                 <Component {...pageProps} key={router.route} />
-              </AnimatePresence>
+              {/*</AnimatePresence>*/}
             </Layout>
           </div>
         </Hydrate>

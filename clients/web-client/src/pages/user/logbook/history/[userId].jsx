@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import UserLayout from '../../../../layouts/user'
 import EntryItem from '../../../../components/logbook/entry-item'
 import { useQuery } from 'react-query'
@@ -25,7 +25,7 @@ export default function Logbook() {
     <div className="px-20 py-12 mt-6">
       <div className="overflow-hidden bg-white shadow sm:rounded-md">
         <ul className="divide-y divide-gray-200">
-          {data.Items.map((data, i) => (
+          {data && data?.Items?.map((data, i) => (
             <div className="cursor-pointer" key={i}>
               <EntryItem entry={data} />
             </div>

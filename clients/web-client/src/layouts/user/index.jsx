@@ -20,7 +20,7 @@ export default function UserLayout({ children }) {
   if (error) return <div>{error.message}</div>
   return (
     <div className="flex flex-col h-screen max-w-890px">
-      <Disclosure as="nav" className="bg-gradient-to-r from-gray-800 to-blue-700">
+      <Disclosure as="nav" className="bg-gradient-to-r from-gray-800 to-blue-700 rounded-b-md">
         {({ open }) => (
           <>
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -195,7 +195,7 @@ export default function UserLayout({ children }) {
         )}
       </Disclosure>
 
-      <header className="bg-white rounded-b-lg shadow-sm">
+      <header className="bg-white">
         <div className="flex px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <h1 className="text-lg font-semibold leading-6 text-gray-900">Dashboard</h1>
         </div>

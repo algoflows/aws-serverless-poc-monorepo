@@ -2,8 +2,6 @@
   background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
-$animationSpeed: 120s;
-
 // Animation
 @keyframes scroll {
   0% {
@@ -44,7 +42,7 @@ $animationSpeed: 120s;
   }
 
   .slidetrack {
-    animation: scroll $animationSpeed linear infinite;
+    animation: scroll 80s linear infinite;
     display: flex;
     width: calc(150px * 14);
   }
