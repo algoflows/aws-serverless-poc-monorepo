@@ -22,14 +22,14 @@ const wrapperVariants = {
 }
 
 const elementVariants = {
-  initial: { scale: 1.05, x: -50, opacity: 0 },
+  initial: { scale: 1.03, x: -50, opacity: 0 },
   enter: {
     scale: 1,
     y: 0,
     x: 0,
     opacity: 1,
     transition: {
-      duration: 1,
+      duration: 0.5,
       ease: [0.48, 0.15, 0.25, 0.96]
     }
   },

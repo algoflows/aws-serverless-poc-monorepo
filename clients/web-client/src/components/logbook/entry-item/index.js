@@ -5,15 +5,11 @@ import dayjs from 'dayjs'
 
 export default function EntryItem({ entry }) {
   const lsTime = new dayjs(entry.leftSurface)
-  console.log('EntryItem', entry.entryId)
-  console.log('EntryItem', entry.userId)
-
-  console.log(entry)
 
   return (
     <>
       <Link href={`/user/logbook/entry/details/${entry.userId}/${entry.entryId}`} passHref>
-        <li className="block hover:bg-gray-50">
+        <div className="block hover:bg-gray-50">
           <div className="flex items-center px-4 py-4 sm:px-6">
             <div className="flex items-center flex-1 min-w-0">
               <div className="flex-shrink-0">
@@ -87,9 +83,7 @@ export default function EntryItem({ entry }) {
                 </div>
                 <div className="hidden md:block">
                   <div>
-                    <p className="text-sm text-gray-500">
-                      DOD: {lsTime.format('DD-MM-YYYY @ HH:mm')}
-                    </p>
+                    <p className="text-sm text-gray-500">DOD: {lsTime.format('DD-MM-YYYY @ HH:mm')}</p>
                     <p className="flex items-center mt-2 text-sm text-gray-500">
                       <CheckCircleIcon
                         className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
@@ -106,7 +100,7 @@ export default function EntryItem({ entry }) {
               <ChevronRightIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
             </div>
           </div>
-        </li>
+        </div>
       </Link>
     </>
   )

@@ -40,9 +40,10 @@
     "sass": "^1.35.2",
     "swr": "^1.0.0",
     "tailwindcss": "^2.2.7",
-    "xstate": "^4.20.2"
+    "xstate": "^4.23.3"
   },
   "devDependencies": {
+    "@xstate/inspect": "^0.5.0",
     "autoprefixer": "^10.2.6",
     "eslint": "7.32.0",
     "eslint-config-next": "11.0.1",

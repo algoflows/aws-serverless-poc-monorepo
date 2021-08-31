@@ -23,8 +23,6 @@ export default function EntryDetails() {
 
   const entry = data.Items[0]
 
-  console.log(entry)
-
   const leftSurface = dayjs(entry.leftSurface)
   const arrivedSurface = dayjs(entry.arrivedSurface)
 
