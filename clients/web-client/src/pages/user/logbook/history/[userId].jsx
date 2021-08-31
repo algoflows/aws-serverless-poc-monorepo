@@ -4,9 +4,9 @@ import EntryItem from '../../../../components/logbook/entry-item'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 import Loader from '../../../../components/loaders'
-import {sortedByDate} from "../../../../utils/sortedbyDate";
-import {motion} from "framer-motion";
-import dayjs from "dayjs";
+import { sortedByDate } from '../../../../utils/sortedbyDate'
+import { motion } from 'framer-motion'
+import dayjs from 'dayjs'
 
 const ulVariants = {
   initial: {},
@@ -15,7 +15,7 @@ const ulVariants = {
       staggerChildren: 0.03,
       delayChildren: 0.03
     }
-  },
+  }
   // exit: {
   //   transition: {
   //     staggerChildren: 0.05,
@@ -34,7 +34,7 @@ const liVariants = {
       duration: 1,
       ease: [0.48, 0.15, 0.25, 0.96]
     }
-  },
+  }
   // exit: {
   //   scale: 0.9,
   //   y: 50,
@@ -44,7 +44,7 @@ const liVariants = {
   // }
 }
 
-export default function Logbook({ssrData}) {
+export default function Logbook({ ssrData }) {
   const {
     query: { userId }
   } = useRouter()
@@ -65,7 +65,13 @@ export default function Logbook({ssrData}) {
   return (
     <div className="px-20 py-12 mt-6">
       <div className="overflow-hidden bg-white shadow sm:rounded-md border border-gray-200">
-        <motion.ul initial="initial" animate="enter" exit="exit" variants={ulVariants} className="divide-y  divide-gray-200">
+        <motion.ul
+          initial="initial"
+          animate="enter"
+          exit="exit"
+          variants={ulVariants}
+          className="divide-y  divide-gray-200"
+        >
           {data.map((data, i) => (
             <motion.li variants={liVariants} className="cursor-pointer divide-y divide-gray-200" key={i}>
               <EntryItem entry={data} />
@@ -78,15 +84,14 @@ export default function Logbook({ssrData}) {
 }
 
 export async function getServerSideProps(context) {
-  const {userId} = context.params
+  const { userId } = context.params
 
   const res = await fetch(`https://dev-api.opsap.com/logbook/diving/diver/get-entries/${encodeURI(userId)}`)
   const ssrData = await res.json()
 
   return {
-    props: { ssrData }, // will be passed to the page component as props
+    props: { ssrData } // will be passed to the page component as props
   }
-
 }
 
 Logbook.Layout = UserLayout
