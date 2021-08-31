@@ -35,7 +35,6 @@ export default function EntryDetails() {
           <div>
             <div className="mb-5">
               <h3 className="text-lg font-medium leading-6 text-blue-400">DETAILS</h3>
-              <p className="max-w-2xl mt-1 text-sm text-yellow-400">Entry details.</p>
             </div>
 
             <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
@@ -131,7 +130,6 @@ export default function EntryDetails() {
               <div className="pt-8 space-y-6 sm:pt-10 sm:space-y-5">
                 <div>
                   <h3 className="text-lg font-medium leading-6 text-blue-400">Stats</h3>
-                  <p className="max-w-2xl mt-1 text-sm text-yellow-400">Dive times and depth</p>
                 </div>
                 <div className="space-y-6 sm:space-y-5">
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
@@ -209,9 +207,6 @@ export default function EntryDetails() {
               <div className="pt-8 space-y-6 divide-y divide-gray-200 sm:pt-10 sm:space-y-5">
                 <div>
                   <h3 className="text-lg font-medium leading-6 text-blue-400">Details</h3>
-                  <p className="max-w-2xl mt-1 text-sm text-yellow-400">
-                    Additional remarks and important information.
-                  </p>
                 </div>
                 <div className="space-y-6 divide-y divide-gray-200 sm:space-y-5">
                   <div className="pt-6 sm:pt-5">

@@ -1,5 +1,5 @@
 import styles from './carousel.module.scss'
-import LogoCard from './logo-card'
+import LogoCard from '../../logo-carousel/logo-card'
 import Image from 'next/image'
 
 import dcnLogo from '/public/logos/dcn.png'

@@ -19,9 +19,9 @@ export default function Profile() {
         <div className="mb-10">
           <ProfileCard user={user} />
         </div>
-        <div className="w-full p-3 border border-gray-100 rounded-lg shadow-md max-h-150">
+        <div className="w-full p-3 border border-gray-100 rounded-lg shadow-md max-h-150 border border-gray-200">
           <h4 className="px-8 pt-5 text-lg font-semibold">Log Frequency</h4>
-          <div className="h-96 ">
+          <div className="h-96">
             <ProfileCalendar userId={user.sub} />
           </div>
         </div>

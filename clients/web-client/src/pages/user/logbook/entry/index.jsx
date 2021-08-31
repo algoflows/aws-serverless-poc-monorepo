@@ -29,6 +29,7 @@ export default function Logbooks() {
 
     const newEntry = {
       ...data,
+      userProfilePicture: user.picture,
       fullName: user.name,
       givenName: user.given_name,
       familyName: user.family_name,
@@ -69,13 +70,13 @@ export default function Logbooks() {
       {/* <DevTool control={control} /> set up the dev tool */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="px-10 py-10 space-y-8 border-gray-700 divide-y divide-gray-200 shadow-lg rounded-xl"
+        className="px-10 py-10 space-y-8 border border-gray-150 divide-y divide-gray-200 shadow-lg rounded-xl"
       >
         <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
           <div>
             <div>
               <h3 className="text-lg font-medium leading-6 text-blue-400">ADD ENTRY</h3>
-              <p className="max-w-2xl mt-1 text-sm text-yellow-400">Fill in all required fields.</p>
+              <p className="max-w-2xl mt-1 text-sm text-gray-600">Complete all required fields.</p>
             </div>
 
             {/* ENTRY TYPE AIR/SAT*/}
@@ -267,7 +268,7 @@ export default function Logbooks() {
               <div className="pt-8 space-y-6 sm:pt-10 sm:space-y-5">
                 <div>
                   <h3 className="text-lg font-medium leading-6 text-blue-400">Stats</h3>
-                  <p className="max-w-2xl mt-1 text-sm text-yellow-400">Dive times and depth</p>
+                  <p className="max-w-2xl mt-1 text-sm text-gray-600">Depths and times.</p>
                 </div>
                 <div className="space-y-6 sm:space-y-5">
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
@@ -383,7 +384,7 @@ export default function Logbooks() {
               <div className="pt-8 space-y-6 divide-y divide-gray-200 sm:pt-10 sm:space-y-5">
                 <div>
                   <h3 className="text-lg font-medium leading-6 text-blue-400">Details</h3>
-                  <p className="max-w-2xl mt-1 text-sm text-yellow-400">
+                  <p className="max-w-2xl mt-1 text-sm text-gray-600">
                     Additional remarks and important information.
                   </p>
                 </div>

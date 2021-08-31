@@ -1,6 +1,7 @@
 import Image from 'next/image'
-import ProfileCarousel from '../profile-carousel'
+import ProfileCarousel from '../../logo-carousel'
 import profileTitleImage from '/public/images/profile-title-image.png'
+
 
 export default function ProfileCard({ user }) {
   return (
@@ -21,7 +22,7 @@ export default function ProfileCard({ user }) {
           </button>
         </div>
       </div>
-      <div className="container flex flex-col justify-between rounded-b-lg shadow-md h-81">
+      <div className="container flex flex-col justify-between rounded-b-lg shadow-md h-81 border border-gray-200">
         <div className="h-33">
           <div className="py-4 text-lg font-semibold pl-9 ">Companies Worked For</div>
           <div className="px-4">

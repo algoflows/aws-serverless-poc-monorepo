@@ -1,36 +1,36 @@
-import styles from './carousel.module.scss'
-import LogoCard from '../logo-card'
 import Image from 'next/image'
+import LogoCard from './logo-card'
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
 
-export default function Carousel({ logos, height }) {
-  const defaultLogoList = [
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png'
-  ]
+
+import dcnLogo from '/public/logos/dcn.png'
+import fugroLogo from '/public/logos/fugro.png'
+import ndeLogo from '/public/logos/nde.png'
+import sub7Logo from '/public/logos/nde.png'
+import technip from '/public/logos/technip.png'
+
+export default function Carousel({height}) {
   return (
-    <div>
-      <div className={styles.slider}>
-        <div className={styles.slidetrack}>
-          {defaultLogoList.map((logo, i) => (
-            <LogoCard key={i}>
-              <div className="slide">
-                <Image src={logo} height={height || 50} width="150" alt="" />
-              </div>
-            </LogoCard>
-          ))}
-        </div>
-      </div>
+    <div className="mt-3 mb-3">
+        <AliceCarousel
+            autoWidth
+            paddingLeft={50}
+            paddingRight={50}
+            autoPlayStrategy="none"
+            disableDotsControls
+            disableButtonsControls
+            infinite={true}
+            autoPlay={true}
+            autoPlayInterval={0}
+            animationDuration={28000}
+        >
+          <Image className="item" src={dcnLogo} height={height || 50} width="150" alt="company logo" />
+          <Image className="item" src={fugroLogo} height={height || 50} width="150" alt="company logo" />
+          <Image className="item" src={ndeLogo} height={height || 50} width="150" alt="company logo" />
+          <Image className="item" src={sub7Logo} height={height || 50} width="150" alt="company logo" />
+          <Image className="item" src={technip} height={height || 50} width="150" alt="company logo" />
+        </AliceCarousel>
     </div>
   )
 }

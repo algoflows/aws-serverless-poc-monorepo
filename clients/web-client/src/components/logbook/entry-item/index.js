@@ -4,9 +4,11 @@ import { CheckCircleIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import dayjs from 'dayjs'
 
 export default function EntryItem({ entry }) {
-  const lsTime = dayjs(entry.lsTime)
+  const lsTime = new dayjs(entry.leftSurface)
   console.log('EntryItem', entry.entryId)
   console.log('EntryItem', entry.userId)
+
+  console.log(entry)
 
   return (
     <>
@@ -43,7 +45,7 @@ export default function EntryItem({ entry }) {
                         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                       />
                     </svg>
-                    <span className="mr-3 text-yellow-300">{entry.company}</span>
+                    <span className="mr-3 text-gray-600">{entry.company}</span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-4 h-4"
@@ -58,7 +60,7 @@ export default function EntryItem({ entry }) {
                         d="M13 10V3L4 14h7v7l9-11h-7z"
                       />
                     </svg>
-                    <span className="mr-3 text-yellow-300">Offshore </span>
+                    <span className="mr-3 text-gray-600">Offshore </span>
                     {entry.sector}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -80,13 +82,13 @@ export default function EntryItem({ entry }) {
                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                       />
                     </svg>
-                    <span className="text-yellow-300 truncate">{entry.country}</span>
+                    <span className="text-gray-600 truncate">{entry.country}</span>
                   </p>
                 </div>
                 <div className="hidden md:block">
                   <div>
                     <p className="text-sm text-gray-500">
-                      Date of dive: {lsTime.format('DD-MM-YYYY @ HH:mm')}
+                      DOD: {lsTime.format('DD-MM-YYYY @ HH:mm')}
                     </p>
                     <p className="flex items-center mt-2 text-sm text-gray-500">
                       <CheckCircleIcon
@@ -94,6 +96,7 @@ export default function EntryItem({ entry }) {
                         aria-hidden="true"
                       />
                       {entry.stage}
+                      Verified {entry.userVerifierId}
                     </p>
                   </div>
                 </div>
