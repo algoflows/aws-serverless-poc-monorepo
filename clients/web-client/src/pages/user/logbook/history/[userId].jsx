@@ -7,40 +7,6 @@ import { sortedByDate } from '../../../../utils/sortedbyDate'
 import { motion } from 'framer-motion'
 import { useFetchEntries } from '../../../../hooks/useFetchEntries'
 
-const wrapperVariants = {
-  initial: {},
-  enter: {
-    transition: {
-      staggerChildren: 0.03,
-      delayChildren: 0.03
-    }
-  }
-  // exit: {
-  //   transition: {
-  //     staggerChildren: 0.03
-  //   }
-  // }
-}
-
-const liVariants = {
-  initial: { scale: 1.1, y: 90, x: -30, opacity: 0 },
-  enter: {
-    scale: 1,
-    y: 0,
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.48, 0.15, 0.25, 0.96]
-    }
-  }
-  // exit: {
-  //   x: 50,
-  //   opacity: 0,
-  //   transition: { duration: 0.05, ease: [0.48, 0.15, 0.25, 0.96] }
-  // }
-}
-
 export default function Logbook({ ssrData }) {
   const { query } = useRouter()
   const { fetchState, sendToFetchMachine } = useFetchEntries(query.userId)
@@ -84,6 +50,40 @@ export async function getServerSideProps(context) {
   return {
     props: { ssrData } // will be passed to the page component as props
   }
+}
+
+const wrapperVariants = {
+  initial: {},
+  enter: {
+    transition: {
+      staggerChildren: 0.03,
+      delayChildren: 0.03
+    }
+  }
+  // exit: {
+  //   transition: {
+  //     staggerChildren: 0.03
+  //   }
+  // }
+}
+
+const liVariants = {
+  initial: { scale: 1.1, y: 90, x: -30, opacity: 0 },
+  enter: {
+    scale: 1,
+    y: 0,
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.48, 0.15, 0.25, 0.96]
+    }
+  }
+  // exit: {
+  //   x: 50,
+  //   opacity: 0,
+  //   transition: { duration: 0.05, ease: [0.48, 0.15, 0.25, 0.96] }
+  // }
 }
 
 Logbook.Layout = UserLayout

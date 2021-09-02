@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import UserLayout from '../../../layouts/user' // placeholder assets
 import Loader from '../../../components/loaders'
 import ProfileCard from '../../../components/profile/profile-card'
-import ProfileCalendar from '../../../components/profile/chart-frequency'
+import LogFrequencyChart from '../../../components/profile/chart-frequency'
 
 const wrapperVariants = {
   initial: {},
@@ -66,7 +66,7 @@ export default function Profile() {
         >
           <h4 className="px-8 pt-5 text-lg font-semibold">Log Frequency</h4>
           <div className="h-96">
-            <ProfileCalendar userId={user.sub} />
+            <LogFrequencyChart userId={user.sub} />
           </div>
         </motion.div>
       </motion.div>

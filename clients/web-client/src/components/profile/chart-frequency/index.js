@@ -1,36 +1,35 @@
-import React from 'react'
-import { useQuery } from 'react-query'
+import React, { useEffect } from 'react'
 import { ResponsiveCalendar } from '@nivo/calendar'
-import dayjs from 'dayjs'
+import { useFetchLogFreqData } from '../../../hooks/useFetchLogFreqData'
 import Loader from '../../loaders'
+import dayjs from 'dayjs'
 
 const now = dayjs()
 
-function ProfileCalendar({ userId }) {
-  const fetchEntries = async () => {
-    return await (
-      await fetch(`https://dev-api.opsap.com/logbook/diving/diver/get-entries/${encodeURI(userId)}`)
-    ).json()
-  }
+function LogFrequencyChart({ userId }) {
+  const { fetchState, sendToFetchMachine } = useFetchLogFreqData(userId)
 
-  const { isLoading, isError, data, error } = useQuery('get-entries', fetchEntries)
+  useEffect(() => {
+    sendToFetchMachine({ type: 'FETCH' })
+  }, [])
 
-  if (isLoading) return <Loader />
-  if (isError) return <div>{error.message}</div>
+  if (fetchState.matches('pending')) return <Loader size={100} loading={true} />
+  if (fetchState.matches('failed')) return <span>Error: {fetchState.context.message}</span>
 
-  // Select required field props for chartComponent
-  const selectedFields = data.Items.map((item) => {
+  const data = fetchState.event.result?.Items || []
+
+  // Select required fields for chartComponent props
+  const preparedData = data.map((item) => {
     const entry = {
       value: item['bottomTime'],
       day: dayjs(item['leftSurface']).format('YYYY-MM-DD')
     }
-
     return entry
   })
 
   return (
     <ResponsiveCalendar
-      data={selectedFields}
+      data={preparedData}
       from={now.subtract(1, 'year')}
       to={now}
       emptyColor="#eeeeee"
@@ -56,4 +55,4 @@ function ProfileCalendar({ userId }) {
   )
 }
 
-export default ProfileCalendar
+export default LogFrequencyChart

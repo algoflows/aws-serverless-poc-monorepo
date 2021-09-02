@@ -16,7 +16,7 @@ function classNames(...classes) {
 
 export default function UserLayout({ children }) {
   const { user, error, isLoading } = useUser()
-  if (isLoading) return <span>...loading</span>
+  if (isLoading) return <span></span>
   if (error) return <div>{error.message}</div>
   return (
     <div className="flex flex-col h-screen max-w-890px">

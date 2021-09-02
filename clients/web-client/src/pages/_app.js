@@ -8,13 +8,13 @@ import '../styles/globals.css'
 import { inspect } from '@xstate/inspect'
 import { AnimatePresence } from 'framer-motion'
 
-if (typeof window !== 'undefined') {
-  inspect({
-    /* options */
-    url: 'https://statecharts.io/inspect', // (default)
-    iframe: false // open in new window
-  })
-}
+// if (typeof window !== 'undefined') {
+//   inspect({
+//     /* options */
+//     url: 'https://statecharts.io/inspect', // (default)
+//     iframe: false // open in new window
+//   })
+// }
 
 export default function MyApp({ Component, pageProps, router }) {
   const Layout = Component.Layout || LandingLayout
@@ -38,9 +38,9 @@ export default function MyApp({ Component, pageProps, router }) {
             pauseOnHover
           />
           {/* AnimatePresence Framer-Motion */}
-          <AnimatePresence initial={false} exitBeforeEnter>
-            <Component {...pageProps} key={router.route} />
-          </AnimatePresence>
+          {/*<AnimatePresence>*/}
+          <Component {...pageProps} key={router.route} />
+          {/*</AnimatePresence>*/}
         </Layout>
       </div>
     </UserProvider>

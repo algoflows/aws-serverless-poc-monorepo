@@ -1,30 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import UserLayout from '../../../../../layouts/user'
-import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 import Loader from '../../../../../components/loaders'
 import dayjs from 'dayjs'
+import { useFetchEntryDetails } from '../../../../../hooks/useFetchEntryDetails'
 
 export default function EntryDetails() {
   const { query } = useRouter()
   const [userId, entryId] = query.params
 
-  const fetchRecords = async () => {
-    return await (
-      await fetch(`https://dev-api.opsap.com/logbook/diving/diver/get-entry/${encodeURI(userId)}/${entryId}`)
-    ).json()
-  }
+  const { fetchState, sendToFetchMachine } = useFetchEntryDetails(userId, entryId)
 
-  const { isLoading, isError, data, error } = useQuery('get-entry', fetchRecords)
+  useEffect(() => {
+    sendToFetchMachine({ type: 'FETCH' })
+  }, [])
 
-  if (isLoading) return <Loader size={100} loading={true} />
-  if (isError) return <span>Error: {error.message}</span>
+  if (fetchState.matches('pending')) return <Loader size={100} loading={true} />
+  if (fetchState.matches('failed')) return <span>Error: {fetchState.context.message}</span>
 
-  const entry = data.Items[0]
+  const entry = fetchState.event.result?.Items[0]
 
-  const leftSurface = dayjs(entry.leftSurface)
-  const arrivedSurface = dayjs(entry.arrivedSurface)
+  if (!entry) return <Loader size={100} loading={true} />
+
+  console.log(entry)
+
+  const leftSurface = dayjs(entry?.leftSurface ?? '')
+  const arrivedSurface = dayjs(entry?.arrivedSurface ?? '')
 
   return (
     <div className="px-20 py-12 mt-6">
@@ -41,11 +43,17 @@ export default function EntryDetails() {
               </label>
               <div className="mt-1 sm:mt-0 sm:col-span-2">
                 <div className="flex max-w-lg font-semibold">
-                  {!entry.coverPhoto && (
+                  {!entry?.coverPhoto && (
                     <span className="text-sm text-gray-400">No images added for this entry...</span>
                   )}
-                  {entry.coverPhoto && (
-                    <Image width={200} height={150} src={entry.coverPhoto} alt="cover photo" />
+                  {entry?.coverPhoto && (
+                    <Image
+                      width={200}
+                      height={150}
+                      className="rounded-md"
+                      src={entry.coverPhoto}
+                      alt="cover photo"
+                    />
                   )}
                 </div>
               </div>
@@ -63,7 +71,7 @@ export default function EntryDetails() {
                   </label>
 
                   <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">
-                    {entry.entryType.toUpperCase()}
+                    {entry.entryType?.toUpperCase()}
                   </div>
                 </div>
               </div>
@@ -95,7 +103,7 @@ export default function EntryDetails() {
                 >
                   Company
                 </label>
-                <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry.company.toUpperCase()}</div>
+                <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry.company?.toUpperCase()}</div>
               </div>
 
               <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
@@ -105,7 +113,7 @@ export default function EntryDetails() {
                 >
                   Client
                 </label>
-                <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry.client.toUpperCase()}</div>
+                <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry.client?.toUpperCase()}</div>
               </div>
 
               <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
@@ -115,14 +123,16 @@ export default function EntryDetails() {
                 >
                   Location <span className="text-gray-400 "> - (vessel or town)</span>
                 </label>
-                <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry.location.toUpperCase()}</div>
+                <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">
+                  {entry.location?.toUpperCase()}
+                </div>
               </div>
 
               <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                 <label htmlFor="country" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                   Country
                 </label>
-                <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry.country.toUpperCase()}</div>
+                <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry.country?.toUpperCase()}</div>
               </div>
 
               <div className="pt-8 space-y-6 sm:pt-10 sm:space-y-5">
@@ -138,7 +148,7 @@ export default function EntryDetails() {
                       Depth - (meters)
                     </label>
                     <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">
-                      {entry.depthMeters.toUpperCase()}
+                      {entry.depthMeters?.toUpperCase()}
                     </div>
                   </div>
 
@@ -161,7 +171,7 @@ export default function EntryDetails() {
                     >
                       Bottom Time - (mins)
                     </label>
-                    <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry.bottomTime}</div>
+                    <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry?.bottomTime}</div>
                   </div>
 
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
@@ -184,7 +194,7 @@ export default function EntryDetails() {
                       Table <span className="text-gray-400 "> - (decompression schedule)</span>
                     </label>
                     <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">
-                      {entry.table.toUpperCase()}
+                      {entry.table?.toUpperCase()}
                     </div>
                   </div>
 
@@ -196,7 +206,7 @@ export default function EntryDetails() {
                       Mixture <span className="text-gray-400"> - (breathing gas)</span>
                     </label>
                     <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">
-                      {entry.mixture.toUpperCase()}
+                      {entry.mixture?.toUpperCase()}
                     </div>
                   </div>
                 </div>
@@ -222,7 +232,7 @@ export default function EntryDetails() {
                           <div className="max-w-lg">
                             <div className="mt-4 space-y-4">
                               <div className="flex items-center font-semibold">
-                                {entry.subTypeB.toUpperCase()}
+                                {entry.subTypeB?.toUpperCase()}
                               </div>
                             </div>
                           </div>
@@ -237,7 +247,7 @@ export default function EntryDetails() {
                     >
                       Details
                     </label>
-                    <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry.details}</div>
+                    <div className="mt-1 font-semibold sm:mt-0 sm:col-span-2">{entry?.details}</div>
                   </div>
 
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
@@ -248,7 +258,7 @@ export default function EntryDetails() {
                       Supervisor
                     </label>
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
-                      <div className="flex max-w-lg font-semibold">{entry.userVerifierId}</div>
+                      <div className="flex max-w-lg font-semibold">{entry?.userVerifierId}</div>
                     </div>
                   </div>
                 </div>

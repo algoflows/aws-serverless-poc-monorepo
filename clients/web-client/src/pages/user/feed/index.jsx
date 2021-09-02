@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import UserLayout from '../../../layouts/user'
 import homefeed1 from '/public/images/homefeed1.jpg'
 import Loader from '../../../components/loaders'
-import { useQuery } from 'react-query'
 import PostItem from '../../../components/feed/post-item'
 import { sortedByDate } from '../../../utils/sortedbyDate'
 import { motion } from 'framer-motion'
-
-const fetchPosts = async () => {
-  return await (await fetch(`https://dev-api.opsap.com/feed/get-posts`)).json()
-}
+import { useFetchFeed } from '../../../hooks/useFetchFeed'
 
 const ulVariants = {
   initial: {},
@@ -48,12 +44,16 @@ const liVariants = {
 }
 
 export default function Home() {
-  const { isLoading, isError, data, error } = useQuery('get-posts', fetchPosts)
+  const { fetchState, sendToFetchMachine } = useFetchFeed()
 
-  if (isLoading) return <Loader size={100} loading={isLoading} />
-  if (isError) return <span>Error: {error.message}</span>
+  useEffect(() => {
+    sendToFetchMachine({ type: 'FETCH' })
+  }, [])
 
-  const feed = sortedByDate(data || [])
+  if (fetchState.matches('pending')) return <Loader size={100} loading={true} />
+  if (fetchState.matches('failed')) return <span>Error: {fetchState.context.message}</span>
+
+  const feed = sortedByDate(fetchState.event.result || [])
 
   return (
     <>
