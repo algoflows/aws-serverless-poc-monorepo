@@ -18,7 +18,7 @@
 <!-- ![image](https://user-images.githubusercontent.com/65465380/113683400-0eb9ae80-96bc-11eb-9a10-6f1b10c95a22.png) -->
 <!-- <img width="356" alt="home-page" src="https://user-images.githubusercontent.com/65465380/129702633-7644b5de-b02c-4a26-b30e-d6af08a0980b.PNG">  -->
 <div align="center" justify="center">
-  <img width="620" alt="profile-page" src="https://user-images.githubusercontent.com/65465380/129702700-fb99708b-a944-4447-a8bc-5cd046375c18.PNG">
+  <img alt="profile-page" src="https://user-images.githubusercontent.com/65465380/129702700-fb99708b-a944-4447-a8bc-5cd046375c18.PNG">
 </div>
 <br>
 
@@ -32,6 +32,17 @@
 - Technologies - Vercel, AWS Cloud Services, Serverless Framework
 - Infrastructure - Lambda, Route53, Cloudfront, API Gatway, S3, DynamoDB, SQS, SNS, SES, Kinesis, Github, SEED
 - Project Management - Github project kanban boards
+<br>
+
+<div align="center" justify="center">
+  <img alt="profile-page" src="https://user-images.githubusercontent.com/65465380/131996706-b5bf02b3-291e-4e2a-9820-de5f54e5ee9e.png">
+</div>
+<br>
+
+<div align="center" justify="center">
+  <img alt="profile-page" src="https://user-images.githubusercontent.com/65465380/131997181-865a5444-e84c-4659-bdb7-0ebf04df399d.png">
+</div>
+<br>
 
 #### Wakatime stats
 <img width="800" src="https://github.com/skopsap/spotifyv2/blob/develop/images/stat.svg" alt="Waka stats for develop branch"/>
