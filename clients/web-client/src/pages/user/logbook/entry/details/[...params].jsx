@@ -12,10 +12,6 @@ export default function EntryDetails() {
 
   const { fetchState, sendToFetchMachine } = useFetchEntryDetails(userId, entryId)
 
-  useEffect(() => {
-    sendToFetchMachine({ type: 'FETCH' })
-  }, [])
-
   if (fetchState.matches('pending')) return <Loader size={100} loading={true} />
   if (fetchState.matches('failed')) return <span>Error: {fetchState.context.message}</span>
 

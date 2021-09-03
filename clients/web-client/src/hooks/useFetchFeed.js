@@ -7,6 +7,10 @@ const fetcher = async () => {
 }
 
 export const useFetchFeed = (userId) => {
+  useEffect(() => {
+    sendToFetchMachine({ type: 'FETCH' })
+  }, [])
+
   const [fetchState, sendToFetchMachine] = useMachine(fetchMachine, {
     devTools: true,
     actions: {

@@ -46,10 +46,6 @@ const liVariants = {
 export default function Home() {
   const { fetchState, sendToFetchMachine } = useFetchFeed()
 
-  useEffect(() => {
-    sendToFetchMachine({ type: 'FETCH' })
-  }, [])
-
   if (fetchState.matches('pending')) return <Loader size={100} loading={true} />
   if (fetchState.matches('failed')) return <span>Error: {fetchState.context.message}</span>
 

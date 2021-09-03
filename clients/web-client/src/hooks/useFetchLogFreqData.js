@@ -9,6 +9,10 @@ const fetcher = async (userId) => {
 }
 
 export const useFetchLogFreqData = (userId) => {
+  useEffect(() => {
+    sendToFetchMachine({ type: 'FETCH' })
+  }, [])
+
   const [fetchState, sendToFetchMachine] = useMachine(fetchMachine, {
     devTools: true,
     actions: {

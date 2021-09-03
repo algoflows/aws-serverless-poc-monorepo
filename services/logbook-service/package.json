@@ -29,6 +29,7 @@
     "http-errors": "^1.8.0",
     "middy-middleware-json-error-handler": "^2.0.6",
     "serverless": "^2.55.0",
+    "serverless-bundle": "^5.0.0",
     "serverless-pseudo-parameters": "^2.6.0",
     "uuid": "^8.3.2"
   }

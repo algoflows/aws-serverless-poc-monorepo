@@ -18,6 +18,7 @@ export default function UserLayout({ children }) {
   const { user, error, isLoading } = useUser()
   if (isLoading) return <span></span>
   if (error) return <div>{error.message}</div>
+
   return (
     <div className="flex flex-col h-screen max-w-890px">
       <Disclosure as="nav" className="bg-gradient-to-r from-gray-800 to-blue-700 rounded-b-md">

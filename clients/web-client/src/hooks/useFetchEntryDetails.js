@@ -9,6 +9,10 @@ const fetcher = async (userId, entryId) => {
 }
 
 export const useFetchEntryDetails = (userId, entryId) => {
+  useEffect(() => {
+    sendToFetchMachine({ type: 'FETCH' })
+  }, [])
+
   const [fetchState, sendToFetchMachine] = useMachine(fetchMachine, {
     devTools: true,
     actions: {

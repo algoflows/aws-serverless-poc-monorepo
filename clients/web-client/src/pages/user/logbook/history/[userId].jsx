@@ -1,21 +1,18 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import UserLayout from '../../../../layouts/user'
 import EntryItem from '../../../../components/logbook/entry-item'
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router'
 import Loader from '../../../../components/loaders'
-import { sortedByDate } from '../../../../utils/sortedbyDate'
-import { motion } from 'framer-motion'
-import { useFetchEntries } from '../../../../hooks/useFetchEntries'
+import {sortedByDate} from '../../../../utils/sortedbyDate'
+import {motion} from 'framer-motion'
+import {useFetchEntries} from '../../../../hooks/useFetchEntries'
 
-export default function Logbook({ ssrData }) {
-  const { query } = useRouter()
-  const { fetchState, sendToFetchMachine } = useFetchEntries(query.userId)
+export default function Logbook({ssrData}) {
+  const {query} = useRouter()
+  const {fetchState, sendToFetchMachine} = useFetchEntries(query.userId)
 
-  useEffect(() => {
-    sendToFetchMachine({ type: 'FETCH' })
-  }, [])
 
-  if (fetchState.matches('pending')) return <Loader size={100} loading={true} />
+  if (fetchState.matches('pending')) return <Loader size={100} loading={true}/>
   if (fetchState.matches('failed')) return <span>Error: {fetchState.context.message}</span>
 
   const data = sortedByDate(fetchState.event.result?.Items || [])
@@ -32,7 +29,7 @@ export default function Logbook({ ssrData }) {
         <motion.ul className="divide-y divide-gray-200 border border-gray-100 rounded-md">
           {data.map((data, i) => (
             <motion.li variants={liVariants} className="cursor-pointer divide-y divide-gray-200" key={i}>
-              <EntryItem entry={data} />
+              <EntryItem entry={data}/>
             </motion.li>
           ))}
         </motion.ul>
@@ -42,13 +39,13 @@ export default function Logbook({ ssrData }) {
 }
 
 export async function getServerSideProps(context) {
-  const { userId } = context.params
+  const {userId} = context.params
 
   const res = await fetch(`https://dev-api.opsap.com/logbook/diving/diver/get-entries/${encodeURI(userId)}`)
   const ssrData = await res.json()
 
   return {
-    props: { ssrData } // will be passed to the page component as props
+    props: {ssrData} // will be passed to the page component as props
   }
 }
 
@@ -68,7 +65,7 @@ const wrapperVariants = {
 }
 
 const liVariants = {
-  initial: { scale: 1.1, y: 90, x: -30, opacity: 0 },
+  initial: {scale: 1.1, y: 90, x: -30, opacity: 0},
   enter: {
     scale: 1,
     y: 0,

@@ -7,11 +7,7 @@ import dayjs from 'dayjs'
 const now = dayjs()
 
 function LogFrequencyChart({ userId }) {
-  const { fetchState, sendToFetchMachine } = useFetchLogFreqData(userId)
-
-  useEffect(() => {
-    sendToFetchMachine({ type: 'FETCH' })
-  }, [])
+  const { fetchState } = useFetchLogFreqData(userId)
 
   if (fetchState.matches('pending')) return <Loader size={100} loading={true} />
   if (fetchState.matches('failed')) return <span>Error: {fetchState.context.message}</span>
