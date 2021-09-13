@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid'
 
 var client
 
+// USED TO CARRY OVER THE CONNECTION BETWEEN EXECUTIONS
 if (typeof client === 'undefined') {
   var client = new Redis({
     port: 11953,
