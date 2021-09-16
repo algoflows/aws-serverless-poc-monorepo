@@ -12,6 +12,13 @@ import (
 // var service_name_env = os.Getenv("service_name_env")
 // var epsagon_api_key = os.Getenv("epsagon_api_key")
 
+// // Kafka
+// bootstrap.servers=pkc-4r297.europe-west1.gcp.confluent.cloud:9092
+// security.protocol=SASL_SSL
+// sasl.mechanisms=PLAIN
+// sasl.username=BIVUTLJAIRPMBKS5
+// sasl.password=whyko2qtER3KxbOBebbYJmb9Gb6O6R3NwUxgz8bCp6zaBJszivdd2yDf2olvjEA2
+
 type Response events.APIGatewayProxyResponse
 type Request events.APIGatewayProxyRequest
 
@@ -24,16 +31,13 @@ type Item struct {
 // Handler is our lambda handler invoked by the `lambda.Start` function call
 func Handler(request Request) (Response, error) {
 
-	fmt.Println("method", request.HTTPMethod)
-
 	// New uuid for item id
 	itemUuid := uuid.New().String()
-	fmt.Println("Generated new item uuid:", itemUuid)
 
 	// Unmarshal to Item to access object properties
 	itemString := request.Body
 	itemStruct := Item{}
-	json.Unmarshal([]byte(request.Body), &itemStruct)
+	json.Unmarshal([]byte(itemString), &itemStruct)
 
 	if itemStruct.Title == "" {
 		return Response{StatusCode: 400}, nil
@@ -52,7 +56,7 @@ func Handler(request Request) (Response, error) {
 	resp := Response{
 		StatusCode:      200,
 		IsBase64Encoded: false,
-		Body:            itemString,
+		Body:            request.Body,
 		Headers: map[string]string{
 			"Content-Type":           "application/json",
 			"X-MyCompany-Func-Reply": "world-handler",
