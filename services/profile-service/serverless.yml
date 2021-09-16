@@ -25,7 +25,11 @@ provider:
   runtime: go1.x
   lambdaHashingVersion: 20201221
   stage: dev
+  memorySize: 512 
   region: eu-west-1
+  environment: 
+    service_name_env: ${self:service}-${self:provider.stage}
+    epsagon_api_key: 'a8cf2ef8-b5a3-4dfe-8714-786eae747bce'
 
 package:
   patterns:
@@ -46,7 +50,7 @@ functions:
     events:
       - httpApi:
           path: /world
-          method: get
+          method: post
 
 # you can add CloudFormation resource templates here
 #resources:
