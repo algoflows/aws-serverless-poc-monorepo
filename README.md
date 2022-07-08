@@ -12,7 +12,7 @@
 
 #### DEV Branch - [demo](https://dev.opsap.com/)
 
-> Fullstack commercial project using React, Node, AWS Lambda, DynamoDB etc..
+> Fullstack demo project using React, Node, AWS Lambda, DynamoDB etc..
 <br>
 
 <!-- ![image](https://user-images.githubusercontent.com/65465380/113683400-0eb9ae80-96bc-11eb-9a10-6f1b10c95a22.png) -->
